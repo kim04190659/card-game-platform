@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vercel dev",
     "build": "echo 'No build step'",
     "deploy": "vercel --prod"
@@ -16,7 +16,11 @@
     "type": "git",
     "url": "git+https://github.com/kim04190659/card-game-platform.git"
   },
-  "keywords": ["card-game", "education", "AI"],
+  "keywords": [
+    "card-game",
+    "education",
+    "AI"
+  ],
   "author": "木村好孝",
   "license": "MIT",
   "bugs": {
@@ -24,6 +28,7 @@
   },
   "homepage": "https://github.com/kim04190659/card-game-platform#readme",
   "dependencies": {
+    "@upstash/redis": "^1.35.6",
     "@vercel/kv": "^3.0.0",
     "bcrypt": "^6.0.0",
     "jsonwebtoken": "^9.0.2"

@@ -19,10 +19,5 @@
       "src": "/(.*)",
       "dest": "/public/$1"
     }
-  ],
-  "env": {
-    "JWT_SECRET": "@jwt-secret",
-    "ADMIN_PASSWORD": "@admin-password",
-    "ANTHROPIC_API_KEY": "@anthropic-api-key"
-  }
+  ]
 }

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ゲーム選択 - カードゲーム基盤システム</title>
+  <link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+  <div class="container">
+    <!-- ヘッダー -->
+    <div class="header">
+      <h1>🎴 カードゲーム基盤システム</h1>
+      <div class="header-nav">
+        <span class="status">認証済み</span>
+        <button onclick="logout()" class="btn btn-secondary" style="padding: 8px 20px; font-size: 14px;">
+          ログアウト
+        </button>
+      </div>
+    </div>
+    
+    <!-- メインコンテンツ -->
+    <div class="card">
+      <h1>ゲームを選択してください</h1>
+      <p class="subtitle">
+        実施したいカードゲームを選択してください
+      </p>
+      
+      <!-- ゲーム一覧 -->
+      <div class="grid">
+        <!-- ゲーム1: 自治体DX推進 -->
+        <div class="grid-item" onclick="selectGame('city-dx')">
+          <h2>🏙️ 自治体DX推進</h2>
+          <p style="color: #666; margin-bottom: 15px;">
+            人口30万人規模の地方中核市をモデルに、スマートシティ構想を立案
+          </p>
+          <div style="background: #f0f0f0; padding: 10px; border-radius: 8px; font-size: 14px;">
+            <strong>対象:</strong> 自治体職員、地域活性化担当者<br>
+            <strong>所要時間:</strong> 2-3時間<br>
+            <strong>難易度:</strong> ★★★☆☆
+          </div>
+        </div>
+        
+        <!-- ゲーム2: IT運用エクセレンス -->
+        <div class="grid-item" onclick="selectGame('it-operations')">
+          <h2>💻 IT運用エクセレンス</h2>
+          <p style="color: #666; margin-bottom: 15px;">
+            BIGLOBE、NEC Cloud IaaSの事例で学ぶ運用標準化
+          </p>
+          <div style="background: #f0f0f0; padding: 10px; border-radius: 8px; font-size: 14px;">
+            <strong>対象:</strong> IT運用担当者、エンジニア<br>
+            <strong>所要時間:</strong> 2-3時間<br>
+            <strong>難易度:</strong> ★★★★☆
+          </div>
+        </div>
+        
+        <!-- ゲーム3: 営業支援ソリューション -->
+        <div class="grid-item" onclick="selectGame('sales-support')">
+          <h2>📊 営業支援ソリューション</h2>
+          <p style="color: #666; margin-bottom: 15px;">
+            RFPから提案書まで、実践的なビジネス提案を作成
+          </p>
+          <div style="background: #f0f0f0; padding: 10px; border-radius: 8px; font-size: 14px;">
+            <strong>対象:</strong> 営業担当者、コンサルタント<br>
+            <strong>所要時間:</strong> 2-3時間<br>
+            <strong>難易度:</strong> ★★★☆☆
+          </div>
+        </div>
+        
+        <!-- 準備中 -->
+        <div class="grid-item" style="opacity: 0.5; cursor: not-allowed;">
+          <h2>🚧 準備中</h2>
+          <p style="color: #666; margin-bottom: 15px;">
+            新しいゲームを準備中です
+          </p>
+          <div style="background: #f0f0f0; padding: 10px; border-radius: 8px; font-size: 14px;">
+            <strong>Coming Soon...</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // 認証チェック
+    document.addEventListener('DOMContentLoaded', () => {
+      const sessionKey = sessionStorage.getItem('card_game_access_key');
+      if (!sessionKey) {
+        // 認証されていない場合、アクセスキー入力画面へ
+        window.location.href = '/access-key.html';
+      }
+    });
+    
+    function selectGame(gameId) {
+      alert(`選択されたゲーム: ${gameId}\n\n次回から実際のゲーム画面を実装します！`);
+      
+      // 今後の実装:
+      // window.location.href = `/game.html?id=${gameId}`;
+    }
+    
+    function logout() {
+      if (confirm('ログアウトしますか？')) {
+        sessionStorage.removeItem('card_game_access_key');
+        window.location.href = '/access-key.html';
+      }
+    }
+  </script>
+</body>
+</html>
