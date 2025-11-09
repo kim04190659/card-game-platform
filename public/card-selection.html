@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カード選択 - カードゲーム基盤システム</title>
+  <link rel="stylesheet" href="/css/common.css">
+  <style>
+    /* カード選択専用スタイル */
+    .category-section {
+      margin-bottom: 40px;
+    }
+    
+    .category-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .category-header h2 {
+      color: white;
+      margin: 0 0 10px 0;
+      font-size: 24px;
+    }
+    
+    .category-description {
+      opacity: 0.9;
+      font-size: 14px;
+    }
+    
+    .category-info {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .card-item {
+      background: white;
+      border: 3px solid #e0e0e0;
+      border-radius: 15px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .card-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border-color: #667eea;
+    }
+    
+    .card-item.selected {
+      border-color: #667eea;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%);
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+    }
+    
+    .card-item.selected::after {
+      content: "✓";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #667eea;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    
+    .card-icon {
+      font-size: 48px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    
+    .card-name {
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    
+    .card-description {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.5;
+      text-align: center;
+    }
+    
+    .progress-bar {
+      background: #e0e0e0;
+      border-radius: 10px;
+      height: 8px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      height: 100%;
+      transition: width 0.3s;
+    }
+    
+    .selection-summary {
+      background: #f7f9fc;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 30px;
+    }
+    
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .summary-item:last-child {
+      border-bottom: none;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- ヘッダー -->
+    <div class="header">
+      <h1 id="gameName">カード選択</h1>
+      <div class="header-nav">
+        <span class="status">ステップ 1/4</span>
+        <button onclick="logout()" class="btn btn-secondary" style="padding: 8px 20px; font-size: 14px;">
+          ログアウト
+        </button>
+      </div>
+    </div>
+    
+    <!-- メインコンテンツ -->
+    <div class="card">
+      <div id="loadingMessage" class="loading">
+        <div class="spinner"></div>
+        <p>ゲームデータを読み込み中...</p>
+      </div>
+      
+      <div id="mainContent" style="display: none;">
+        <!-- 進捗バー -->
+        <div class="progress-bar">
+          <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+        </div>
+        
+        <!-- カテゴリ別カード表示エリア -->
+        <div id="categoriesContainer"></div>
+        
+        <!-- 選択サマリー -->
+        <div class="selection-summary">
+          <h3>選択状況</h3>
+          <div id="selectionSummary"></div>
+        </div>
+        
+        <!-- アクションボタン -->
+        <div class="action-buttons">
+          <button onclick="resetSelection()" class="btn btn-secondary">
+            リセット
+          </button>
+          <button id="nextButton" onclick="goToNext()" class="btn" disabled>
+            次へ進む
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // グローバル変数
+    let gameData = null;
+    let selectedCards = {};
+    
+    // 認証チェック
+    document.addEventListener('DOMContentLoaded', async () => {
+      const sessionKey = sessionStorage.getItem('card_game_access_key');
+      if (!sessionKey) {
+        window.location.href = '/access-key.html';
+        return;
+      }
+      
+      // URLパラメータからゲームIDを取得
+      const urlParams = new URLSearchParams(window.location.search);
+      const gameId = urlParams.get('id') || 'city-dx';
+      
+      // ゲームデータを読み込み
+      await loadGameData(gameId);
+    });
+    
+    // ゲームデータ読み込み
+    async function loadGameData(gameId) {
+      try {
+        const response = await fetch(`/data/games/${gameId}.json`);
+        if (!response.ok) throw new Error('ゲームデータの読み込みに失敗しました');
+        
+        gameData = await response.json();
+        
+        // 画面を初期化
+        initializeUI();
+        renderCategories();
+        updateSummary();
+        
+        // ローディング非表示、メインコンテンツ表示
+        document.getElementById('loadingMessage').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        
+      } catch (error) {
+        console.error('エラー:', error);
+        alert('ゲームデータの読み込みに失敗しました。\n\n' + error.message);
+        window.location.href = '/game-selection.html';
+      }
+    }
+    
+    // UI初期化
+    function initializeUI() {
+      document.getElementById('gameName').textContent = gameData.gameName;
+      
+      // 選択状態を初期化
+      gameData.cardCategories.forEach(category => {
+        selectedCards[category.categoryId] = [];
+      });
+    }
+    
+    // カテゴリとカードを描画
+    function renderCategories() {
+      const container = document.getElementById('categoriesContainer');
+      container.innerHTML = '';
+      
+      gameData.cardCategories.forEach(category => {
+        const categorySection = document.createElement('div');
+        categorySection.className = 'category-section';
+        categorySection.id = `category-${category.categoryId}`;
+        
+        // カテゴリヘッダー
+        const header = document.createElement('div');
+        header.className = 'category-header';
+        header.innerHTML = `
+          <h2>${category.categoryName}</h2>
+          <div class="category-description">${category.description}</div>
+          <div class="category-info">
+            選択数: ${category.minSelect}〜${category.maxSelect}枚
+          </div>
+        `;
+        categorySection.appendChild(header);
+        
+        // カードグリッド
+        const cardsGrid = document.createElement('div');
+        cardsGrid.className = 'cards-grid';
+        
+        // このカテゴリのカードを取得
+        const categoryCards = gameData.cards.filter(card => card.categoryId === category.categoryId);
+        
+        categoryCards.forEach(card => {
+          const cardElement = document.createElement('div');
+          cardElement.className = 'card-item';
+          cardElement.id = `card-${card.cardId}`;
+          cardElement.innerHTML = `
+            <div class="card-icon">${card.icon || '📄'}</div>
+            <div class="card-name">${card.cardName}</div>
+            <div class="card-description">${card.description}</div>
+          `;
+          
+          cardElement.addEventListener('click', () => toggleCard(category.categoryId, card.cardId));
+          
+          cardsGrid.appendChild(cardElement);
+        });
+        
+        categorySection.appendChild(cardsGrid);
+        container.appendChild(categorySection);
+      });
+    }
+    
+    // カード選択/解除
+    function toggleCard(categoryId, cardId) {
+      const category = gameData.cardCategories.find(c => c.categoryId === categoryId);
+      const selected = selectedCards[categoryId];
+      const cardIndex = selected.indexOf(cardId);
+      
+      if (cardIndex > -1) {
+        // すでに選択されている → 解除
+        selected.splice(cardIndex, 1);
+        document.getElementById(`card-${cardId}`).classList.remove('selected');
+      } else {
+        // 未選択 → 選択
+        if (selected.length >= category.maxSelect) {
+          // 最大選択数を超える場合、最初の選択を解除
+          const firstSelected = selected.shift();
+          document.getElementById(`card-${firstSelected}`).classList.remove('selected');
+        }
+        selected.push(cardId);
+        document.getElementById(`card-${cardId}`).classList.add('selected');
+      }
+      
+      updateSummary();
+      updateProgress();
+      validateSelection();
+    }
+    
+    // 選択サマリー更新
+    function updateSummary() {
+      const summaryContainer = document.getElementById('selectionSummary');
+      summaryContainer.innerHTML = '';
+      
+      gameData.cardCategories.forEach(category => {
+        const selected = selectedCards[category.categoryId];
+        const summaryItem = document.createElement('div');
+        summaryItem.className = 'summary-item';
+        
+        const status = selected.length >= category.minSelect ? '✓' : '⚠️';
+        const statusColor = selected.length >= category.minSelect ? '#10b981' : '#f59e0b';
+        
+        summaryItem.innerHTML = `
+          <span style="font-weight: bold;">${category.categoryName}</span>
+          <span style="color: ${statusColor};">
+            ${status} ${selected.length}/${category.minSelect}〜${category.maxSelect}枚
+          </span>
+        `;
+        
+        summaryContainer.appendChild(summaryItem);
+      });
+    }
+    
+    // 進捗バー更新
+    function updateProgress() {
+      let totalRequired = 0;
+      let totalSelected = 0;
+      
+      gameData.cardCategories.forEach(category => {
+        totalRequired += category.minSelect;
+        totalSelected += Math.min(selectedCards[category.categoryId].length, category.minSelect);
+      });
+      
+      const progress = (totalSelected / totalRequired) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+    }
+    
+    // バリデーション
+    function validateSelection() {
+      let valid = true;
+      
+      gameData.cardCategories.forEach(category => {
+        const selected = selectedCards[category.categoryId];
+        if (selected.length < category.minSelect || selected.length > category.maxSelect) {
+          valid = false;
+        }
+      });
+      
+      document.getElementById('nextButton').disabled = !valid;
+    }
+    
+    // リセット
+    function resetSelection() {
+      if (confirm('選択をすべてリセットしますか？')) {
+        Object.keys(selectedCards).forEach(categoryId => {
+          selectedCards[categoryId] = [];
+        });
+        
+        document.querySelectorAll('.card-item.selected').forEach(card => {
+          card.classList.remove('selected');
+        });
+        
+        updateSummary();
+        updateProgress();
+        validateSelection();
+      }
+    }
+    
+    // 次へ進む
+    function goToNext() {
+      // 選択されたカードをセッションに保存
+      sessionStorage.setItem('selected_cards', JSON.stringify(selectedCards));
+      
+      // 次の画面へ（今はアラート）
+      alert('カード選択完了！\n\n次回: テキスト入力画面を実装します。');
+      
+      // 今後の実装:
+      // window.location.href = '/input.html';
+    }
+    
+    function logout() {
+      if (confirm('ログアウトしますか？')) {
+        sessionStorage.clear();
+        window.location.href = '/access-key.html';
+      }
+    }
+  </script>
+</body>
+</html>

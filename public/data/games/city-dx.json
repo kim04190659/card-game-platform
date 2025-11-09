@@ -1,0 +1,121 @@
+{
+  "gameId": "city-dx-promotion",
+  "gameName": "自治体DX推進ゲーム",
+  "description": "人口30万人規模の地方中核市をモデルに、スマートシティ構想を立案",
+  "version": "1.0.0",
+  "author": "木村好孝",
+  
+  "cardCategories": [
+    {
+      "categoryId": "persona",
+      "categoryName": "自治体の特徴",
+      "description": "どんな自治体か",
+      "minSelect": 1,
+      "maxSelect": 1,
+      "displayOrder": 1
+    },
+    {
+      "categoryId": "issue",
+      "categoryName": "解決したい課題",
+      "description": "自治体が抱える課題",
+      "minSelect": 1,
+      "maxSelect": 2,
+      "displayOrder": 2
+    },
+    {
+      "categoryId": "solution",
+      "categoryName": "導入するソリューション",
+      "description": "具体的な解決策",
+      "minSelect": 1,
+      "maxSelect": 3,
+      "displayOrder": 3
+    }
+  ],
+  
+  "cards": [
+    {
+      "cardId": "persona-001",
+      "categoryId": "persona",
+      "cardName": "人口30万人の地方中核市",
+      "description": "県庁所在地ではないが、周辺地域の中心的役割を担う都市",
+      "icon": "🏙️"
+    },
+    {
+      "cardId": "persona-002",
+      "categoryId": "persona",
+      "cardName": "人口10万人の地方小都市",
+      "description": "人口減少が進む地方都市。コンパクトシティ化が課題",
+      "icon": "🏘️"
+    },
+    {
+      "cardId": "persona-003",
+      "categoryId": "persona",
+      "cardName": "人口50万人の県庁所在地",
+      "description": "県の中心都市。広域連携の要となる",
+      "icon": "🏛️"
+    },
+    {
+      "cardId": "issue-001",
+      "categoryId": "issue",
+      "cardName": "行政DX推進",
+      "description": "紙ベースの業務をデジタル化し、業務効率を向上",
+      "icon": "💼"
+    },
+    {
+      "cardId": "issue-002",
+      "categoryId": "issue",
+      "cardName": "住民サービス向上",
+      "description": "オンライン申請、マイナンバーカード活用で住民の利便性向上",
+      "icon": "👥"
+    },
+    {
+      "cardId": "issue-003",
+      "categoryId": "issue",
+      "cardName": "データ活用推進",
+      "description": "オープンデータ、ビッグデータを活用した政策立案",
+      "icon": "📊"
+    },
+    {
+      "cardId": "issue-004",
+      "categoryId": "issue",
+      "cardName": "地域経済活性化",
+      "description": "デジタル技術で地域経済を活性化",
+      "icon": "💰"
+    },
+    {
+      "cardId": "solution-001",
+      "categoryId": "solution",
+      "cardName": "スマートシティ基盤",
+      "description": "IoT、AI、データ連携基盤を構築",
+      "icon": "🌐"
+    },
+    {
+      "cardId": "solution-002",
+      "categoryId": "solution",
+      "cardName": "AI活用サービス",
+      "description": "AIチャットボット、AI-OCRなどで業務効率化",
+      "icon": "🤖"
+    },
+    {
+      "cardId": "solution-003",
+      "categoryId": "solution",
+      "cardName": "住民参加型プラットフォーム",
+      "description": "住民の声を可視化し、政策に反映",
+      "icon": "🗣️"
+    },
+    {
+      "cardId": "solution-004",
+      "categoryId": "solution",
+      "cardName": "デジタルツイン",
+      "description": "都市の3Dモデルでシミュレーション",
+      "icon": "🗺️"
+    },
+    {
+      "cardId": "solution-005",
+      "categoryId": "solution",
+      "cardName": "MaaS（移動サービス統合）",
+      "description": "バス、タクシー、シェアサイクルを統合",
+      "icon": "🚌"
+    }
+  ]
+}

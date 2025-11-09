@@ -42,28 +42,24 @@
         </div>
         
         <!-- ゲーム2: IT運用エクセレンス -->
-        <div class="grid-item" onclick="selectGame('it-operations')">
+        <div class="grid-item" style="opacity: 0.5; cursor: not-allowed;">
           <h2>💻 IT運用エクセレンス</h2>
           <p style="color: #666; margin-bottom: 15px;">
             BIGLOBE、NEC Cloud IaaSの事例で学ぶ運用標準化
           </p>
           <div style="background: #f0f0f0; padding: 10px; border-radius: 8px; font-size: 14px;">
-            <strong>対象:</strong> IT運用担当者、エンジニア<br>
-            <strong>所要時間:</strong> 2-3時間<br>
-            <strong>難易度:</strong> ★★★★☆
+            <strong>準備中...</strong>
           </div>
         </div>
         
         <!-- ゲーム3: 営業支援ソリューション -->
-        <div class="grid-item" onclick="selectGame('sales-support')">
+        <div class="grid-item" style="opacity: 0.5; cursor: not-allowed;">
           <h2>📊 営業支援ソリューション</h2>
           <p style="color: #666; margin-bottom: 15px;">
             RFPから提案書まで、実践的なビジネス提案を作成
           </p>
           <div style="background: #f0f0f0; padding: 10px; border-radius: 8px; font-size: 14px;">
-            <strong>対象:</strong> 営業担当者、コンサルタント<br>
-            <strong>所要時間:</strong> 2-3時間<br>
-            <strong>難易度:</strong> ★★★☆☆
+            <strong>準備中...</strong>
           </div>
         </div>
         
@@ -86,16 +82,13 @@
     document.addEventListener('DOMContentLoaded', () => {
       const sessionKey = sessionStorage.getItem('card_game_access_key');
       if (!sessionKey) {
-        // 認証されていない場合、アクセスキー入力画面へ
         window.location.href = '/access-key.html';
       }
     });
     
     function selectGame(gameId) {
-      alert(`選択されたゲーム: ${gameId}\n\n次回から実際のゲーム画面を実装します！`);
-      
-      // 今後の実装:
-      // window.location.href = `/game.html?id=${gameId}`;
+      // カード選択画面へ遷移
+      window.location.href = `/card-selection.html?id=${gameId}`;
     }
     
     function logout() {
