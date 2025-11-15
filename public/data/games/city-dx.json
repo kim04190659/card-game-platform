@@ -5,6 +5,35 @@
   "version": "1.0.0",
   "author": "木村好孝",
   
+  "outputType": "スマートシティ構想書",
+  "role": "自治体DXコンサルタント",
+  
+  "outputPromptTemplate": "あなたは経験豊富な{role}です。\n以下の情報に基づいて、実践的な{outputType}を作成してください。\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【木村好孝からのガイドライン】\n{guidelines}\n\n【要求事項】\n{requirements}\n\n【出力形式】\n以下の構成で作成してください:\n{structure}",
+  
+  "guidelines": [
+    "エクセレントサービスの視点を持つこと",
+    "実務経験に基づく実践的な内容にすること",
+    "住民視点での価値提供を重視すること",
+    "段階的な実施計画を明示すること"
+  ],
+  
+  "requirements": [
+    "具体的で実行可能な提案であること",
+    "ユーザーが入力した独自の強みを活かすこと",
+    "予算や期間の制約を考慮すること",
+    "持続可能な運用体制を提案すること"
+  ],
+  
+  "outputStructure": [
+    "概要",
+    "背景・課題",
+    "提案内容",
+    "実施計画",
+    "期待効果"
+  ],
+  
+  "evaluationPromptTemplate": "あなたは公平な評価者です。\n以下の{outputType}を評価基準に基づいて評価してください。\n\n【{outputType}】\n{output}\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【評価基準】\n{criteria}\n\n【評価方法】\n1. 各評価基準について0-100点で採点\n2. 採点理由を簡潔に説明（100-200文字）\n3. 改善提案を3つ挙げる\n4. JSON形式で返答",
+  
   "cardCategories": [
     {
       "categoryId": "persona",
@@ -211,29 +240,25 @@
       "criteriaId": "feasibility",
       "criteriaName": "実現可能性",
       "description": "技術的・予算的に実現可能か",
-      "weight": 0.3,
-      "maxScore": 100
+      "weight": 0.3
     },
     {
       "criteriaId": "resident_benefit",
       "criteriaName": "住民メリット",
       "description": "住民にとっての具体的なメリット",
-      "weight": 0.3,
-      "maxScore": 100
+      "weight": 0.3
     },
     {
       "criteriaId": "sustainability",
       "criteriaName": "持続可能性",
       "description": "長期的に運用・発展できるか",
-      "weight": 0.2,
-      "maxScore": 100
+      "weight": 0.2
     },
     {
       "criteriaId": "innovation",
       "criteriaName": "革新性",
       "description": "新しい価値を生み出すか",
-      "weight": 0.2,
-      "maxScore": 100
+      "weight": 0.2
     }
   ]
 }
