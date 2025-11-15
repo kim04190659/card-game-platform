@@ -393,18 +393,22 @@
           }
 
           // 必要なデータ取得
-          const gameId = sessionStorage.getItem('selectedGameId');
           const generatedOutput = sessionStorage.getItem('generatedOutput');
           
-          if (!gameId || !generatedOutput) {
+          if (!generatedOutput) {
             throw new Error('必要なデータが不足しています');
           }
 
-          await this.gameManager.loadGame(gameId);
-          const game = this.gameManager.getCurrentGame();
+          // ゲームデータ読み込み
+          const gameInfo = this.gameManager.restoreCurrentGame();
+          if (!gameInfo) {
+            throw new Error('ゲームが選択されていません');
+          }
+          
+          const game = gameInfo.data; // 実際のゲーム設定データ
 
-          const selectedCards = JSON.parse(sessionStorage.getItem('selectedCards') || '[]');
-          const userInputs = JSON.parse(sessionStorage.getItem('userInputs') || '{}');
+          const selectedCards = JSON.parse(sessionStorage.getItem('selected_cards') || '[]');
+          const userInputs = JSON.parse(sessionStorage.getItem('user_inputs') || '{}');
 
           // Evaluator初期化
           this.evaluator = new Evaluator(game, generatedOutput, selectedCards, userInputs);
@@ -601,7 +605,8 @@
 
     function downloadReport() {
       try {
-        const game = JSON.parse(sessionStorage.getItem('currentGame'));
+        const gameData = JSON.parse(sessionStorage.getItem('currentGameData'));
+        const game = gameData.data;
         const output = sessionStorage.getItem('generatedOutput');
         const evaluation = JSON.parse(sessionStorage.getItem('evaluation'));
         

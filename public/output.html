@@ -283,17 +283,16 @@
           }
 
           // ゲームデータ読み込み
-          const gameId = sessionStorage.getItem('selectedGameId');
-          if (!gameId) {
+          const gameInfo = this.gameManager.restoreCurrentGame();
+          if (!gameInfo) {
             throw new Error('ゲームが選択されていません');
           }
-
-          await this.gameManager.loadGame(gameId);
-          const game = this.gameManager.getCurrentGame();
+          
+          const game = gameInfo.data; // 実際のゲーム設定データ
 
           // セッションデータ取得
-          const selectedCards = JSON.parse(sessionStorage.getItem('selectedCards') || '[]');
-          const userInputs = JSON.parse(sessionStorage.getItem('userInputs') || '{}');
+          const selectedCards = JSON.parse(sessionStorage.getItem('selected_cards') || '[]');
+          const userInputs = JSON.parse(sessionStorage.getItem('user_inputs') || '{}');
 
           if (selectedCards.length === 0) {
             throw new Error('カードが選択されていません');
@@ -420,7 +419,8 @@
 
     function downloadOutput() {
       const output = document.getElementById('outputContent').textContent;
-      const game = JSON.parse(sessionStorage.getItem('currentGame'));
+      const gameData = JSON.parse(sessionStorage.getItem('currentGameData'));
+      const game = gameData.data;
       const filename = `${game.outputType}_${new Date().toISOString().slice(0, 10)}.txt`;
       
       const blob = new Blob([output], { type: 'text/plain;charset=utf-8' });

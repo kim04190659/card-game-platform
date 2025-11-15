@@ -263,7 +263,7 @@
       
       // URLパラメータまたはセッションからゲームIDを取得
       const urlParams = new URLSearchParams(window.location.search);
-      const gameId = urlParams.get('id') || sessionStorage.getItem('current_game_id') || 'city-dx';
+      const gameId = urlParams.get('id') || sessionStorage.getItem('currentGameId') || 'city-dx';
       
       // ゲームデータを読み込み
       await loadGameData(gameId);
