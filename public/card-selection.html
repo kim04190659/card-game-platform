@@ -193,22 +193,40 @@
     </div>
   </div>
   
+  <!-- コアクラス読み込み -->
+  <script src="/js/core/AuthManager.js"></script>
+  <script src="/js/core/GameManager.js"></script>
+  
   <script>
+    // グローバルインスタンス
+    const authManager = new AuthManager();
+    const gameManager = new GameManager();
+    
     // グローバル変数
     let gameData = null;
     let selectedCards = {};
     
     // 認証チェック
     document.addEventListener('DOMContentLoaded', async () => {
-      const sessionKey = sessionStorage.getItem('card_game_access_key');
-      if (!sessionKey) {
-        window.location.href = '/access-key.html';
+      // AuthManagerで認証状態をチェック
+      if (!authManager.isAuthenticated()) {
+        console.log('未認証のため、アクセスキー入力画面へリダイレクトします');
+        authManager.requireAuth('/card-selection.html');
         return;
       }
       
+      console.log('認証済み - セッション残り時間:', authManager.getRemainingTime(), '分');
+      
       // URLパラメータからゲームIDを取得
       const urlParams = new URLSearchParams(window.location.search);
-      const gameId = urlParams.get('id') || 'city-dx';
+      const gameId = urlParams.get('id');
+      
+      if (!gameId) {
+        console.error('ゲームIDが指定されていません');
+        alert('ゲームが選択されていません。\nゲーム選択画面に戻ります。');
+        window.location.href = '/game-selection.html';
+        return;
+      }
       
       // ゲームデータを読み込み
       await loadGameData(gameId);
@@ -217,10 +235,26 @@
     // ゲームデータ読み込み
     async function loadGameData(gameId) {
       try {
-        const response = await fetch(`/data/games/${gameId}.json`);
-        if (!response.ok) throw new Error('ゲームデータの読み込みに失敗しました');
+        // GameManagerでゲームデータを取得
         
-        gameData = await response.json();
+        // まずゲームリストを読み込み
+        await gameManager.loadGames();
+        
+        // セッションから復元を試みる
+        let currentGame = gameManager.restoreCurrentGame();
+        
+        // セッションにない、または異なるゲームの場合は新規選択
+        if (!currentGame || currentGame.id !== gameId) {
+          currentGame = gameManager.selectGame(gameId);
+        }
+        
+        gameData = gameManager.getGameData();
+        
+        if (!gameData) {
+          throw new Error('ゲームデータが取得できませんでした');
+        }
+        
+        console.log('ゲームデータを読み込みました:', gameData);
         
         // 画面を初期化
         initializeUI();
@@ -246,6 +280,17 @@
       gameData.cardCategories.forEach(category => {
         selectedCards[category.categoryId] = [];
       });
+      
+      // セッションから選択状態を復元（もしあれば）
+      const savedSelection = sessionStorage.getItem('selected_cards');
+      if (savedSelection) {
+        try {
+          selectedCards = JSON.parse(savedSelection);
+          console.log('選択状態を復元しました:', selectedCards);
+        } catch (error) {
+          console.warn('選択状態の復元に失敗しました:', error);
+        }
+      }
     }
     
     // カテゴリとカードを描画
@@ -253,7 +298,10 @@
       const container = document.getElementById('categoriesContainer');
       container.innerHTML = '';
       
-      gameData.cardCategories.forEach(category => {
+      // GameManagerからカテゴリを取得
+      const categories = gameManager.getCategories();
+      
+      categories.forEach(category => {
         const categorySection = document.createElement('div');
         categorySection.className = 'category-section';
         categorySection.id = `category-${category.categoryId}`;
@@ -274,13 +322,19 @@
         const cardsGrid = document.createElement('div');
         cardsGrid.className = 'cards-grid';
         
-        // このカテゴリのカードを取得
-        const categoryCards = gameData.cards.filter(card => card.categoryId === category.categoryId);
+        // GameManagerからこのカテゴリのカードを取得
+        const categoryCards = gameManager.getCards(category.categoryId);
         
         categoryCards.forEach(card => {
           const cardElement = document.createElement('div');
           cardElement.className = 'card-item';
           cardElement.id = `card-${card.cardId}`;
+          
+          // 保存された選択状態を反映
+          if (selectedCards[category.categoryId]?.includes(card.cardId)) {
+            cardElement.classList.add('selected');
+          }
+          
           cardElement.innerHTML = `
             <div class="card-icon">${card.icon || '📄'}</div>
             <div class="card-name">${card.cardName}</div>
@@ -299,7 +353,8 @@
     
     // カード選択/解除
     function toggleCard(categoryId, cardId) {
-      const category = gameData.cardCategories.find(c => c.categoryId === categoryId);
+      const categories = gameManager.getCategories();
+      const category = categories.find(c => c.categoryId === categoryId);
       const selected = selectedCards[categoryId];
       const cardIndex = selected.indexOf(cardId);
       
@@ -321,6 +376,9 @@
       updateSummary();
       updateProgress();
       validateSelection();
+      
+      // セッションに保存
+      sessionStorage.setItem('selected_cards', JSON.stringify(selectedCards));
     }
     
     // 選択サマリー更新
@@ -328,7 +386,9 @@
       const summaryContainer = document.getElementById('selectionSummary');
       summaryContainer.innerHTML = '';
       
-      gameData.cardCategories.forEach(category => {
+      const categories = gameManager.getCategories();
+      
+      categories.forEach(category => {
         const selected = selectedCards[category.categoryId];
         const summaryItem = document.createElement('div');
         summaryItem.className = 'summary-item';
@@ -349,10 +409,11 @@
     
     // 進捗バー更新
     function updateProgress() {
+      const categories = gameManager.getCategories();
       let totalRequired = 0;
       let totalSelected = 0;
       
-      gameData.cardCategories.forEach(category => {
+      categories.forEach(category => {
         totalRequired += category.minSelect;
         totalSelected += Math.min(selectedCards[category.categoryId].length, category.minSelect);
       });
@@ -363,9 +424,10 @@
     
     // バリデーション
     function validateSelection() {
+      const categories = gameManager.getCategories();
       let valid = true;
       
-      gameData.cardCategories.forEach(category => {
+      categories.forEach(category => {
         const selected = selectedCards[category.categoryId];
         if (selected.length < category.minSelect || selected.length > category.maxSelect) {
           valid = false;
@@ -389,6 +451,9 @@
         updateSummary();
         updateProgress();
         validateSelection();
+        
+        // セッションから削除
+        sessionStorage.removeItem('selected_cards');
       }
     }
     
@@ -397,16 +462,25 @@
       // 選択されたカードをセッションに保存
       sessionStorage.setItem('selected_cards', JSON.stringify(selectedCards));
       
-      // 次の画面へ（今はアラート）
-      alert('カード選択完了！\n\n次回: テキスト入力画面を実装します。');
+      console.log('カード選択完了 - 次の画面へ');
       
-      // 今後の実装:
+      // テキスト入力画面へ
       window.location.href = '/input.html';
     }
     
+    // ログアウト
     function logout() {
       if (confirm('ログアウトしますか？')) {
-        sessionStorage.clear();
+        // AuthManagerでセッションをクリア
+        authManager.clearSession();
+        
+        // GameManagerの状態もリセット
+        gameManager.reset();
+        
+        // 選択状態もクリア
+        sessionStorage.removeItem('selected_cards');
+        
+        console.log('ログアウトしました');
         window.location.href = '/access-key.html';
       }
     }
