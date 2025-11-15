@@ -77,23 +77,77 @@
     </div>
   </div>
   
+  <!-- コアクラス読み込み -->
+  <script src="/js/core/AuthManager.js"></script>
+  <script src="/js/core/GameManager.js"></script>
+  
   <script>
+    // グローバルインスタンス
+    const authManager = new AuthManager();
+    const gameManager = new GameManager();
+    
     // 認証チェック
     document.addEventListener('DOMContentLoaded', () => {
-      const sessionKey = sessionStorage.getItem('card_game_access_key');
-      if (!sessionKey) {
-        window.location.href = '/access-key.html';
+      // AuthManagerで認証状態をチェック
+      if (!authManager.isAuthenticated()) {
+        console.log('未認証のため、アクセスキー入力画面へリダイレクトします');
+        authManager.requireAuth('/game-selection.html');
+        return;
       }
+      
+      console.log('認証済み - セッション残り時間:', authManager.getRemainingTime(), '分');
+      
+      // ゲームデータを事前読み込み（将来の動的表示用）
+      initializeGames();
     });
     
-    function selectGame(gameId) {
-      // カード選択画面へ遷移
-      window.location.href = `/card-selection.html?id=${gameId}`;
+    /**
+     * ゲームデータの初期化
+     */
+    async function initializeGames() {
+      try {
+        const games = await gameManager.loadGames();
+        console.log('ゲームデータを読み込みました:', games);
+        
+        // 将来的にはここでゲーム一覧を動的に生成
+        // 現在は静的HTMLなので何もしない
+        
+      } catch (error) {
+        console.error('ゲームデータの読み込みに失敗しました:', error);
+        alert('ゲームデータの読み込みに失敗しました。ページをリロードしてください。');
+      }
     }
     
+    /**
+     * ゲームを選択
+     */
+    function selectGame(gameId) {
+      try {
+        // GameManagerでゲームを選択
+        const game = gameManager.selectGame(gameId);
+        console.log('ゲームを選択しました:', game);
+        
+        // カード選択画面へ遷移
+        window.location.href = `/card-selection.html?id=${gameId}`;
+        
+      } catch (error) {
+        console.error('ゲーム選択エラー:', error);
+        alert('ゲームの選択に失敗しました: ' + error.message);
+      }
+    }
+    
+    /**
+     * ログアウト
+     */
     function logout() {
       if (confirm('ログアウトしますか？')) {
-        sessionStorage.removeItem('card_game_access_key');
+        // AuthManagerでセッションをクリア
+        authManager.clearSession();
+        
+        // GameManagerの状態もリセット
+        gameManager.reset();
+        
+        console.log('ログアウトしました');
         window.location.href = '/access-key.html';
       }
     }
