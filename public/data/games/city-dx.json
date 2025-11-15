@@ -117,5 +117,123 @@
       "description": "バス、タクシー、シェアサイクルを統合",
       "icon": "🚌"
     }
+  ],
+  
+  "inputFields": [
+    {
+      "fieldId": "project_name",
+      "fieldName": "プロジェクト名",
+      "fieldType": "text",
+      "description": "提案するプロジェクトの名称を入力してください",
+      "placeholder": "例: スマート霧島プロジェクト",
+      "required": true,
+      "validation": {
+        "maxLength": 100
+      },
+      "displayOrder": 1,
+      "helpText": "分かりやすく、魅力的な名称を考えてください"
+    },
+    {
+      "fieldId": "team_strength",
+      "fieldName": "チームの強み・付加価値",
+      "fieldType": "textarea",
+      "description": "あなたのチームが提供できる独自の強みや付加価値を記入してください",
+      "placeholder": "例: 既存の交通システムとの統合、地域住民との協働体制、温泉観光資源との連携",
+      "required": true,
+      "validation": {
+        "minLength": 50,
+        "maxLength": 500
+      },
+      "displayOrder": 2,
+      "helpText": "具体的なスキルや経験、リソースを記載してください"
+    },
+    {
+      "fieldId": "budget",
+      "fieldName": "予算規模（万円）",
+      "fieldType": "number",
+      "description": "プロジェクトの想定予算を入力してください",
+      "placeholder": "5000",
+      "required": true,
+      "validation": {
+        "min": 1000,
+        "max": 50000
+      },
+      "displayOrder": 3,
+      "helpText": "初期投資 + 3年間の運用費を含めた総額"
+    },
+    {
+      "fieldId": "period",
+      "fieldName": "実施期間（年）",
+      "fieldType": "number",
+      "description": "プロジェクト完了までの期間",
+      "placeholder": "2",
+      "required": true,
+      "validation": {
+        "min": 1,
+        "max": 5
+      },
+      "displayOrder": 4,
+      "helpText": "1年〜5年の範囲で入力してください"
+    },
+    {
+      "fieldId": "priority",
+      "fieldName": "優先度",
+      "fieldType": "select",
+      "description": "プロジェクトの優先度を選択",
+      "required": true,
+      "options": [
+        {"value": "high", "label": "高（緊急性あり）"},
+        {"value": "medium", "label": "中（計画的に推進）"},
+        {"value": "low", "label": "低（将来的に検討）"}
+      ],
+      "defaultValue": "medium",
+      "displayOrder": 5
+    },
+    {
+      "fieldId": "stakeholders",
+      "fieldName": "主要ステークホルダー",
+      "fieldType": "checkbox",
+      "description": "プロジェクトに関わる主要な関係者（複数選択可）",
+      "required": false,
+      "options": [
+        {"value": "residents", "label": "住民"},
+        {"value": "businesses", "label": "地域企業"},
+        {"value": "schools", "label": "教育機関"},
+        {"value": "medical", "label": "医療機関"},
+        {"value": "transport", "label": "交通事業者"}
+      ],
+      "displayOrder": 6
+    }
+  ],
+  
+  "evaluationCriteria": [
+    {
+      "criteriaId": "feasibility",
+      "criteriaName": "実現可能性",
+      "description": "技術的・予算的に実現可能か",
+      "weight": 0.3,
+      "maxScore": 100
+    },
+    {
+      "criteriaId": "resident_benefit",
+      "criteriaName": "住民メリット",
+      "description": "住民にとっての具体的なメリット",
+      "weight": 0.3,
+      "maxScore": 100
+    },
+    {
+      "criteriaId": "sustainability",
+      "criteriaName": "持続可能性",
+      "description": "長期的に運用・発展できるか",
+      "weight": 0.2,
+      "maxScore": 100
+    },
+    {
+      "criteriaId": "innovation",
+      "criteriaName": "革新性",
+      "description": "新しい価値を生み出すか",
+      "weight": 0.2,
+      "maxScore": 100
+    }
   ]
 }
