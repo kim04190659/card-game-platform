@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>詳細情報入力 - カードゲーム基盤システム</title>
+  <link rel="stylesheet" href="/css/common.css">
+  <style>
+    /* 入力画面専用スタイル */
+    .selected-cards-summary {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%);
+      border: 2px solid #667eea;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .selected-cards-summary h3 {
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .card-tag {
+      background: white;
+      border: 1px solid #667eea;
+      color: #667eea;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .input-section {
+      margin-bottom: 30px;
+    }
+    
+    .input-group {
+      margin-bottom: 25px;
+    }
+    
+    .input-label {
+      display: block;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+    
+    .input-label .required {
+      color: #e74c3c;
+      margin-left: 5px;
+    }
+    
+    .input-description {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    
+    .input-field {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+      font-family: inherit;
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    
+    .input-field.error {
+      border-color: #e74c3c;
+      background: #fff5f5;
+    }
+    
+    textarea.input-field {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .help-text {
+      color: #888;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+    
+    .error-message {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+    
+    .error-message.show {
+      display: block;
+    }
+    
+    .char-counter {
+      text-align: right;
+      font-size: 13px;
+      color: #888;
+      margin-top: 5px;
+    }
+    
+    .char-counter.warning {
+      color: #f39c12;
+    }
+    
+    .char-counter.error {
+      color: #e74c3c;
+    }
+    
+    .checkbox-group,
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .checkbox-item,
+    .radio-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .checkbox-item input,
+    .radio-item input {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    
+    .checkbox-item label,
+    .radio-item label {
+      cursor: pointer;
+      font-size: 15px;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 40px;
+      justify-content: center;
+    }
+    
+    .progress-bar {
+      background: #e0e0e0;
+      border-radius: 10px;
+      height: 8px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      height: 100%;
+      width: 50%;
+      transition: width 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- ヘッダー -->
+    <div class="header">
+      <h1 id="gameName">詳細情報の入力</h1>
+      <div class="header-nav">
+        <span class="status">ステップ 2/4</span>
+        <button onclick="logout()" class="btn btn-secondary" style="padding: 8px 20px; font-size: 14px;">
+          ログアウト
+        </button>
+      </div>
+    </div>
+    
+    <!-- メインコンテンツ -->
+    <div class="card">
+      <div id="loadingMessage" class="loading">
+        <div class="spinner"></div>
+        <p>データを読み込み中...</p>
+      </div>
+      
+      <div id="mainContent" style="display: none;">
+        <!-- 進捗バー -->
+        <div class="progress-bar">
+          <div class="progress-bar-fill"></div>
+        </div>
+        
+        <!-- 選択したカードのサマリー -->
+        <div class="selected-cards-summary">
+          <h3>📋 選択したカード</h3>
+          <div id="selectedCardsSummary" class="card-tags"></div>
+        </div>
+        
+        <hr style="margin: 30px 0; border: none; border-top: 1px solid #e0e0e0;">
+        
+        <!-- 入力フォーム -->
+        <div class="input-section">
+          <h2 style="color: #667eea; margin-bottom: 20px;">プロジェクトの詳細情報を入力してください</h2>
+          <p style="color: #666; margin-bottom: 30px;">
+            選択したカードをもとに、あなたのチーム独自の情報を追加することで、より具体的で実践的な提案書を生成できます。
+          </p>
+          
+          <form id="inputForm">
+            <!-- 動的に生成 -->
+            <div id="inputFieldsContainer"></div>
+          </form>
+        </div>
+        
+        <!-- アクションボタン -->
+        <div class="action-buttons">
+          <button onclick="goBack()" class="btn btn-secondary">
+            ← 戻る
+          </button>
+          <button onclick="clearForm()" class="btn btn-secondary">
+            入力をクリア
+          </button>
+          <button id="nextButton" onclick="goToNext()" class="btn">
+            成果物を生成 →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="/js/core/InputManager.js"></script>
+  <script>
+    // グローバル変数
+    let gameData = null;
+    let selectedCards = null;
+    let inputManager = null;
+    
+    // 認証チェック
+    document.addEventListener('DOMContentLoaded', async () => {
+      const sessionKey = sessionStorage.getItem('card_game_access_key');
+      if (!sessionKey) {
+        window.location.href = '/access-key.html';
+        return;
+      }
+      
+      // 選択されたカードを取得
+      const selectedCardsJson = sessionStorage.getItem('selected_cards');
+      if (!selectedCardsJson) {
+        alert('カードが選択されていません。\nカード選択画面からやり直してください。');
+        window.location.href = '/game-selection.html';
+        return;
+      }
+      
+      selectedCards = JSON.parse(selectedCardsJson);
+      
+      // URLパラメータまたはセッションからゲームIDを取得
+      const urlParams = new URLSearchParams(window.location.search);
+      const gameId = urlParams.get('id') || sessionStorage.getItem('current_game_id') || 'city-dx';
+      
+      // ゲームデータを読み込み
+      await loadGameData(gameId);
+    });
+    
+    // ゲームデータ読み込み
+    async function loadGameData(gameId) {
+      try {
+        const response = await fetch(`/data/games/${gameId}.json`);
+        if (!response.ok) throw new Error('ゲームデータの読み込みに失敗しました');
+        
+        gameData = await response.json();
+        
+        // InputManagerを初期化
+        inputManager = new InputManager(gameData);
+        
+        // セッションに保存されている入力データがあれば復元
+        const savedInputJson = sessionStorage.getItem('user_inputs');
+        if (savedInputJson) {
+          const savedInput = JSON.parse(savedInputJson);
+          inputManager.fromJSON(savedInput);
+        }
+        
+        // 画面を初期化
+        initializeUI();
+        renderSelectedCards();
+        renderInputFields();
+        
+        // ローディング非表示、メインコンテンツ表示
+        document.getElementById('loadingMessage').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        
+      } catch (error) {
+        console.error('エラー:', error);
+        alert('ゲームデータの読み込みに失敗しました。\n\n' + error.message);
+        window.location.href = '/game-selection.html';
+      }
+    }
+    
+    // UI初期化
+    function initializeUI() {
+      document.getElementById('gameName').textContent = gameData.gameName;
+    }
+    
+    // 選択したカードを表示
+    function renderSelectedCards() {
+      const container = document.getElementById('selectedCardsSummary');
+      container.innerHTML = '';
+      
+      // カテゴリごとに整理
+      Object.entries(selectedCards).forEach(([categoryId, cardIds]) => {
+        cardIds.forEach(cardId => {
+          const card = gameData.cards.find(c => c.cardId === cardId);
+          if (card) {
+            const tag = document.createElement('div');
+            tag.className = 'card-tag';
+            tag.innerHTML = `${card.icon || '📄'} ${card.cardName}`;
+            container.appendChild(tag);
+          }
+        });
+      });
+    }
+    
+    // 入力フィールドを動的生成
+    function renderInputFields() {
+      const container = document.getElementById('inputFieldsContainer');
+      container.innerHTML = '';
+      
+      const fields = inputManager.getInputFields();
+      
+      fields.forEach(field => {
+        const fieldGroup = document.createElement('div');
+        fieldGroup.className = 'input-group';
+        fieldGroup.id = `group-${field.fieldId}`;
+        
+        // ラベル
+        const label = document.createElement('label');
+        label.className = 'input-label';
+        label.htmlFor = field.fieldId;
+        label.innerHTML = field.fieldName;
+        if (field.required) {
+          label.innerHTML += '<span class="required">*</span>';
+        }
+        fieldGroup.appendChild(label);
+        
+        // 説明
+        if (field.description) {
+          const desc = document.createElement('div');
+          desc.className = 'input-description';
+          desc.textContent = field.description;
+          fieldGroup.appendChild(desc);
+        }
+        
+        // フィールドタイプごとに分岐
+        let inputElement;
+        
+        switch (field.fieldType) {
+          case 'text':
+          case 'number':
+            inputElement = createTextOrNumberInput(field);
+            break;
+          case 'textarea':
+            inputElement = createTextareaInput(field);
+            break;
+          case 'select':
+            inputElement = createSelectInput(field);
+            break;
+          case 'checkbox':
+            inputElement = createCheckboxInput(field);
+            break;
+          case 'radio':
+            inputElement = createRadioInput(field);
+            break;
+        }
+        
+        if (inputElement) {
+          fieldGroup.appendChild(inputElement);
+        }
+        
+        // ヘルプテキスト
+        if (field.helpText) {
+          const helpText = document.createElement('div');
+          helpText.className = 'help-text';
+          helpText.textContent = field.helpText;
+          fieldGroup.appendChild(helpText);
+        }
+        
+        // エラーメッセージ表示エリア
+        const errorMsg = document.createElement('div');
+        errorMsg.className = 'error-message';
+        errorMsg.id = `error-${field.fieldId}`;
+        fieldGroup.appendChild(errorMsg);
+        
+        container.appendChild(fieldGroup);
+      });
+      
+      updateNextButton();
+    }
+    
+    // テキスト・数値入力
+    function createTextOrNumberInput(field) {
+      const input = document.createElement('input');
+      input.type = field.fieldType;
+      input.id = field.fieldId;
+      input.name = field.fieldId;
+      input.className = 'input-field';
+      input.placeholder = field.placeholder || '';
+      
+      // 保存されている値があれば設定
+      const savedValue = inputManager.getInput(field.fieldId);
+      if (savedValue !== undefined && savedValue !== null) {
+        input.value = savedValue;
+      }
+      
+      // イベントリスナー
+      input.addEventListener('input', (e) => {
+        inputManager.setInput(field.fieldId, e.target.value);
+        validateField(field);
+        
+        // 文字数カウンター（textの場合）
+        if (field.fieldType === 'text' && field.validation?.maxLength) {
+          updateCharCounter(field, e.target.value);
+        }
+        
+        // セッション保存
+        saveToSession();
+      });
+      
+      input.addEventListener('blur', () => {
+        validateField(field);
+      });
+      
+      const wrapper = document.createElement('div');
+      wrapper.appendChild(input);
+      
+      // 文字数カウンター
+      if (field.fieldType === 'text' && field.validation?.maxLength) {
+        const counter = document.createElement('div');
+        counter.className = 'char-counter';
+        counter.id = `counter-${field.fieldId}`;
+        counter.textContent = `0 / ${field.validation.maxLength}`;
+        wrapper.appendChild(counter);
+      }
+      
+      return wrapper;
+    }
+    
+    // テキストエリア入力
+    function createTextareaInput(field) {
+      const textarea = document.createElement('textarea');
+      textarea.id = field.fieldId;
+      textarea.name = field.fieldId;
+      textarea.className = 'input-field';
+      textarea.placeholder = field.placeholder || '';
+      
+      const savedValue = inputManager.getInput(field.fieldId);
+      if (savedValue !== undefined && savedValue !== null) {
+        textarea.value = savedValue;
+      }
+      
+      textarea.addEventListener('input', (e) => {
+        inputManager.setInput(field.fieldId, e.target.value);
+        validateField(field);
+        updateCharCounter(field, e.target.value);
+        saveToSession();
+      });
+      
+      textarea.addEventListener('blur', () => {
+        validateField(field);
+      });
+      
+      const wrapper = document.createElement('div');
+      wrapper.appendChild(textarea);
+      
+      // 文字数カウンター
+      if (field.validation?.maxLength || field.validation?.minLength) {
+        const counter = document.createElement('div');
+        counter.className = 'char-counter';
+        counter.id = `counter-${field.fieldId}`;
+        const min = field.validation?.minLength || 0;
+        const max = field.validation?.maxLength || '∞';
+        counter.textContent = `0 / ${min}〜${max}`;
+        wrapper.appendChild(counter);
+      }
+      
+      return wrapper;
+    }
+    
+    // セレクト入力
+    function createSelectInput(field) {
+      const select = document.createElement('select');
+      select.id = field.fieldId;
+      select.name = field.fieldId;
+      select.className = 'input-field';
+      
+      // デフォルトオプション
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.textContent = '選択してください';
+      select.appendChild(defaultOption);
+      
+      // オプション追加
+      field.options.forEach(option => {
+        const opt = document.createElement('option');
+        opt.value = option.value;
+        opt.textContent = option.label;
+        select.appendChild(opt);
+      });
+      
+      // 保存されている値があれば設定
+      const savedValue = inputManager.getInput(field.fieldId);
+      if (savedValue) {
+        select.value = savedValue;
+      } else if (field.defaultValue) {
+        select.value = field.defaultValue;
+        inputManager.setInput(field.fieldId, field.defaultValue);
+      }
+      
+      select.addEventListener('change', (e) => {
+        inputManager.setInput(field.fieldId, e.target.value);
+        validateField(field);
+        saveToSession();
+      });
+      
+      return select;
+    }
+    
+    // チェックボックス入力
+    function createCheckboxInput(field) {
+      const container = document.createElement('div');
+      container.className = 'checkbox-group';
+      
+      const savedValue = inputManager.getInput(field.fieldId) || [];
+      
+      field.options.forEach(option => {
+        const item = document.createElement('div');
+        item.className = 'checkbox-item';
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `${field.fieldId}-${option.value}`;
+        checkbox.name = field.fieldId;
+        checkbox.value = option.value;
+        
+        if (Array.isArray(savedValue) && savedValue.includes(option.value)) {
+          checkbox.checked = true;
+        }
+        
+        checkbox.addEventListener('change', () => {
+          updateCheckboxValue(field.fieldId);
+          validateField(field);
+          saveToSession();
+        });
+        
+        const label = document.createElement('label');
+        label.htmlFor = checkbox.id;
+        label.textContent = option.label;
+        
+        item.appendChild(checkbox);
+        item.appendChild(label);
+        container.appendChild(item);
+      });
+      
+      return container;
+    }
+    
+    // チェックボックス値更新
+    function updateCheckboxValue(fieldId) {
+      const checkboxes = document.querySelectorAll(`input[name="${fieldId}"]:checked`);
+      const values = Array.from(checkboxes).map(cb => cb.value);
+      inputManager.setInput(fieldId, values);
+    }
+    
+    // ラジオボタン入力
+    function createRadioInput(field) {
+      const container = document.createElement('div');
+      container.className = 'radio-group';
+      
+      const savedValue = inputManager.getInput(field.fieldId);
+      
+      field.options.forEach(option => {
+        const item = document.createElement('div');
+        item.className = 'radio-item';
+        
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.id = `${field.fieldId}-${option.value}`;
+        radio.name = field.fieldId;
+        radio.value = option.value;
+        
+        if (savedValue === option.value) {
+          radio.checked = true;
+        }
+        
+        radio.addEventListener('change', (e) => {
+          inputManager.setInput(field.fieldId, e.target.value);
+          validateField(field);
+          saveToSession();
+        });
+        
+        const label = document.createElement('label');
+        label.htmlFor = radio.id;
+        label.textContent = option.label;
+        
+        item.appendChild(radio);
+        item.appendChild(label);
+        container.appendChild(item);
+      });
+      
+      return container;
+    }
+    
+    // フィールドバリデーション
+    function validateField(field) {
+      const errorElement = document.getElementById(`error-${field.fieldId}`);
+      const inputElement = document.getElementById(field.fieldId);
+      
+      const result = inputManager.validate();
+      const fieldError = inputManager.getError(field.fieldId);
+      
+      if (fieldError) {
+        errorElement.textContent = fieldError;
+        errorElement.classList.add('show');
+        if (inputElement) {
+          inputElement.classList.add('error');
+        }
+      } else {
+        errorElement.classList.remove('show');
+        if (inputElement) {
+          inputElement.classList.remove('error');
+        }
+      }
+      
+      updateNextButton();
+    }
+    
+    // 文字数カウンター更新
+    function updateCharCounter(field, value) {
+      const counter = document.getElementById(`counter-${field.fieldId}`);
+      if (!counter) return;
+      
+      const length = value ? value.length : 0;
+      const maxLength = field.validation?.maxLength;
+      const minLength = field.validation?.minLength;
+      
+      if (maxLength) {
+        counter.textContent = `${length} / ${minLength || 0}〜${maxLength}`;
+        
+        if (length > maxLength) {
+          counter.classList.add('error');
+          counter.classList.remove('warning');
+        } else if (maxLength - length <= 20) {
+          counter.classList.add('warning');
+          counter.classList.remove('error');
+        } else {
+          counter.classList.remove('warning', 'error');
+        }
+      }
+    }
+    
+    // 次へボタンの有効/無効
+    function updateNextButton() {
+      const result = inputManager.validate();
+      document.getElementById('nextButton').disabled = !result.valid;
+    }
+    
+    // セッションに保存
+    function saveToSession() {
+      const inputData = inputManager.toJSON();
+      sessionStorage.setItem('user_inputs', JSON.stringify(inputData));
+    }
+    
+    // フォームクリア
+    function clearForm() {
+      if (confirm('入力内容をすべてクリアしますか？')) {
+        inputManager.clearAll();
+        sessionStorage.removeItem('user_inputs');
+        renderInputFields();
+      }
+    }
+    
+    // 戻る
+    function goBack() {
+      if (confirm('入力内容は保存されます。カード選択に戻りますか？')) {
+        const gameId = gameData.gameId.replace('-promotion', '');
+        window.location.href = `/card-selection.html?id=${gameId}`;
+      }
+    }
+    
+    // 次へ進む
+    function goToNext() {
+      const result = inputManager.validate();
+      
+      if (!result.valid) {
+        alert('入力内容に誤りがあります。\nエラーメッセージを確認してください。');
+        
+        // 最初のエラーにスクロール
+        if (result.errors.length > 0) {
+          const firstError = result.errors[0];
+          const element = document.getElementById(`group-${firstError.fieldId}`);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+        
+        return;
+      }
+      
+      // 入力データを保存
+      saveToSession();
+      
+      // 次の画面へ（現在は未実装なのでアラート）
+      alert('入力完了！\n\n次回: AI成果物生成画面を実装します。\n\n入力データはセッションに保存されました。');
+      
+      // 今後の実装:
+      // window.location.href = '/output.html';
+    }
+    
+    function logout() {
+      if (confirm('ログアウトしますか？')) {
+        sessionStorage.clear();
+        window.location.href = '/access-key.html';
+      }
+    }
+  </script>
+</body>
+</html>
