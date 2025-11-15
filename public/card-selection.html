@@ -285,7 +285,19 @@
       const savedSelection = sessionStorage.getItem('selected_cards');
       if (savedSelection) {
         try {
-          selectedCards = JSON.parse(savedSelection);
+          const savedCardsArray = JSON.parse(savedSelection);
+          
+          // 配列形式からオブジェクト形式に変換
+          gameData.cardCategories.forEach(category => {
+            selectedCards[category.categoryId] = [];
+          });
+          
+          savedCardsArray.forEach(card => {
+            if (selectedCards[card.categoryId]) {
+              selectedCards[card.categoryId].push(card.cardId);
+            }
+          });
+          
           console.log('選択状態を復元しました:', selectedCards);
         } catch (error) {
           console.warn('選択状態の復元に失敗しました:', error);
@@ -377,8 +389,14 @@
       updateProgress();
       validateSelection();
       
-      // セッションに保存
-      sessionStorage.setItem('selected_cards', JSON.stringify(selectedCards));
+      // セッションに保存（フラットな配列に変換）
+      const selectedCardsArray = [];
+      Object.keys(selectedCards).forEach(categoryId => {
+        selectedCards[categoryId].forEach(card => {
+          selectedCardsArray.push(card);
+        });
+      });
+      sessionStorage.setItem('selected_cards', JSON.stringify(selectedCardsArray));
     }
     
     // 選択サマリー更新
@@ -459,10 +477,18 @@
     
     // 次へ進む
     function goToNext() {
-      // 選択されたカードをセッションに保存
-      sessionStorage.setItem('selected_cards', JSON.stringify(selectedCards));
+      // 選択されたカードをフラットな配列に変換してセッションに保存
+      const selectedCardsArray = [];
       
-      console.log('カード選択完了 - 次の画面へ');
+      Object.keys(selectedCards).forEach(categoryId => {
+        selectedCards[categoryId].forEach(card => {
+          selectedCardsArray.push(card);
+        });
+      });
+      
+      sessionStorage.setItem('selected_cards', JSON.stringify(selectedCardsArray));
+      
+      console.log('カード選択完了 - 次の画面へ', selectedCardsArray);
       
       // テキスト入力画面へ
       window.location.href = '/input.html';

@@ -313,17 +313,12 @@
       const container = document.getElementById('selectedCardsSummary');
       container.innerHTML = '';
       
-      // カテゴリごとに整理
-      Object.entries(selectedCards).forEach(([categoryId, cardIds]) => {
-        cardIds.forEach(cardId => {
-          const card = gameData.cards.find(c => c.cardId === cardId);
-          if (card) {
-            const tag = document.createElement('div');
-            tag.className = 'card-tag';
-            tag.innerHTML = `${card.icon || '📄'} ${card.cardName}`;
-            container.appendChild(tag);
-          }
-        });
+      // フラットな配列形式のselectedCardsを処理
+      selectedCards.forEach(card => {
+        const tag = document.createElement('div');
+        tag.className = 'card-tag';
+        tag.innerHTML = `${card.icon || '📄'} ${card.cardName}`;
+        container.appendChild(tag);
       });
     }
     
