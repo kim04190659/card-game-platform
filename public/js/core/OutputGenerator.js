@@ -38,15 +38,32 @@ class OutputGenerator {
     const cardsByCategory = {};
     
     // カテゴリごとにグループ化
-    this.selectedCards.forEach(card => {
-      const category = this.game.cardCategories.find(
-        c => c.categoryId === card.categoryId
-      );
-      
-      if (!cardsByCategory[category.categoryName]) {
-        cardsByCategory[category.categoryName] = [];
+    this.selectedCards.forEach(cardItem => {
+      // cardItemがオブジェクトでない場合（cardIdだけの場合）、完全な情報を取得
+      let fullCard;
+      if (typeof cardItem === 'string') {
+        // cardIdの文字列の場合
+        fullCard = this.game.cards.find(c => c.cardId === cardItem);
+      } else if (cardItem.cardId) {
+        // オブジェクトだが不完全な場合
+        fullCard = this.game.cards.find(c => c.cardId === cardItem.cardId) || cardItem;
+      } else {
+        // 既に完全なオブジェクトの場合
+        fullCard = cardItem;
       }
-      cardsByCategory[category.categoryName].push(card.cardName);
+      
+      if (fullCard) {
+        const category = this.game.cardCategories.find(
+          c => c.categoryId === fullCard.categoryId
+        );
+        
+        if (category) {
+          if (!cardsByCategory[category.categoryName]) {
+            cardsByCategory[category.categoryName] = [];
+          }
+          cardsByCategory[category.categoryName].push(fullCard.cardName);
+        }
+      }
     });
     
     // 整形して返す

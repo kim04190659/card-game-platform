@@ -314,11 +314,26 @@
       container.innerHTML = '';
       
       // フラットな配列形式のselectedCardsを処理
-      selectedCards.forEach(card => {
-        const tag = document.createElement('div');
-        tag.className = 'card-tag';
-        tag.innerHTML = `${card.icon || '📄'} ${card.cardName}`;
-        container.appendChild(tag);
+      selectedCards.forEach(cardItem => {
+        // cardItemがオブジェクトでない場合（cardIdだけの場合）、完全な情報を取得
+        let fullCard;
+        if (typeof cardItem === 'string') {
+          // cardIdの文字列の場合
+          fullCard = gameData.cards.find(c => c.cardId === cardItem);
+        } else if (cardItem.cardId) {
+          // オブジェクトだが不完全な場合
+          fullCard = gameData.cards.find(c => c.cardId === cardItem.cardId) || cardItem;
+        } else {
+          // 既に完全なオブジェクトの場合
+          fullCard = cardItem;
+        }
+        
+        if (fullCard) {
+          const tag = document.createElement('div');
+          tag.className = 'card-tag';
+          tag.innerHTML = `${fullCard.icon || '📄'} ${fullCard.cardName}`;
+          container.appendChild(tag);
+        }
       });
     }
     
