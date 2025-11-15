@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>成果物 - カードゲーム基盤システム</title>
+  <link rel="stylesheet" href="/css/common.css">
+  <style>
+    /* 成果物表示専用スタイル */
+    .output-section {
+      margin-bottom: 30px;
+    }
+    
+    .output-title {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    
+    .output-title h1 {
+      color: white;
+      margin: 0;
+      font-size: 28px;
+    }
+    
+    .output-subtitle {
+      opacity: 0.9;
+      font-size: 16px;
+      margin-top: 5px;
+    }
+    
+    .output-content {
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 15px;
+      padding: 30px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .summary-section {
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 15px;
+      padding: 20px;
+    }
+    
+    .summary-section h3 {
+      color: #667eea;
+      font-size: 18px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 10px;
+    }
+    
+    .card-summary {
+      margin-bottom: 15px;
+    }
+    
+    .card-category {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .card-list {
+      color: #666;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+    
+    .input-item {
+      margin-bottom: 10px;
+    }
+    
+    .input-label {
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .input-value {
+      color: #666;
+      margin-left: 10px;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      min-width: 150px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+    
+    .btn-secondary:hover {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    .btn-download {
+      background: #28a745;
+      color: white;
+    }
+    
+    .btn-download:hover {
+      background: #218838;
+      transform: translateY(-2px);
+    }
+    
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .loading-content {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .error-message {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- ローディングオーバーレイ -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <h3>成果物を生成中...</h3>
+        <p>AIが最適な提案を作成しています。<br>しばらくお待ちください。</p>
+      </div>
+    </div>
+
+    <!-- タイトル部分 -->
+    <div class="output-title">
+      <h1 id="outputTitle">成果物</h1>
+      <div class="output-subtitle" id="outputSubtitle"></div>
+    </div>
+
+    <!-- エラーメッセージ -->
+    <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+    <!-- 成果物表示 -->
+    <div class="output-section">
+      <div id="outputContent" class="output-content">
+        成果物を生成中です...
+      </div>
+    </div>
+
+    <!-- 要約情報 -->
+    <div class="summary-grid">
+      <!-- 選択カード要約 -->
+      <div class="summary-section">
+        <h3>選択したカード</h3>
+        <div id="cardSummary"></div>
+      </div>
+
+      <!-- ユーザー入力要約 -->
+      <div class="summary-section">
+        <h3>入力情報</h3>
+        <div id="inputSummary"></div>
+      </div>
+    </div>
+
+    <!-- アクションボタン -->
+    <div class="action-buttons">
+      <button onclick="goBack()" class="btn btn-secondary">やり直す</button>
+      <button id="evaluateBtn" onclick="goToEvaluation()" class="btn btn-primary" disabled>評価を受ける</button>
+      <button id="downloadBtn" onclick="downloadOutput()" class="btn btn-download" disabled>ダウンロード</button>
+    </div>
+  </div>
+
+  <script src="/js/core/AuthManager.js"></script>
+  <script src="/js/core/GameManager.js"></script>
+  <script src="/js/core/OutputGenerator.js"></script>
+  <script>
+    class OutputPage {
+      constructor() {
+        this.authManager = new AuthManager();
+        this.gameManager = new GameManager();
+        this.outputGenerator = null;
+        this.generatedOutput = '';
+      }
+
+      async init() {
+        try {
+          // 認証チェック
+          if (!this.authManager.isAuthenticated()) {
+            alert('セッションが切れています。最初からやり直してください。');
+            window.location.href = '/access-key.html';
+            return;
+          }
+
+          // ゲームデータ読み込み
+          const gameId = sessionStorage.getItem('selectedGameId');
+          if (!gameId) {
+            throw new Error('ゲームが選択されていません');
+          }
+
+          await this.gameManager.loadGame(gameId);
+          const game = this.gameManager.getCurrentGame();
+
+          // セッションデータ取得
+          const selectedCards = JSON.parse(sessionStorage.getItem('selectedCards') || '[]');
+          const userInputs = JSON.parse(sessionStorage.getItem('userInputs') || '{}');
+
+          if (selectedCards.length === 0) {
+            throw new Error('カードが選択されていません');
+          }
+
+          // OutputGenerator初期化
+          this.outputGenerator = new OutputGenerator(game, selectedCards, userInputs);
+
+          // UI更新
+          this.updateUI(game, selectedCards, userInputs);
+
+          // 成果物生成
+          await this.generateOutput();
+
+        } catch (error) {
+          console.error('初期化エラー:', error);
+          this.showError('データの読み込みに失敗しました: ' + error.message);
+        }
+      }
+
+      updateUI(game, selectedCards, userInputs) {
+        // タイトル更新
+        document.getElementById('outputTitle').textContent = game.outputType;
+        document.getElementById('outputSubtitle').textContent = `${game.gameName} - 生成結果`;
+
+        // カード要約表示
+        this.displayCardSummary(game, selectedCards);
+
+        // 入力要約表示
+        this.displayInputSummary(game, userInputs);
+      }
+
+      displayCardSummary(game, selectedCards) {
+        const container = document.getElementById('cardSummary');
+        const cardsByCategory = {};
+
+        // カテゴリごとにグループ化
+        selectedCards.forEach(card => {
+          const category = game.cardCategories.find(c => c.categoryId === card.categoryId);
+          if (!cardsByCategory[category.categoryName]) {
+            cardsByCategory[category.categoryName] = [];
+          }
+          cardsByCategory[category.categoryName].push(card.cardName);
+        });
+
+        // HTML生成
+        let html = '';
+        for (const [categoryName, cards] of Object.entries(cardsByCategory)) {
+          html += `
+            <div class="card-summary">
+              <div class="card-category">${categoryName}</div>
+              <div class="card-list">${cards.join(', ')}</div>
+            </div>
+          `;
+        }
+
+        container.innerHTML = html;
+      }
+
+      displayInputSummary(game, userInputs) {
+        const container = document.getElementById('inputSummary');
+        let html = '';
+
+        Object.entries(userInputs).forEach(([fieldId, value]) => {
+          const field = game.inputFields.find(f => f.fieldId === fieldId);
+          if (field) {
+            html += `
+              <div class="input-item">
+                <span class="input-label">${field.fieldName}:</span>
+                <span class="input-value">${value}</span>
+              </div>
+            `;
+          }
+        });
+
+        container.innerHTML = html || '<p>入力情報がありません</p>';
+      }
+
+      async generateOutput() {
+        try {
+          this.showLoading(true);
+          
+          this.generatedOutput = await this.outputGenerator.generate();
+          
+          // 成果物表示
+          document.getElementById('outputContent').textContent = this.generatedOutput;
+          
+          // ボタン有効化
+          document.getElementById('evaluateBtn').disabled = false;
+          document.getElementById('downloadBtn').disabled = false;
+          
+          // セッションに保存
+          sessionStorage.setItem('generatedOutput', this.generatedOutput);
+
+        } catch (error) {
+          console.error('成果物生成エラー:', error);
+          this.showError('成果物の生成に失敗しました: ' + error.message);
+        } finally {
+          this.showLoading(false);
+        }
+      }
+
+      showLoading(show) {
+        document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
+      }
+
+      showError(message) {
+        const errorDiv = document.getElementById('errorMessage');
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+      }
+    }
+
+    // グローバル関数
+    function goBack() {
+      if (confirm('入力画面に戻りますか？生成した成果物は失われます。')) {
+        window.location.href = '/input.html';
+      }
+    }
+
+    function goToEvaluation() {
+      window.location.href = '/evaluation.html';
+    }
+
+    function downloadOutput() {
+      const output = document.getElementById('outputContent').textContent;
+      const game = JSON.parse(sessionStorage.getItem('currentGame'));
+      const filename = `${game.outputType}_${new Date().toISOString().slice(0, 10)}.txt`;
+      
+      const blob = new Blob([output], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // 初期化
+    document.addEventListener('DOMContentLoaded', () => {
+      const outputPage = new OutputPage();
+      outputPage.init();
+    });
+  </script>
+</body>
+</html>
