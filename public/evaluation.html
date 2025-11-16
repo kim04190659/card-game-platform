@@ -494,7 +494,7 @@
 
       displayCriteria() {
         const container = document.getElementById('criteriaGrid');
-        const game = this.gameManager.getCurrentGame();
+        const game = this.gameManager.getCurrentGame().data;
         
         let html = '';
         
