@@ -144,7 +144,10 @@ class OutputGenerator {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ prompt })
+        body: JSON.stringify({ 
+          prompt,
+          gameId: this.game.gameId  // ゲームIDを追加
+        })
       });
       
       if (!response.ok) {
