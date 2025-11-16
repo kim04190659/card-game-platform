@@ -1,0 +1,372 @@
+{
+  "gameId": "robot-solution",
+  "gameName": "ロボットソリューション創出ゲーム",
+  "description": "ロボット開発企業の視点で、顧客課題に対する最適なソリューションを提案する",
+  "version": "1.0.0",
+  "author": "木村好孝",
+  "role": "ロボット開発企業のプロジェクトリーダー",
+  "outputType": "ロボットソリューション提案書",
+  
+  "cardCategories": [
+    {
+      "categoryId": "persona",
+      "categoryName": "ペルソナ（課題）",
+      "description": "どんな顧客のどんな課題を解決するか",
+      "minSelect": 1,
+      "maxSelect": 1,
+      "displayOrder": 1
+    },
+    {
+      "categoryId": "competitor",
+      "categoryName": "競合サービス",
+      "description": "市場にある既存ソリューション",
+      "minSelect": 1,
+      "maxSelect": 1,
+      "displayOrder": 2
+    },
+    {
+      "categoryId": "partner",
+      "categoryName": "パートナー",
+      "description": "協力してもらう外部企業",
+      "minSelect": 1,
+      "maxSelect": 2,
+      "displayOrder": 3
+    },
+    {
+      "categoryId": "team_skill",
+      "categoryName": "チームメンバーの付加価値",
+      "description": "チームが持つ技術・スキル",
+      "minSelect": 1,
+      "maxSelect": 2,
+      "displayOrder": 4
+    }
+  ],
+  
+  "cards": [
+    {
+      "cardId": "persona-001",
+      "categoryId": "persona",
+      "cardName": "製造業の生産ライン自動化",
+      "description": "熟練工の高齢化で技術継承が課題。単純作業の自動化を求めている",
+      "longDescription": "中小製造業では、熟練工の高齢化と若手不足により技術継承が喫緊の課題。特に検査工程や組立作業など、これまで人の勘と経験に頼っていた作業の自動化ニーズが高い。",
+      "scores": {
+        "feasibility": 85,
+        "cost": 70,
+        "marketNeed": 90,
+        "differentiation": 75
+      }
+    },
+    {
+      "cardId": "persona-002",
+      "categoryId": "persona",
+      "cardName": "介護施設の人手不足解消",
+      "description": "介護士の負担軽減。移動支援や見守りロボットのニーズ",
+      "longDescription": "介護業界は深刻な人手不足。入浴介助や移乗などの重労働、夜間の見守りなど、介護士の負担を軽減するロボット技術への期待が高い。",
+      "scores": {
+        "feasibility": 70,
+        "cost": 60,
+        "marketNeed": 95,
+        "differentiation": 85
+      }
+    },
+    {
+      "cardId": "persona-003",
+      "categoryId": "persona",
+      "cardName": "物流倉庫のピッキング効率化",
+      "description": "EC需要増で倉庫作業が逼迫。24時間稼働の自動化を検討",
+      "longDescription": "EC市場拡大により物流倉庫の作業量が急増。ピッキング、仕分け、梱包などの作業を24時間自動化し、人件費削減とスピードアップを実現したい。",
+      "scores": {
+        "feasibility": 90,
+        "cost": 75,
+        "marketNeed": 95,
+        "differentiation": 70
+      }
+    },
+    {
+      "cardId": "persona-004",
+      "categoryId": "persona",
+      "cardName": "飲食店の省人化・非接触サービス",
+      "description": "人件費高騰と感染症対策。配膳・調理補助ロボットへの関心",
+      "longDescription": "飲食業界は人手不足と人件費高騰、さらに感染症対策も求められる。配膳ロボットや調理補助ロボットにより、省人化と衛生管理を両立したい。",
+      "scores": {
+        "feasibility": 80,
+        "cost": 85,
+        "marketNeed": 85,
+        "differentiation": 80
+      }
+    },
+    {
+      "cardId": "competitor-001",
+      "categoryId": "competitor",
+      "cardName": "産業用ロボット大手（FANUC、安川電機）",
+      "description": "実績豊富だが高価格。カスタマイズに時間がかかる",
+      "longDescription": "長年の実績と信頼性を持つが、システム全体で数千万円規模の投資が必要。導入からカスタマイズまで半年～1年かかることも。",
+      "scores": {
+        "feasibility": 95,
+        "cost": 40,
+        "marketNeed": 80,
+        "differentiation": 60
+      }
+    },
+    {
+      "cardId": "competitor-002",
+      "categoryId": "competitor",
+      "cardName": "サービスロボット（Pepper、NAO）",
+      "description": "接客特化だが実用性に課題。エンタメ性は高い",
+      "longDescription": "接客や受付に特化したヒューマノイドロボット。話題性は高いが、実務における作業効率や耐久性に課題がある。",
+      "scores": {
+        "feasibility": 75,
+        "cost": 70,
+        "marketNeed": 60,
+        "differentiation": 90
+      }
+    },
+    {
+      "cardId": "competitor-003",
+      "categoryId": "competitor",
+      "cardName": "協働ロボット（Universal Robots）",
+      "description": "安全性高く導入しやすい。海外製で保守に不安",
+      "longDescription": "人と同じ空間で安全に作業できる協働ロボット。導入しやすい価格帯だが、海外製のため保守対応や日本語サポートに不安がある。",
+      "scores": {
+        "feasibility": 85,
+        "cost": 75,
+        "marketNeed": 85,
+        "differentiation": 70
+      }
+    },
+    {
+      "cardId": "competitor-004",
+      "categoryId": "competitor",
+      "cardName": "AGV・AMR（無人搬送ロボット）",
+      "description": "物流特化で実績あり。システム全体の導入コスト高",
+      "longDescription": "倉庫や工場内の搬送に特化した自律走行ロボット。実績は豊富だが、インフラ整備を含めると初期投資が大きい。",
+      "scores": {
+        "feasibility": 90,
+        "cost": 60,
+        "marketNeed": 90,
+        "differentiation": 65
+      }
+    },
+    {
+      "cardId": "partner-001",
+      "categoryId": "partner",
+      "cardName": "AI・画像認識企業",
+      "description": "物体認識、動作予測などのAI技術を提供",
+      "longDescription": "ディープラーニングによる画像認識、物体検出、動作予測など、ロボットの知能化に必要なAI技術を提供。",
+      "scores": {
+        "feasibility": 85,
+        "cost": 70,
+        "marketNeed": 90,
+        "differentiation": 85
+      }
+    },
+    {
+      "cardId": "partner-002",
+      "categoryId": "partner",
+      "cardName": "センサー・アクチュエーターメーカー",
+      "description": "高精度センサーやモーター等のハードウェア供給",
+      "longDescription": "力覚センサー、距離センサー、高トルクモーターなど、ロボットの動作に必要な高品質なハードウェアコンポーネントを供給。",
+      "scores": {
+        "feasibility": 90,
+        "cost": 80,
+        "marketNeed": 85,
+        "differentiation": 75
+      }
+    },
+    {
+      "cardId": "partner-003",
+      "categoryId": "partner",
+      "cardName": "クラウド・IoTプラットフォーム企業",
+      "description": "ロボット稼働データの収集・分析基盤を提供",
+      "longDescription": "複数台のロボットから稼働データを収集し、クラウド上で分析・可視化。予知保全や運用最適化を実現するプラットフォームを提供。",
+      "scores": {
+        "feasibility": 80,
+        "cost": 75,
+        "marketNeed": 80,
+        "differentiation": 80
+      }
+    },
+    {
+      "cardId": "partner-004",
+      "categoryId": "partner",
+      "cardName": "システムインテグレーター",
+      "description": "既存システムとの連携、導入支援を担当",
+      "longDescription": "顧客の既存システム（生産管理、在庫管理など）とロボットを連携させるシステム統合と、導入後の運用サポートを提供。",
+      "scores": {
+        "feasibility": 85,
+        "cost": 70,
+        "marketNeed": 85,
+        "differentiation": 70
+      }
+    },
+    {
+      "cardId": "team-001",
+      "categoryId": "team_skill",
+      "cardName": "機械設計・制御技術",
+      "description": "ロボットアームやフレーム設計、モーター制御の専門知識",
+      "longDescription": "ロボットの機構設計、3D CADによるモデリング、PID制御などのモーター制御技術、動力学シミュレーションのスキル。",
+      "scores": {
+        "feasibility": 90,
+        "cost": 85,
+        "marketNeed": 85,
+        "differentiation": 80
+      }
+    },
+    {
+      "cardId": "team-002",
+      "categoryId": "team_skill",
+      "cardName": "AI・機械学習エンジニア",
+      "description": "画像認識、動作学習、最適化アルゴリズムの開発スキル",
+      "longDescription": "TensorFlow/PyTorchを使った深層学習、強化学習によるロボット制御、コンピュータビジョンの実装スキル。",
+      "scores": {
+        "feasibility": 85,
+        "cost": 75,
+        "marketNeed": 95,
+        "differentiation": 90
+      }
+    },
+    {
+      "cardId": "team-003",
+      "categoryId": "team_skill",
+      "cardName": "組み込みソフトウェア開発",
+      "description": "リアルタイムOS、センサー制御プログラミング",
+      "longDescription": "C/C++による組み込み開発、リアルタイムOS（FreeRTOS等）の経験、センサーデータ処理、通信プロトコル実装のスキル。",
+      "scores": {
+        "feasibility": 90,
+        "cost": 80,
+        "marketNeed": 85,
+        "differentiation": 75
+      }
+    },
+    {
+      "cardId": "team-004",
+      "categoryId": "team_skill",
+      "cardName": "ロボティクス研究・ROS",
+      "description": "最新のロボット技術、ROSを使った開発経験",
+      "longDescription": "ROS（Robot Operating System）を使ったロボット開発、SLAM、経路計画、ナビゲーション、マニピュレーションなど最新技術の知見。",
+      "scores": {
+        "feasibility": 85,
+        "cost": 70,
+        "marketNeed": 90,
+        "differentiation": 85
+      }
+    }
+  ],
+  
+  "inputFields": [
+    {
+      "fieldId": "solution_name",
+      "fieldName": "ソリューション名",
+      "fieldType": "text",
+      "description": "提案するロボットソリューションの名称",
+      "placeholder": "例: スマート配膳ロボット「Waiter-AI」",
+      "required": true,
+      "validation": {
+        "maxLength": 100
+      },
+      "displayOrder": 1,
+      "helpText": "覚えやすく、魅力的な名称を考えてください"
+    },
+    {
+      "fieldId": "your_value",
+      "fieldName": "あなたの付加価値",
+      "fieldType": "textarea",
+      "description": "あなた個人が提供できる独自の強みや専門性",
+      "placeholder": "例: 飲食業界での5年の営業経験と、店舗オペレーションの深い理解。導入後の運用支援も可能。",
+      "required": true,
+      "validation": {
+        "minLength": 50,
+        "maxLength": 500
+      },
+      "displayOrder": 2,
+      "helpText": "具体的なスキル、経験、ネットワークなどを記載"
+    },
+    {
+      "fieldId": "budget",
+      "fieldName": "想定予算（万円）",
+      "fieldType": "number",
+      "description": "初期導入コストの想定",
+      "placeholder": "1000",
+      "required": false,
+      "validation": {
+        "min": 100,
+        "max": 10000
+      },
+      "displayOrder": 3,
+      "helpText": "ロボット本体 + システム構築 + 導入支援の総額"
+    },
+    {
+      "fieldId": "period",
+      "fieldName": "開発期間（ヶ月）",
+      "fieldType": "number",
+      "description": "プロトタイプ完成までの期間",
+      "placeholder": "6",
+      "required": false,
+      "validation": {
+        "min": 3,
+        "max": 24
+      },
+      "displayOrder": 4,
+      "helpText": "調査・設計・開発・テストまでの期間"
+    }
+  ],
+  
+  "evaluationCriteria": [
+    {
+      "criteriaId": "feasibility",
+      "criteriaName": "技術的実現可能性",
+      "description": "現在の技術で実現できるか",
+      "weight": 0.3,
+      "maxScore": 100
+    },
+    {
+      "criteriaId": "cost",
+      "criteriaName": "コスト競争力",
+      "description": "競合と比べて価格的優位性があるか",
+      "weight": 0.3,
+      "maxScore": 100
+    },
+    {
+      "criteriaId": "marketNeed",
+      "criteriaName": "市場ニーズとの適合",
+      "description": "顧客課題を本当に解決できるか",
+      "weight": 0.25,
+      "maxScore": 100
+    },
+    {
+      "criteriaId": "differentiation",
+      "criteriaName": "差別化ポイント",
+      "description": "競合にはない独自の強みがあるか",
+      "weight": 0.15,
+      "maxScore": 100
+    }
+  ],
+  
+  "outputPromptTemplate": "あなたは{role}です。\n以下の情報に基づいて、実践的な{outputType}を作成してください。\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【要求事項】\n1. 顧客課題を明確に把握し、解決策を提示すること\n2. 競合との差別化ポイントを明確にすること\n3. パートナーとの協業により実現可能なソリューションであること\n4. チームの技術力とユーザーの付加価値を最大限活かすこと\n5. 具体的な実装方法と期待効果を示すこと\n\n【提案書の構成】\n1. エグゼクティブサマリー\n2. 顧客課題の分析\n3. 競合分析と差別化戦略\n4. 提案ソリューションの概要\n5. 技術的アプローチ（パートナー活用を含む）\n6. チーム体制と役割分担\n7. 実装計画とマイルストーン\n8. コスト試算\n9. 期待される効果\n\nマークダウン形式で、読みやすく構造化して出力してください。",
+  
+  "evaluationPromptTemplate": "あなたは公平な評価者です。\n以下のロボットソリューション提案書を評価基準に基づいて評価してください。\n\n【提案書】\n{output}\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【評価基準】\n{criteria}\n\n【評価方法】\n1. 各評価基準について0-100点で採点\n2. 採点理由を簡潔に説明（100-200文字）\n3. 改善提案を3つ挙げる\n4. JSON形式で返答\n\n返答形式:\n{\n  \"scores\": {\n    \"技術的実現可能性\": 85,\n    \"コスト競争力\": 90,\n    \"市場ニーズとの適合\": 80,\n    \"差別化ポイント\": 75\n  },\n  \"reasons\": {\n    \"技術的実現可能性\": \"理由...\",\n    \"コスト競争力\": \"理由...\",\n    \"市場ニーズとの適合\": \"理由...\",\n    \"差別化ポイント\": \"理由...\"\n  },\n  \"improvements\": [\n    \"改善提案1\",\n    \"改善提案2\",\n    \"改善提案3\"\n  ],\n  \"overallScore\": 82,\n  \"feedback\": \"総合的なフィードバック（200-300文字）\"\n}",
+  
+  "guidelines": [
+    "ロボット技術の最新トレンドを考慮すること",
+    "顧客の現場に即した実用的な提案であること",
+    "Make or Buyの判断を明確にすること",
+    "チームの強みとパートナーの強みを組み合わせること"
+  ],
+  
+  "requirements": [
+    "具体的で実行可能な提案であること",
+    "コストと効果のバランスが取れていること",
+    "競合との明確な差別化ポイントがあること",
+    "技術的に実現可能であること"
+  ],
+  
+  "outputStructure": [
+    "エグゼクティブサマリー",
+    "顧客課題の分析",
+    "競合分析と差別化戦略",
+    "提案ソリューションの概要",
+    "技術的アプローチ",
+    "実装計画",
+    "期待される効果"
+  ]
+}
