@@ -132,13 +132,14 @@ class OutputGenerator {
   
   /**
    * 成果物生成（AI呼び出し）
+   * 注: 現在はモックAPIを使用（クレジット節約のため）
    */
   async generate() {
     const prompt = this.buildPrompt();
     
     try {
-      // Vercel Serverless Function経由でClaude API呼び出し
-      const response = await fetch('/api/generate', {
+      // Vercel Serverless Function経由でClaude API呼び出し（モック版）
+      const response = await fetch('/api/generate-mock', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
