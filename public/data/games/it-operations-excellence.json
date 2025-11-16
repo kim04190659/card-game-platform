@@ -1,0 +1,562 @@
+{
+  "gameId": "it-operations-excellence",
+  "gameName": "IT運用エクセレンスゲーム",
+  "description": "BIGLOBE事例で学ぶ運用標準化",
+  "version": "1.0.0",
+  "author": "木村好孝",
+  
+  "cardCategories": [
+    {
+      "categoryId": "persona",
+      "categoryName": "自分の立場・経験",
+      "description": "あなたの現在の立場と経験レベルを選んでください",
+      "minSelect": 1,
+      "maxSelect": 1,
+      "displayOrder": 1
+    },
+    {
+      "categoryId": "challenge",
+      "categoryName": "解決したい運用課題",
+      "description": "現在直面している運用課題を選んでください",
+      "minSelect": 1,
+      "maxSelect": 2,
+      "displayOrder": 2
+    },
+    {
+      "categoryId": "approach",
+      "categoryName": "改善アプローチ",
+      "description": "実施したい改善施策を選んでください",
+      "minSelect": 1,
+      "maxSelect": 3,
+      "displayOrder": 3
+    }
+  ],
+  
+  "cards": [
+    {
+      "cardId": "persona-001",
+      "categoryId": "persona",
+      "cardName": "新人運用担当者（経験1-2年）",
+      "description": "運用業務を開始して1-2年の担当者",
+      "longDescription": "システム運用の基礎業務を担当。監視業務、インシデント対応、定型作業が中心。上司や先輩のサポートを受けながら業務を遂行。運用の全体像を把握し、自律的に業務を進められるようになることが目標。",
+      "imageUrl": "/images/cards/it-ops-persona-001.png",
+      "scores": {
+        "experience": 20,
+        "autonomy": 30,
+        "technical": 40
+      },
+      "metadata": {
+        "tags": ["新人", "基礎", "サポート必要"],
+        "skillLevel": "初級"
+      }
+    },
+    {
+      "cardId": "persona-002",
+      "categoryId": "persona",
+      "cardName": "中堅運用エンジニア（経験3-7年）",
+      "description": "運用の中核を担う3-7年の経験者",
+      "longDescription": "日常的な運用業務を自律的に遂行可能。障害対応のリーダーとして判断・指示ができる。運用プロセスの改善提案や、後輩の育成も担当。次のステップとして、運用全体の最適化や標準化に取り組みたい段階。",
+      "imageUrl": "/images/cards/it-ops-persona-002.png",
+      "scores": {
+        "experience": 60,
+        "autonomy": 70,
+        "technical": 70
+      },
+      "metadata": {
+        "tags": ["中堅", "リーダー候補", "改善提案"],
+        "skillLevel": "中級"
+      }
+    },
+    {
+      "cardId": "persona-003",
+      "categoryId": "persona",
+      "cardName": "ベテラン運用エンジニア（経験8年以上）",
+      "description": "豊富な経験を持つ8年以上のベテラン",
+      "longDescription": "あらゆる運用業務に精通し、複雑な障害対応も単独で可能。過去の経験から運用の勘所を理解し、属人化しがちな暗黙知を多く保有。その知見を形式知化し、チーム全体で共有することが課題。",
+      "imageUrl": "/images/cards/it-ops-persona-003.png",
+      "scores": {
+        "experience": 90,
+        "autonomy": 95,
+        "technical": 85
+      },
+      "metadata": {
+        "tags": ["ベテラン", "暗黙知保有", "形式知化必要"],
+        "skillLevel": "上級"
+      }
+    },
+    {
+      "cardId": "persona-004",
+      "categoryId": "persona",
+      "cardName": "運用マネージャー",
+      "description": "運用チームを統括するマネージャー",
+      "longDescription": "運用チーム全体の管理責任者。要員配置、予算管理、SLA管理を担当。経営層への報告も行う。現場の課題を把握しつつ、運用の標準化・効率化を推進し、コスト最適化とサービス品質向上を両立させることがミッション。",
+      "imageUrl": "/images/cards/it-ops-persona-004.png",
+      "scores": {
+        "experience": 80,
+        "management": 90,
+        "strategic": 85
+      },
+      "metadata": {
+        "tags": ["マネージャー", "予算管理", "SLA"],
+        "skillLevel": "管理職"
+      }
+    },
+    {
+      "cardId": "persona-005",
+      "categoryId": "persona",
+      "cardName": "ITILエキスパート",
+      "description": "ITIL/ITSMの専門知識を持つエキスパート",
+      "longDescription": "ITIL v3/v4やITSMフレームワークに精通。インシデント管理、変更管理、構成管理などのプロセス設計と実装経験が豊富。運用の標準化・体系化において国際標準を活用し、実効性のあるプロセスを構築できる。",
+      "imageUrl": "/images/cards/it-ops-persona-005.png",
+      "scores": {
+        "experience": 85,
+        "framework": 95,
+        "process": 90
+      },
+      "metadata": {
+        "tags": ["ITIL", "プロセス設計", "国際標準"],
+        "skillLevel": "エキスパート"
+      }
+    },
+    {
+      "cardId": "persona-006",
+      "categoryId": "persona",
+      "cardName": "グローバル運用経験者",
+      "description": "多拠点・多言語環境での運用経験者",
+      "longDescription": "グローバル規模での24/365運用体制の構築・運営経験を持つ。タイムゾーンをまたぐチーム連携、文化的差異を考慮したコミュニケーション、グローバルスタンダードへの準拠など、複雑な環境での運用マネジメントが可能。",
+      "imageUrl": "/images/cards/it-ops-persona-006.png",
+      "scores": {
+        "experience": 85,
+        "global": 95,
+        "communication": 90
+      },
+      "metadata": {
+        "tags": ["グローバル", "多拠点", "24/365"],
+        "skillLevel": "グローバル"
+      }
+    },
+    {
+      "cardId": "challenge-001",
+      "categoryId": "challenge",
+      "cardName": "インシデント多発・対応の属人化",
+      "description": "障害が頻発し、特定の人しか対応できない",
+      "longDescription": "年間数千件のインシデントが発生しているが、対応手順が標準化されておらず、ベテラン頼みの状況。担当者不在時の対応遅延が発生し、SLA違反のリスクが高い。インシデント管理プロセスの確立と、対応手順の文書化が急務。",
+      "imageUrl": "/images/cards/it-ops-challenge-001.png",
+      "scores": {
+        "urgency": 90,
+        "impact": 85,
+        "complexity": 70
+      },
+      "metadata": {
+        "tags": ["インシデント", "属人化", "SLA違反リスク"],
+        "category": "プロセス課題"
+      }
+    },
+    {
+      "cardId": "challenge-002",
+      "categoryId": "challenge",
+      "cardName": "監視体制の不備",
+      "description": "監視の抜け漏れや誤検知が多い",
+      "longDescription": "監視ツールは導入されているが、監視設定が適切でなく、重要な異常を見逃したり、逆に誤検知が多発してアラート疲れが発生。監視の5つの視点（主体・対象・タイミング・しきい値・即時対応性）での体系化が必要。",
+      "imageUrl": "/images/cards/it-ops-challenge-002.png",
+      "scores": {
+        "urgency": 85,
+        "impact": 80,
+        "complexity": 75
+      },
+      "metadata": {
+        "tags": ["監視", "誤検知", "体系化"],
+        "category": "技術課題"
+      }
+    },
+    {
+      "cardId": "challenge-003",
+      "categoryId": "challenge",
+      "cardName": "変更管理・構成管理の欠如",
+      "description": "変更作業の管理が不十分で障害を誘発",
+      "longDescription": "システム変更時の事前申請や影響範囲確認が徹底されておらず、変更作業が原因の障害が多発。また、現在のシステム構成が正確に把握できず、迅速な原因究明や影響範囲の特定ができない。CMDB構築と変更管理プロセスの確立が必要。",
+      "imageUrl": "/images/cards/it-ops-challenge-003.png",
+      "scores": {
+        "urgency": 85,
+        "impact": 90,
+        "complexity": 80
+      },
+      "metadata": {
+        "tags": ["変更管理", "構成管理", "CMDB"],
+        "category": "プロセス課題"
+      }
+    },
+    {
+      "cardId": "challenge-004",
+      "categoryId": "challenge",
+      "cardName": "セキュリティリスクの増大",
+      "description": "セキュリティ対策が後手に回っている",
+      "longDescription": "脆弱性対応やパッチ適用が遅延し、セキュリティリスクが増大。ゼロトラストアーキテクチャへの移行も進んでおらず、内部脅威への対策も不十分。セキュリティ運用の強化とガバナンス体制の整備が急務。",
+      "imageUrl": "/images/cards/it-ops-challenge-004.png",
+      "scores": {
+        "urgency": 95,
+        "impact": 95,
+        "complexity": 85
+      },
+      "metadata": {
+        "tags": ["セキュリティ", "脆弱性", "ゼロトラスト"],
+        "category": "セキュリティ課題"
+      }
+    },
+    {
+      "cardId": "challenge-005",
+      "categoryId": "challenge",
+      "cardName": "自動化の遅れ",
+      "description": "手作業が多く、効率が悪い",
+      "longDescription": "定型作業の多くが手作業で行われており、人的ミスが発生しやすく、運用コストも高い。Infrastructure as Code（IaC）やCI/CDの導入が進んでおらず、運用の効率化が遅れている。RPA/ワークフロー自動化の推進が必要。",
+      "imageUrl": "/images/cards/it-ops-challenge-005.png",
+      "scores": {
+        "urgency": 75,
+        "impact": 70,
+        "complexity": 65
+      },
+      "metadata": {
+        "tags": ["自動化", "RPA", "IaC"],
+        "category": "効率化課題"
+      }
+    },
+    {
+      "cardId": "challenge-006",
+      "categoryId": "challenge",
+      "cardName": "マルチクラウド運用の複雑化",
+      "description": "複数クラウドの運用が煩雑で統制が取れない",
+      "longDescription": "AWS、Azure、GCPなど複数のクラウドを利用しているが、それぞれ個別に管理されており、統合的な運用ができていない。コスト管理も複雑で、最適化が困難。マルチクラウド統合管理基盤の構築が必要。",
+      "imageUrl": "/images/cards/it-ops-challenge-006.png",
+      "scores": {
+        "urgency": 80,
+        "impact": 75,
+        "complexity": 85
+      },
+      "metadata": {
+        "tags": ["マルチクラウド", "統合管理", "コスト最適化"],
+        "category": "クラウド課題"
+      }
+    },
+    {
+      "cardId": "challenge-007",
+      "categoryId": "challenge",
+      "cardName": "データ管理の混乱",
+      "description": "データ品質が低く、活用できていない",
+      "longDescription": "マスターデータの重複や不整合が多く、データ品質が低い。データ連携基盤も整備されておらず、システム間のデータ統合が困難。AI活用に向けたデータ整備も進んでいない。MDMとデータ統合基盤の構築が必要。",
+      "imageUrl": "/images/cards/it-ops-challenge-007.png",
+      "scores": {
+        "urgency": 70,
+        "impact": 75,
+        "complexity": 80
+      },
+      "metadata": {
+        "tags": ["データ品質", "MDM", "データ統合"],
+        "category": "データ課題"
+      }
+    },
+    {
+      "cardId": "challenge-008",
+      "categoryId": "challenge",
+      "cardName": "チーム間の連携不足",
+      "description": "開発・運用・ビジネス部門の連携が悪い",
+      "longDescription": "開発チームと運用チームの連携が不十分で、リリース後の運用負荷が高い。ビジネス部門との意思疎通も不足し、真の要求が理解できていない。DevOps/BizDevOpsの実践と、コラボレーション基盤の整備が必要。",
+      "imageUrl": "/images/cards/it-ops-challenge-008.png",
+      "scores": {
+        "urgency": 75,
+        "impact": 70,
+        "complexity": 70
+      },
+      "metadata": {
+        "tags": ["連携", "DevOps", "コラボレーション"],
+        "category": "組織課題"
+      }
+    },
+    {
+      "cardId": "approach-001",
+      "categoryId": "approach",
+      "cardName": "ITIL/ITSM導入",
+      "description": "国際標準フレームワークによる運用プロセス確立",
+      "longDescription": "ITIL v4またはITSMフレームワークを導入し、インシデント管理、変更管理、構成管理、サービスレベル管理などのプロセスを体系的に整備。ServiceNow等のITSMツールを活用し、運用プロセスの標準化と可視化を実現。",
+      "imageUrl": "/images/cards/it-ops-approach-001.png",
+      "scores": {
+        "effectiveness": 90,
+        "difficulty": 75,
+        "cost": 70
+      },
+      "metadata": {
+        "tags": ["ITIL", "プロセス標準化", "ServiceNow"],
+        "category": "フレームワーク"
+      }
+    },
+    {
+      "cardId": "approach-002",
+      "categoryId": "approach",
+      "cardName": "統合監視基盤構築",
+      "description": "監視の5つの視点での体系化と統合",
+      "longDescription": "Datadog、Splunk等の統合監視ツールを導入し、監視の5つの視点（主体・対象・タイミング・しきい値・即時対応性）で体系的に設計。ログ収集・分析、パフォーマンス監視、異常検知を統合し、ダッシュボードで可視化。",
+      "imageUrl": "/images/cards/it-ops-approach-002.png",
+      "scores": {
+        "effectiveness": 85,
+        "difficulty": 70,
+        "cost": 75
+      },
+      "metadata": {
+        "tags": ["監視", "Datadog", "可視化"],
+        "category": "監視・分析"
+      }
+    },
+    {
+      "cardId": "approach-003",
+      "categoryId": "approach",
+      "cardName": "運用自動化（RPA/IaC）",
+      "description": "定型作業の自動化による効率化",
+      "longDescription": "RPAツールによる定型業務の自動化、Infrastructure as Code（Ansible、Terraform）による構成管理の自動化、CI/CDパイプラインの構築により、手作業を削減し、人的ミスを防止。段階的にNo-Opsを目指す。",
+      "imageUrl": "/images/cards/it-ops-approach-003.png",
+      "scores": {
+        "effectiveness": 85,
+        "difficulty": 65,
+        "cost": 60
+      },
+      "metadata": {
+        "tags": ["自動化", "RPA", "IaC"],
+        "category": "効率化"
+      }
+    },
+    {
+      "cardId": "approach-004",
+      "categoryId": "approach",
+      "cardName": "CMDB（構成管理DB）整備",
+      "description": "システム構成の正確な把握と管理",
+      "longDescription": "Configuration Management Database（CMDB）を構築し、全てのIT資産とその関係性を正確に管理。変更作業時の影響範囲分析、障害時の原因究明を迅速化。自動検出ツールとの連携により、常に最新の構成情報を維持。",
+      "imageUrl": "/images/cards/it-ops-approach-004.png",
+      "scores": {
+        "effectiveness": 80,
+        "difficulty": 80,
+        "cost": 70
+      },
+      "metadata": {
+        "tags": ["CMDB", "構成管理", "資産管理"],
+        "category": "プロセス"
+      }
+    },
+    {
+      "cardId": "approach-005",
+      "categoryId": "approach",
+      "cardName": "AIを活用した運用高度化",
+      "description": "AI/MLによる予兆監視と自動対応",
+      "longDescription": "AIを活用した異常検知、障害予兆監視、自動復旧を実現。生成AIによる運用ナレッジの検索・活用、チャットボットによる問い合わせ対応自動化。AIOps（AI for IT Operations）の段階的導入。",
+      "imageUrl": "/images/cards/it-ops-approach-005.png",
+      "scores": {
+        "effectiveness": 90,
+        "difficulty": 85,
+        "cost": 80
+      },
+      "metadata": {
+        "tags": ["AI", "AIOps", "予兆監視"],
+        "category": "先進技術"
+      }
+    },
+    {
+      "cardId": "approach-006",
+      "categoryId": "approach",
+      "cardName": "セキュリティ運用強化",
+      "description": "ゼロトラストとCSIRT体制構築",
+      "longDescription": "ゼロトラストアーキテクチャの実装、脆弱性管理プロセスの確立、セキュリティインシデント対応体制（CSIRT）の構築。NonHumanIDの管理強化、AIセキュリティ（AIガードレール）の導入により、総合的なセキュリティ運用を実現。",
+      "imageUrl": "/images/cards/it-ops-approach-006.png",
+      "scores": {
+        "effectiveness": 95,
+        "difficulty": 85,
+        "cost": 75
+      },
+      "metadata": {
+        "tags": ["セキュリティ", "ゼロトラスト", "CSIRT"],
+        "category": "セキュリティ"
+      }
+    },
+    {
+      "cardId": "approach-007",
+      "categoryId": "approach",
+      "cardName": "データ統合基盤構築",
+      "description": "MDMとデータ品質管理の実装",
+      "longDescription": "マスターデータ管理（MDM）の導入、データ品質管理プロセスの確立、データ連携基盤の構築により、データの一元管理と品質向上を実現。AI活用に向けたデータ整備（AI-Ready化）を推進。",
+      "imageUrl": "/images/cards/it-ops-approach-007.png",
+      "scores": {
+        "effectiveness": 80,
+        "difficulty": 80,
+        "cost": 75
+      },
+      "metadata": {
+        "tags": ["MDM", "データ品質", "データ統合"],
+        "category": "データ管理"
+      }
+    },
+    {
+      "cardId": "approach-008",
+      "categoryId": "approach",
+      "cardName": "チームスキル向上プログラム",
+      "description": "継続学習とスキル認定制度の導入",
+      "longDescription": "運用チームの体系的なスキルアップ計画を策定。オンライン学習プラットフォームの活用、資格取得支援（ITIL、AWS、Azure等）、定期的な技術勉強会の開催。スキルマトリクスによる可視化と、個人の成長支援。",
+      "imageUrl": "/images/cards/it-ops-approach-008.png",
+      "scores": {
+        "effectiveness": 75,
+        "difficulty": 60,
+        "cost": 50
+      },
+      "metadata": {
+        "tags": ["人材育成", "スキルアップ", "資格"],
+        "category": "人材・組織"
+      }
+    },
+    {
+      "cardId": "approach-009",
+      "categoryId": "approach",
+      "cardName": "ドキュメント・ナレッジ体系化",
+      "description": "運用のホワイトボックス化",
+      "longDescription": "運用手順書の体系的な整備、ナレッジベース（Confluence等）の構築、暗黙知の形式知化を推進。ベテランの経験やノウハウを文書化し、検索可能な形で全員が活用できる環境を整備。運用のホワイトボックス化を実現。",
+      "imageUrl": "/images/cards/it-ops-approach-009.png",
+      "scores": {
+        "effectiveness": 80,
+        "difficulty": 65,
+        "cost": 55
+      },
+      "metadata": {
+        "tags": ["ドキュメント", "ナレッジ", "形式知化"],
+        "category": "ナレッジ管理"
+      }
+    },
+    {
+      "cardId": "approach-010",
+      "categoryId": "approach",
+      "cardName": "クラウド運用最適化",
+      "description": "マルチクラウド統合管理とコスト最適化",
+      "longDescription": "マルチクラウド統合管理基盤の構築、コスト可視化と最適化、FinOpsの実践。各クラウドの特性を活かしたワークロード配置、統合監視、統一的なセキュリティポリシーの適用により、効率的なマルチクラウド運用を実現。",
+      "imageUrl": "/images/cards/it-ops-approach-010.png",
+      "scores": {
+        "effectiveness": 85,
+        "difficulty": 80,
+        "cost": 70
+      },
+      "metadata": {
+        "tags": ["マルチクラウド", "コスト最適化", "FinOps"],
+        "category": "クラウド"
+      }
+    }
+  ],
+  
+  "inputFields": [
+    {
+      "fieldId": "project_name",
+      "fieldName": "プロジェクト名",
+      "fieldType": "text",
+      "description": "運用改善プロジェクトの名称",
+      "placeholder": "例: ITIL導入プロジェクト",
+      "required": true,
+      "validation": {
+        "maxLength": 100
+      },
+      "displayOrder": 1
+    },
+    {
+      "fieldId": "my_skills",
+      "fieldName": "自分のスキル・経験",
+      "fieldType": "textarea",
+      "description": "あなたが持っているスキルや経験を具体的に記入してください",
+      "placeholder": "例: Linuxサーバ運用5年、Python自動化スクリプト作成可能、AWS基礎知識あり、ITIL Foundation取得済み",
+      "required": true,
+      "validation": {
+        "minLength": 50,
+        "maxLength": 500
+      },
+      "displayOrder": 2
+    },
+    {
+      "fieldId": "current_operation",
+      "fieldName": "現在の運用体制",
+      "fieldType": "textarea",
+      "description": "現在のチーム構成や運用規模を記入してください",
+      "placeholder": "例: 5名チーム、24/365体制、サーバ200台規模、監視ツールはZabbix、手作業が多く属人化が課題",
+      "required": true,
+      "validation": {
+        "minLength": 50,
+        "maxLength": 500
+      },
+      "displayOrder": 3
+    },
+    {
+      "fieldId": "budget",
+      "fieldName": "予算規模（万円）",
+      "fieldType": "number",
+      "description": "このプロジェクトに投入できる予算",
+      "placeholder": "例: 1000",
+      "required": true,
+      "validation": {
+        "min": 10,
+        "max": 100000
+      },
+      "displayOrder": 4
+    },
+    {
+      "fieldId": "duration",
+      "fieldName": "実施期間（月数）",
+      "fieldType": "number",
+      "description": "プロジェクトの実施期間",
+      "placeholder": "例: 12",
+      "required": true,
+      "validation": {
+        "min": 1,
+        "max": 60
+      },
+      "displayOrder": 5
+    },
+    {
+      "fieldId": "goals",
+      "fieldName": "達成したい目標",
+      "fieldType": "textarea",
+      "description": "このプロジェクトで達成したい具体的な目標を記入してください",
+      "placeholder": "例: インシデント対応時間を50%短縮、運用コスト20%削減、SLA達成率95%→99%に向上",
+      "required": true,
+      "validation": {
+        "minLength": 30,
+        "maxLength": 500
+      },
+      "displayOrder": 6
+    }
+  ],
+  
+  "evaluationCriteria": [
+    {
+      "criteriaId": "feasibility",
+      "criteriaName": "実現可能性",
+      "description": "技術的・組織的に実現可能か、リソース・期間・予算は妥当か",
+      "weight": 0.3,
+      "maxScore": 100
+    },
+    {
+      "criteriaId": "effectiveness",
+      "criteriaName": "効果",
+      "description": "運用品質向上、コスト削減、業務効率化の効果はどの程度期待できるか",
+      "weight": 0.3,
+      "maxScore": 100
+    },
+    {
+      "criteriaId": "cost_efficiency",
+      "criteriaName": "コスト効率",
+      "description": "投資対効果（ROI）は妥当か、費用対効果は高いか",
+      "weight": 0.2,
+      "maxScore": 100
+    },
+    {
+      "criteriaId": "innovation",
+      "criteriaName": "革新性",
+      "description": "新しいアプローチや技術の導入、業界のベストプラクティスの活用度",
+      "weight": 0.2,
+      "maxScore": 100
+    }
+  ],
+  
+  "outputTemplate": {
+    "template": "IT運用改善提案書",
+    "guidelines": "木村好孝の35年のIT運用経験に基づくガイドライン:\n\n【エクセレントサービスの実現】\n- 顧客視点での卓越したサービス提供を最優先\n- 24時間365日の安定運用へのコミットメント\n- サービス継続性と品質の追求\n\n【運用のホワイトボックス化】\n- 暗黙知を形式知化し、誰もが理解できる形に\n- 属人化を排除し、チーム全体で対応可能な体制\n- ドキュメント化とナレッジ共有の徹底\n\n【ITIL/SIAMの活用】\n- 国際標準フレームワークを実践的に活用\n- プロセスの標準化と体系化\n- 継続的改善サイクル（PDCA）の確立\n\n【実現可能性重視】\n- 絵に描いた餅ではなく、実装可能な提案\n- 段階的アプローチ（Quick Wins + 中長期施策）\n- リソース・予算・期間の現実的な見積もり\n\n【BIGLOBEでの実践知見】\n- 大規模ISP運用（数千台規模）での経験\n- 監視の5つの視点での体系化\n- 年間1万件のインシデント管理プロセス\n- BRM（構成管理システム）の実装\n- 変更管理の徹底（全作業の事前登録）",
+    "systemPrompt": "あなたは35年のIT運用経験を持つエキスパートです。BIGLOBE、NEC Cloud IaaSでの大規模運用実績があり、ITIL/SIAMの国際標準に精通しています。「エクセレントサービスの実現」を最上位の目的とし、運用の標準化・自動化・ホワイトボックス化を推進してきました。実践的で実現可能な運用改善提案を作成してください。"
+  }
+}

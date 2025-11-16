@@ -3,14 +3,29 @@
     {
       "id": "city-dx",
       "name": "自治体DX推進ゲーム",
-      "description": "人口30万人規模の地方中核市をモデルに、スマートシティ構想を立案",
-      "file": "city-dx.json"
+      "description": "地方中核市のスマートシティ構想を立案",
+      "file": "city-dx.json",
+      "version": "1.0.0",
+      "author": "木村好孝",
+      "tags": ["自治体", "DX", "スマートシティ"]
     },
     {
       "id": "robot-solution",
       "name": "ロボットソリューション創出ゲーム",
-      "description": "ロボット開発企業の視点で、顧客課題に対する最適なソリューションを提案する",
-      "file": "robot-solution.json"
+      "description": "ロボット開発企業の視点で顧客課題を解決",
+      "file": "robot-solution.json",
+      "version": "1.0.0",
+      "author": "木村好孝",
+      "tags": ["ロボット", "製造業", "ソリューション"]
+    },
+    {
+      "id": "it-operations-excellence",
+      "name": "IT運用エクセレンスゲーム",
+      "description": "BIGLOBE事例で学ぶ運用標準化",
+      "file": "it-operations-excellence.json",
+      "version": "1.0.0",
+      "author": "木村好孝",
+      "tags": ["IT運用", "ITIL", "SIAM", "運用標準化"]
     }
   ]
 }

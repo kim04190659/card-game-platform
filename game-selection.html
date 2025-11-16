@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ゲーム選択 - カードゲーム基盤</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <!-- ヘッダー -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-gray-800 mb-2">カードゲーム基盤システム</h1>
+      <p class="text-gray-600">ゲームを選択してください</p>
+    </div>
+
+    <!-- ゲーム一覧 -->
+    <div id="game-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <!-- 動的に生成されます -->
+    </div>
+
+    <!-- ローディング表示 -->
+    <div id="loading" class="text-center py-12">
+      <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <p class="mt-4 text-gray-600">ゲーム一覧を読み込み中...</p>
+    </div>
+
+    <!-- エラー表示 -->
+    <div id="error" class="hidden max-w-2xl mx-auto mt-8 p-6 bg-red-50 border border-red-200 rounded-lg">
+      <h3 class="text-red-800 font-semibold mb-2">エラーが発生しました</h3>
+      <p id="error-message" class="text-red-600"></p>
+      <button onclick="location.reload()" class="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+        再読み込み
+      </button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { GameManager } from './js/GameManager.js';
+    import { AuthManager } from './js/AuthManager.js';
+
+    // 認証チェック
+    if (!AuthManager.isAuthenticated()) {
+      window.location.href = './access-key.html';
+    }
+
+    const gameManager = new GameManager();
+    const gameListElement = document.getElementById('game-list');
+    const loadingElement = document.getElementById('loading');
+    const errorElement = document.getElementById('error');
+    const errorMessageElement = document.getElementById('error-message');
+
+    /**
+     * ゲーム一覧を読み込んで表示
+     */
+    async function loadGames() {
+      try {
+        loadingElement.classList.remove('hidden');
+        gameListElement.innerHTML = '';
+        errorElement.classList.add('hidden');
+
+        // games.jsonからゲーム一覧を読み込み
+        const games = await gameManager.loadGamesList();
+
+        loadingElement.classList.add('hidden');
+
+        if (!games || games.length === 0) {
+          throw new Error('利用可能なゲームがありません');
+        }
+
+        // ゲームカードを生成
+        games.forEach(game => {
+          const gameCard = createGameCard(game);
+          gameListElement.appendChild(gameCard);
+        });
+
+      } catch (error) {
+        console.error('ゲーム一覧の読み込みエラー:', error);
+        loadingElement.classList.add('hidden');
+        errorElement.classList.remove('hidden');
+        errorMessageElement.textContent = error.message || 'ゲーム一覧の読み込みに失敗しました';
+      }
+    }
+
+    /**
+     * ゲームカードを作成
+     */
+    function createGameCard(game) {
+      const card = document.createElement('div');
+      card.className = 'bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer overflow-hidden';
+      card.onclick = () => selectGame(game.id);
+
+      card.innerHTML = `
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold text-gray-800 mb-2">${escapeHtml(game.name)}</h3>
+              <p class="text-gray-600 text-sm">${escapeHtml(game.description)}</p>
+            </div>
+            <div class="ml-4">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </div>
+          
+          ${game.tags ? `
+            <div class="flex flex-wrap gap-2 mt-4">
+              ${game.tags.map(tag => `
+                <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
+                  ${escapeHtml(tag)}
+                </span>
+              `).join('')}
+            </div>
+          ` : ''}
+          
+          ${game.version ? `
+            <div class="mt-4 text-xs text-gray-500">
+              バージョン: ${escapeHtml(game.version)}
+            </div>
+          ` : ''}
+        </div>
+        
+        <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-gray-600">作成者: ${escapeHtml(game.author || '木村好孝')}</span>
+            <button class="text-blue-600 hover:text-blue-800 font-medium">
+              開始 →
+            </button>
+          </div>
+        </div>
+      `;
+
+      return card;
+    }
+
+    /**
+     * ゲーム選択処理
+     */
+    async function selectGame(gameId) {
+      try {
+        // ゲームデータを読み込み
+        await gameManager.loadGame(gameId);
+        
+        // カード選択画面へ遷移
+        window.location.href = './card-selection.html';
+        
+      } catch (error) {
+        console.error('ゲーム読み込みエラー:', error);
+        alert('ゲームの読み込みに失敗しました: ' + error.message);
+      }
+    }
+
+    /**
+     * HTMLエスケープ
+     */
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // ページ読み込み時にゲーム一覧を表示
+    loadGames();
+  </script>
+</body>
+</html>
