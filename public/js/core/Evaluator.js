@@ -104,13 +104,14 @@ class Evaluator {
   
   /**
    * 評価実施（AI呼び出し）
+   * 注: 現在はモックAPIを使用（クレジット節約のため）
    */
   async evaluate() {
     const prompt = this.buildEvaluationPrompt();
     
     try {
-      // Vercel Serverless Function経由でClaude API呼び出し
-      const response = await fetch('/api/evaluate', {
+      // Vercel Serverless Function経由でClaude API呼び出し（モック版）
+      const response = await fetch('/api/evaluate-mock', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
