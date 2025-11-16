@@ -1,0 +1,16 @@
+{
+  "games": [
+    {
+      "id": "city-dx",
+      "name": "自治体DX推進ゲーム",
+      "description": "人口30万人規模の地方中核市をモデルに、スマートシティ構想を立案",
+      "file": "city-dx.json"
+    },
+    {
+      "id": "robot-solution",
+      "name": "ロボットソリューション創出ゲーム",
+      "description": "ロボット開発企業の視点で、顧客課題に対する最適なソリューションを提案する",
+      "file": "robot-solution.json"
+    }
+  ]
+}
