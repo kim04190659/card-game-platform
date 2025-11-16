@@ -127,14 +127,20 @@ class Evaluator {
       }
       
       const data = await response.json();
-      
-      // レスポンスからJSON部分を抽出
-      const jsonMatch = data.content.match(/\{[\s\S]*\}/);
-      if (!jsonMatch) {
-        throw new Error('評価結果のパースに失敗しました');
+
+      // モックモードとAPIモードの両方に対応
+      let evaluation;
+      if (data.mockMode) {
+        // モックAPIからの直接のJSONレスポンス
+        evaluation = data;
+      } else {
+        // 実際のAPIからのテキストレスポンス内のJSON抽出
+        const jsonMatch = data.content.match(/\{[\s\S]*\}/);
+        if (!jsonMatch) {
+          throw new Error('評価結果のパースに失敗しました');
+        }
+        evaluation = JSON.parse(jsonMatch[0]);
       }
-      
-      const evaluation = JSON.parse(jsonMatch[0]);
       
       // バリデーション
       this.validateEvaluation(evaluation);

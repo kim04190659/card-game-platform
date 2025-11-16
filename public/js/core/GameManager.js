@@ -24,8 +24,8 @@ class GameManager {
       const gameList = [
         { id: 'city-dx', name: '自治体DX推進ゲーム', file: 'city-dx.json' },
         { id: 'robot-solution', name: 'ロボットソリューション創出ゲーム', file: 'robot-solution.json' },
+        { id: 'it-operations-excellence', name: 'IT運用エクセレンスゲーム', file: 'it-operations-excellence.json' },
         // 将来追加予定
-        // { id: 'it-operations', name: 'IT運用エクセレンス', file: 'it-operations.json' },
         // { id: 'sales-support', name: '営業支援ソリューション', file: 'sales-support.json' }
       ];
 
