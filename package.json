@@ -9,7 +9,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo 'No build step'",
-    "deploy": "vercel --prod"
+    "deploy": "vercel --prod",
+    "validate": "node tools/validate-game.js",
+    "validate-all": "node tools/validate-all-games.js"
   },
   "repository": {
     "type": "git",

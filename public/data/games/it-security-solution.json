@@ -1,0 +1,396 @@
+{
+  "gameId": "it-security-solution",
+  "gameName": "ITセキュリティソリューション創出ゲーム",
+  "description": "企業のセキュリティ課題を理解し、チームでソリューションを提案する実践的なビジネス体験",
+  "version": "1.0.0",
+  "author": "木村好孝",
+
+  "role": "経験豊富なITセキュリティコンサルタント",
+  "outputType": "ITセキュリティソリューション提案書",
+
+  "outputPromptTemplate": "あなたは{role}です。以下の経験を持っています：\n- 大規模インターネットサービス（BIGLOBE）でのセキュリティ運用経験\n- 国際標準（ITIL/SIAM）に基づくセキュリティ管理\n- 製造業、金融、医療など多様な業界への対応経験\n- 技術とビジネスの両面からのアプローチ\n\n以下の情報に基づいて、実践的な{outputType}を作成してください。\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【重要な視点】\n1. セキュリティは「技術」だけでなく「人・プロセス」も重要\n2. 顧客の業界特性を理解する（製造業と金融では全く違う）\n3. Make or Buyの判断（自社開発 vs パートナー活用）\n4. 段階的な実施（一度にすべてやらない）\n5. 経営層への説明（ROI、リスク低減の定量化）\n\n【木村好孝の知見】\n- 35年のIT運用経験\n- ITIL/SIAMの国際標準\n- BIGLOBEでの大規模運用\n- エクセレントサービスの追求\n\n【提案書の構成】\n1. エグゼクティブサマリー\n2. 顧客課題の分析\n3. 市場・競合分析\n4. 提案ソリューション\n5. 技術構成\n6. パートナー体制\n7. 実施計画（フェーズ分け）\n8. 投資対効果（ROI）\n9. リスクと対策\n\n実現可能性を最優先し、具体的な数値目標と段階的な実施計画を含めてください。",
+
+  "guidelines": [
+    "実現可能性を最優先すること",
+    "業界特性を理解した提案をすること",
+    "技術・人・プロセスの三位一体で考えること",
+    "段階的な実施計画を明示すること",
+    "ROIとリスクを定量化すること"
+  ],
+
+  "requirements": [
+    "顧客企業の業界特性を反映すること",
+    "選択した技術要素の組み合わせを説明すること",
+    "パートナー企業との協業体制を明確にすること",
+    "予算と期間の制約を考慮すること",
+    "競合企業の分析を含めること"
+  ],
+
+  "outputStructure": [
+    "エグゼクティブサマリー",
+    "顧客課題の分析",
+    "市場・競合分析",
+    "提案ソリューション",
+    "技術構成",
+    "パートナー体制",
+    "実施計画",
+    "投資対効果",
+    "リスクと対策"
+  ],
+
+  "evaluationPromptTemplate": "あなたは公平な評価者です。\n以下の{outputType}を評価基準に基づいて評価してください。\n\n【{outputType}】\n{output}\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【評価基準】\n{criteria}\n\n【評価方法】\n1. 各評価基準について0-100点で採点\n2. 採点理由を簡潔に説明（100-200文字）\n3. 改善提案を3つ挙げる\n4. 以下のJSON形式で返答してください：\n\n{\n  \"scores\": {\n    \"technical_feasibility\": 85,\n    \"customer_fit\": 90,\n    \"competitiveness\": 80,\n    \"practicality\": 85\n  },\n  \"reasons\": {\n    \"technical_feasibility\": \"理由...\",\n    \"customer_fit\": \"理由...\",\n    \"competitiveness\": \"理由...\",\n    \"practicality\": \"理由...\"\n  },\n  \"improvements\": [\n    \"改善提案1\",\n    \"改善提案2\",\n    \"改善提案3\"\n  ],\n  \"overallScore\": 85,\n  \"feedback\": \"総合的なフィードバック\"\n}",
+
+  "cardCategories": [
+    {
+      "categoryId": "persona",
+      "categoryName": "ペルソナ（顧客企業）",
+      "description": "セキュリティソリューションを提供する対象企業",
+      "minSelect": 1,
+      "maxSelect": 1,
+      "displayOrder": 1
+    },
+    {
+      "categoryId": "security_challenge",
+      "categoryName": "セキュリティ課題",
+      "description": "解決すべきセキュリティの課題",
+      "minSelect": 1,
+      "maxSelect": 2,
+      "displayOrder": 2
+    },
+    {
+      "categoryId": "competitor",
+      "categoryName": "競合・参考企業",
+      "description": "市場調査の対象となる企業（この分野で何が起きているかを知る）",
+      "minSelect": 1,
+      "maxSelect": 2,
+      "displayOrder": 3
+    },
+    {
+      "categoryId": "partner",
+      "categoryName": "パートナー企業",
+      "description": "協業する企業（自社だけでは無理、誰と組む？）",
+      "minSelect": 1,
+      "maxSelect": 2,
+      "displayOrder": 4
+    },
+    {
+      "categoryId": "technology",
+      "categoryName": "技術・ソリューション要素",
+      "description": "提供する技術やサービス（何を作る？何を提供する？）",
+      "minSelect": 1,
+      "maxSelect": 3,
+      "displayOrder": 5
+    }
+  ],
+
+  "cards": [
+    {
+      "cardId": "persona-001",
+      "categoryId": "persona",
+      "cardName": "製造業（従業員500名）",
+      "description": "工場のIoT機器が増加、サイバー攻撃のリスク増大。生産ライン停止は絶対回避。予算：中規模（年間3,000万円程度）",
+      "icon": "🏭"
+    },
+    {
+      "cardId": "persona-002",
+      "categoryId": "persona",
+      "cardName": "金融機関（地方銀行）",
+      "description": "顧客情報の保護が最優先。規制対応が厳格、高い信頼性が必要。予算：大規模（年間1億円以上）",
+      "icon": "🏦"
+    },
+    {
+      "cardId": "persona-003",
+      "categoryId": "persona",
+      "cardName": "医療機関（総合病院）",
+      "description": "電子カルテ、医療機器のセキュリティ。24時間365日の稼働が必須。予算：中規模（年間5,000万円程度）",
+      "icon": "🏥"
+    },
+    {
+      "cardId": "persona-004",
+      "categoryId": "persona",
+      "cardName": "EC事業者（スタートアップ）",
+      "description": "急成長中、セキュリティ体制が未整備。スピード重視、柔軟な対応が必要。予算：小規模（年間1,000万円程度）",
+      "icon": "🛒"
+    },
+    {
+      "cardId": "challenge-001",
+      "categoryId": "security_challenge",
+      "cardName": "ランサムウェア対策",
+      "description": "データの暗号化攻撃への対策、バックアップ体制の強化",
+      "icon": "🔒"
+    },
+    {
+      "cardId": "challenge-002",
+      "categoryId": "security_challenge",
+      "cardName": "内部不正対策",
+      "description": "従業員による情報漏洩の防止、アクセス権限の適切な管理",
+      "icon": "👤"
+    },
+    {
+      "cardId": "challenge-003",
+      "categoryId": "security_challenge",
+      "cardName": "標的型攻撃（APT）対策",
+      "description": "特定企業を狙った高度な攻撃への対策、早期発見と被害最小化",
+      "icon": "🎯"
+    },
+    {
+      "cardId": "challenge-004",
+      "categoryId": "security_challenge",
+      "cardName": "クラウドセキュリティ",
+      "description": "クラウド環境での情報保護、マルチクラウド環境の統合管理",
+      "icon": "☁️"
+    },
+    {
+      "cardId": "challenge-005",
+      "categoryId": "security_challenge",
+      "cardName": "IoT/OTセキュリティ",
+      "description": "工場の制御システム、医療機器の保護、レガシーシステムとの共存",
+      "icon": "🤖"
+    },
+    {
+      "cardId": "challenge-006",
+      "categoryId": "security_challenge",
+      "cardName": "ゼロトラストアーキテクチャ",
+      "description": "境界防御からゼロトラストへの移行、リモートワーク環境のセキュリティ",
+      "icon": "🛡️"
+    },
+    {
+      "cardId": "competitor-001",
+      "categoryId": "competitor",
+      "cardName": "トレンドマイクロ",
+      "description": "ウイルス対策、エンドポイントセキュリティの大手。日本市場に強い",
+      "icon": "🔴"
+    },
+    {
+      "cardId": "competitor-002",
+      "categoryId": "competitor",
+      "cardName": "パロアルトネットワークス",
+      "description": "次世代ファイアウォールのリーダー。先進的な技術",
+      "icon": "🟠"
+    },
+    {
+      "cardId": "competitor-003",
+      "categoryId": "competitor",
+      "cardName": "CrowdStrike",
+      "description": "クラウドネイティブなエンドポイント保護。AI活用、リアルタイム検知",
+      "icon": "🦅"
+    },
+    {
+      "cardId": "competitor-004",
+      "categoryId": "competitor",
+      "cardName": "Splunk",
+      "description": "セキュリティ情報・イベント管理（SIEM）。ログ分析、可視化",
+      "icon": "📊"
+    },
+    {
+      "cardId": "competitor-005",
+      "categoryId": "competitor",
+      "cardName": "ラック（LAC）",
+      "description": "日本のセキュリティ専門企業。コンサルティング、SOC運用",
+      "icon": "🇯🇵"
+    },
+    {
+      "cardId": "competitor-006",
+      "categoryId": "competitor",
+      "cardName": "NRIセキュアテクノロジーズ",
+      "description": "野村総合研究所のセキュリティ子会社。金融機関に強い",
+      "icon": "🏛️"
+    },
+    {
+      "cardId": "partner-001",
+      "categoryId": "partner",
+      "cardName": "クラウドベンダー（AWS/Azure/GCP）",
+      "description": "クラウド基盤の提供。スケーラビリティ、最新技術",
+      "icon": "☁️"
+    },
+    {
+      "cardId": "partner-002",
+      "categoryId": "partner",
+      "cardName": "SIer（大手システムインテグレーター）",
+      "description": "システム構築、運用支援。既存システムとの統合",
+      "icon": "🏢"
+    },
+    {
+      "cardId": "partner-003",
+      "categoryId": "partner",
+      "cardName": "SOC事業者（24時間監視）",
+      "description": "セキュリティ運用センターの提供。専門人材、24/365監視",
+      "icon": "👁️"
+    },
+    {
+      "cardId": "partner-004",
+      "categoryId": "partner",
+      "cardName": "コンサルティングファーム",
+      "description": "セキュリティ戦略の立案。経営層への説得力",
+      "icon": "💼"
+    },
+    {
+      "cardId": "partner-005",
+      "categoryId": "partner",
+      "cardName": "ハードウェアベンダー",
+      "description": "セキュリティ機器の提供。高性能、信頼性",
+      "icon": "🖥️"
+    },
+    {
+      "cardId": "partner-006",
+      "categoryId": "partner",
+      "cardName": "教育研修企業",
+      "description": "セキュリティ教育、訓練。人材育成、意識向上",
+      "icon": "📚"
+    },
+    {
+      "cardId": "tech-001",
+      "categoryId": "technology",
+      "cardName": "次世代ファイアウォール（NGFW）",
+      "description": "アプリケーション制御、侵入防止",
+      "icon": "🔥"
+    },
+    {
+      "cardId": "tech-002",
+      "categoryId": "technology",
+      "cardName": "エンドポイント検知・応答（EDR）",
+      "description": "端末の異常検知、自動対応",
+      "icon": "💻"
+    },
+    {
+      "cardId": "tech-003",
+      "categoryId": "technology",
+      "cardName": "セキュリティ情報・イベント管理（SIEM）",
+      "description": "ログ統合分析、可視化",
+      "icon": "📈"
+    },
+    {
+      "cardId": "tech-004",
+      "categoryId": "technology",
+      "cardName": "ゼロトラスト認証基盤",
+      "description": "多要素認証、条件付きアクセス",
+      "icon": "🔐"
+    },
+    {
+      "cardId": "tech-005",
+      "categoryId": "technology",
+      "cardName": "脅威インテリジェンス",
+      "description": "最新の攻撃情報の収集・分析",
+      "icon": "🕵️"
+    },
+    {
+      "cardId": "tech-006",
+      "categoryId": "technology",
+      "cardName": "セキュリティ診断・ペネトレーションテスト",
+      "description": "脆弱性の発見、リスク評価",
+      "icon": "🔍"
+    },
+    {
+      "cardId": "tech-007",
+      "categoryId": "technology",
+      "cardName": "インシデント対応サービス",
+      "description": "被害発生時の緊急対応",
+      "icon": "🚨"
+    },
+    {
+      "cardId": "tech-008",
+      "categoryId": "technology",
+      "cardName": "セキュリティ人材育成プログラム",
+      "description": "従業員教育、訓練",
+      "icon": "👨‍🎓"
+    }
+  ],
+
+  "inputFields": [
+    {
+      "fieldId": "solution_name",
+      "fieldName": "ソリューション名",
+      "fieldType": "text",
+      "description": "提案するセキュリティソリューションの名称を入力してください",
+      "placeholder": "例: SecureShield 統合セキュリティソリューション",
+      "required": true,
+      "validation": {
+        "maxLength": 100
+      },
+      "displayOrder": 1
+    },
+    {
+      "fieldId": "team_strength",
+      "fieldName": "チームの強み・技術",
+      "fieldType": "textarea",
+      "description": "あなたのチームが持つ技術力や経験を記入してください",
+      "placeholder": "例: ネットワークセキュリティの専門知識、クラウド構築経験3年、CISSP保有者2名",
+      "required": true,
+      "validation": {
+        "minLength": 50,
+        "maxLength": 500
+      },
+      "displayOrder": 2,
+      "helpText": "具体的なスキル、資格、経験年数を記載してください"
+    },
+    {
+      "fieldId": "budget",
+      "fieldName": "提案予算（万円）",
+      "fieldType": "number",
+      "description": "提案するソリューションの予算を入力してください",
+      "placeholder": "例: 3000",
+      "required": true,
+      "validation": {
+        "min": 100,
+        "max": 50000
+      },
+      "displayOrder": 3,
+      "helpText": "初期投資の金額を万円単位で入力"
+    },
+    {
+      "fieldId": "duration",
+      "fieldName": "導入期間（ヶ月）",
+      "fieldType": "number",
+      "description": "ソリューション導入に必要な期間を入力してください",
+      "placeholder": "例: 12",
+      "required": true,
+      "validation": {
+        "min": 3,
+        "max": 36
+      },
+      "displayOrder": 4,
+      "helpText": "設計から本番稼働までの期間"
+    },
+    {
+      "fieldId": "differentiation",
+      "fieldName": "差別化ポイント",
+      "fieldType": "textarea",
+      "description": "競合他社と比較した際の優位性を記入してください",
+      "placeholder": "例: 既存システムとの統合性、24時間サポート体制、業界特化型の知見",
+      "required": true,
+      "validation": {
+        "minLength": 50,
+        "maxLength": 300
+      },
+      "displayOrder": 5,
+      "helpText": "なぜ顧客は競合ではなくあなたのチームを選ぶべきか"
+    }
+  ],
+
+  "evaluationCriteria": [
+    {
+      "criteriaId": "technical_feasibility",
+      "criteriaName": "技術的実現性",
+      "description": "提案技術が実現可能か、チームのスキルで対応できるか",
+      "weight": 0.3
+    },
+    {
+      "criteriaId": "customer_fit",
+      "criteriaName": "顧客ニーズ適合",
+      "description": "顧客企業の課題を解決できるか、業界特性を理解しているか",
+      "weight": 0.25
+    },
+    {
+      "criteriaId": "competitiveness",
+      "criteriaName": "競争力",
+      "description": "競合と比較して優位性があるか、パートナー選定が適切か",
+      "weight": 0.25
+    },
+    {
+      "criteriaId": "practicality",
+      "criteriaName": "実行可能性",
+      "description": "予算・期間が現実的か、段階的な実施計画があるか",
+      "weight": 0.2
+    }
+  ]
+}

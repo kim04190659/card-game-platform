@@ -111,22 +111,28 @@ class Evaluator {
     
     try {
       // Vercel Serverless Function経由でClaude API呼び出し（モック版）
+      console.log('Evaluator: gameId =', this.game.gameId);
+
       const response = await fetch('/api/evaluate-mock', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           prompt,
           gameId: this.game.gameId  // ゲームIDを追加
         })
       });
-      
-      if (!response.ok) {
-        throw new Error(`API呼び出しエラー: ${response.status}`);
-      }
-      
+
+      console.log('Evaluator: response status =', response.status);
+
       const data = await response.json();
+      console.log('Evaluator: response data =', data);
+
+      if (!response.ok) {
+        const errorMsg = data.message || data.error || `HTTP ${response.status}`;
+        throw new Error(`API呼び出しエラー: ${errorMsg}`);
+      }
 
       // モックモードとAPIモードの両方に対応
       let evaluation;
