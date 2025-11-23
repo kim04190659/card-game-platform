@@ -103,17 +103,34 @@ class Evaluator {
   }
   
   /**
+   * モック/本番API切り替え判定
+   */
+  shouldUseMock() {
+    // LocalStorageで制御（デフォルトはモック）
+    const useMock = localStorage.getItem('use_mock_api');
+    if (useMock === 'false') {
+      console.log('🔴 本番API使用中（課金あり）');
+      return false;  // 本番API使用
+    }
+    console.log('🟢 モックAPI使用中（無料）');
+    return true;  // モック使用
+  }
+
+  /**
    * 評価実施（AI呼び出し）
    * 注: 現在はモックAPIを使用（クレジット節約のため）
    */
   async evaluate() {
     const prompt = this.buildEvaluationPrompt();
-    
+
     try {
-      // Vercel Serverless Function経由でClaude API呼び出し（モック版）
+      // モード判定してAPIエンドポイントを選択
+      const apiEndpoint = this.shouldUseMock() ? '/api/evaluate-mock' : '/api/evaluate';
+
+      // Vercel Serverless Function経由でClaude API呼び出し
       console.log('Evaluator: gameId =', this.game.gameId);
 
-      const response = await fetch('/api/evaluate-mock', {
+      const response = await fetch(apiEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -147,12 +164,12 @@ class Evaluator {
         }
         evaluation = JSON.parse(jsonMatch[0]);
       }
-      
+
       // バリデーション
       this.validateEvaluation(evaluation);
-      
+
       return evaluation;
-      
+
     } catch (error) {
       console.error('評価エラー:', error);
       throw error;
