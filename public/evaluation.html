@@ -587,7 +587,15 @@
         // 成果物と評価結果をクリア
         sessionStorage.removeItem('generatedOutput');
         sessionStorage.removeItem('evaluation');
-        window.location.href = '/card-selection.html';
+
+        // ゲームIDを取得してURLパラメータとして渡す
+        const gameData = JSON.parse(sessionStorage.getItem('currentGameData'));
+        if (gameData && gameData.id) {
+          window.location.href = `/card-selection.html?id=${gameData.id}`;
+        } else {
+          // ゲームデータがない場合はゲーム選択画面へ
+          window.location.href = '/game-selection.html';
+        }
       }
     }
 
