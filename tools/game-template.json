@@ -1,0 +1,138 @@
+{
+  "_comment": "新ゲーム作成用テンプレート - このファイルをコピーして使用してください",
+
+  "gameId": "template",
+  "gameName": "新ゲームテンプレート",
+  "description": "新しいゲームの説明をここに記述",
+  "version": "1.0.0",
+  "author": "作成者名",
+
+  "role": "あなたの役割（例: ビジネスコンサルタント）",
+  "outputType": "生成する成果物の種類（例: 提案書）",
+
+  "outputPromptTemplate": "あなたは{role}です。\n以下の情報に基づいて、{outputType}を作成してください。\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【要求事項】\n具体的で実行可能な提案を作成してください。",
+
+  "guidelines": [
+    "実践的な内容にすること",
+    "具体的な提案を含めること"
+  ],
+
+  "requirements": [
+    "ユーザーの入力を活かすこと",
+    "実現可能性を考慮すること"
+  ],
+
+  "outputStructure": [
+    "概要",
+    "詳細",
+    "まとめ"
+  ],
+
+  "evaluationPromptTemplate": "あなたは公平な評価者です。\n以下の{outputType}を評価基準に基づいて評価してください。\n\n【{outputType}】\n{output}\n\n【評価基準】\n{criteria}\n\n【評価方法】\n各評価基準について0-100点で採点し、JSON形式で返答してください。",
+
+  "cardCategories": [
+    {
+      "categoryId": "persona",
+      "categoryName": "ペルソナ",
+      "description": "対象となるユーザー像",
+      "minSelect": 1,
+      "maxSelect": 1,
+      "displayOrder": 1
+    },
+    {
+      "categoryId": "challenge",
+      "categoryName": "解決したい課題",
+      "description": "取り組む課題",
+      "minSelect": 1,
+      "maxSelect": 2,
+      "displayOrder": 2
+    }
+  ],
+
+  "cards": [
+    {
+      "cardId": "persona-001",
+      "categoryId": "persona",
+      "cardName": "ペルソナ例1",
+      "description": "ペルソナの説明",
+      "icon": "👤"
+    },
+    {
+      "cardId": "persona-002",
+      "categoryId": "persona",
+      "cardName": "ペルソナ例2",
+      "description": "別のペルソナの説明",
+      "icon": "👥"
+    },
+    {
+      "cardId": "challenge-001",
+      "categoryId": "challenge",
+      "cardName": "課題例1",
+      "description": "解決すべき課題の説明",
+      "icon": "⚠️"
+    },
+    {
+      "cardId": "challenge-002",
+      "categoryId": "challenge",
+      "cardName": "課題例2",
+      "description": "別の課題の説明",
+      "icon": "🎯"
+    }
+  ],
+
+  "inputFields": [
+    {
+      "fieldId": "project_name",
+      "fieldName": "プロジェクト名",
+      "fieldType": "text",
+      "description": "プロジェクトの名称を入力してください",
+      "placeholder": "例: 新規サービス開発",
+      "required": true,
+      "validation": {
+        "maxLength": 100
+      },
+      "displayOrder": 1
+    },
+    {
+      "fieldId": "description",
+      "fieldName": "プロジェクト概要",
+      "fieldType": "textarea",
+      "description": "プロジェクトの概要を記入してください",
+      "placeholder": "例: 新しいサービスを開発し、市場に投入する",
+      "required": true,
+      "validation": {
+        "minLength": 50,
+        "maxLength": 500
+      },
+      "displayOrder": 2
+    },
+    {
+      "fieldId": "budget",
+      "fieldName": "予算（万円）",
+      "fieldType": "number",
+      "description": "予算を入力してください",
+      "placeholder": "例: 1000",
+      "required": true,
+      "validation": {
+        "min": 0,
+        "max": 100000
+      },
+      "displayOrder": 3
+    }
+  ],
+
+  "evaluationCriteria": [
+    {
+      "criteriaId": "feasibility",
+      "criteriaName": "実現可能性",
+      "description": "技術的・予算的に実現可能か",
+      "weight": 0.5
+    },
+    {
+      "criteriaId": "innovation",
+      "criteriaName": "革新性",
+      "description": "新しい価値を提供できるか",
+      "weight": 0.5
+    }
+  ]
+}
