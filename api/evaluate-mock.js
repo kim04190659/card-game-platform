@@ -1,9 +1,12 @@
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  try {
+    if (req.method !== 'POST') {
+      return res.status(405).json({ error: 'Method not allowed' });
+    }
 
-  const { gameId } = req.body;
+    console.log('evaluate-mock.js: Request body:', req.body);
+    const { gameId } = req.body;
+    console.log('evaluate-mock.js: gameId:', gameId);
 
   // ゲームIDに応じたモック評価
   const mockEvaluations = {
@@ -76,7 +79,16 @@ export default async function handler(req, res) {
     }
   };
 
-  const evaluation = mockEvaluations[gameId] || mockEvaluations['city-dx'];
+    const evaluation = mockEvaluations[gameId] || mockEvaluations['city-dx'];
+    console.log('evaluate-mock.js: Returning evaluation for gameId:', gameId);
 
-  return res.status(200).json(evaluation);
+    return res.status(200).json(evaluation);
+  } catch (error) {
+    console.error('evaluate-mock.js: Error:', error);
+    return res.status(500).json({
+      error: 'Internal server error',
+      message: error.message,
+      stack: error.stack
+    });
+  }
 }
