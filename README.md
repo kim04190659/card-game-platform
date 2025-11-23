@@ -1,305 +1,181 @@
 # カードゲーム基盤ソフトウェア
 
-## 📖 プロジェクト概要
+## 概要
+設定ファイル（JSON）を変更するだけで、様々なテーマ・業界に対応したカードゲームを提供できる汎用教育プラットフォーム。
 
-教育・コンサルティング用の**汎用カードゲーム基盤システム**です。
+## 特徴
+- ✅ **汎用性**: JSONファイルで新ゲーム追加（コード変更不要）
+- ✅ **AI連携**: Claude Sonnet 4.5による成果物生成・評価
+- ✅ **品質保証**: 自動バリデーションツール
+- ✅ **コスト管理**: モック/本番API切り替え機能
+- ✅ **認証機能**: アクセスキーによる利用制限
 
-### コンセプト
+## 実装済みゲーム（4種類）
+1. **自治体DX推進ゲーム**: スマートシティ構想の立案
+2. **ロボットソリューション創出ゲーム**: 製造業のロボット活用
+3. **IT運用エクセレンスゲーム**: ITIL/SIAM実践
+4. **ITセキュリティソリューション創出ゲーム**: 企業のセキュリティ課題解決
 
-設定ファイル（JSON）を変更するだけで、様々な業界・テーマに対応したカードゲームを提供できる汎用基盤を構築。
-```
-【基盤ソフトウェア】
-    ↓
-設定ファイル（JSON）でカスタマイズ
-    ↓
-【各種カードゲーム】
-- IT運用版
-- 営業支援版
-- 自治体DX版
-- その他
-```
+## 技術スタック
+- **フロントエンド**: HTML5, CSS3, Vanilla JavaScript
+- **バックエンド**: Vercel Serverless Functions (Node.js 18.x)
+- **AI**: Anthropic Claude API (Sonnet 4.5)
+- **ホスティング**: Vercel
+- **バージョン管理**: Git / GitHub
 
-### 主要な特徴
-
-- 🎮 **汎用性**: 設定ファイルで様々なゲームに対応
-- 🔧 **拡張性**: カード、評価基準、入力項目を自由に追加
-- 🤖 **AI連携**: 成果物生成と評価にClaude APIを活用
-- 📚 **教育性**: 体験を通じた学びを提供
-- 💼 **実践性**: 実務に即した成果物を生成
-
----
-
-## 🎯 実装済みゲーム
-
-現在、以下の2つのゲームが実装されています：
-
-### 1. 自治体DX推進ゲーム
-
-**テーマ**: 人口30万人規模の地方中核市をモデルに、スマートシティ構想を立案
-
-**ゲームID**: `city-dx`
-
-**カテゴリ**:
-- 自治体の特徴（ペルソナ）
-- 解決したい課題
-- 導入するソリューション
-
-**評価基準**:
-- 実現可能性（30%）
-- 住民メリット（30%）
-- 持続可能性（20%）
-- 革新性（20%）
-
----
-
-### 2. ロボットソリューション創出ゲーム
-
-**テーマ**: ロボット開発企業の視点で、顧客課題に対する最適なソリューションを提案
-
-**ゲームID**: `robot-solution`
-
-**カテゴリ**:
-- ペルソナ（顧客と課題）
-- 競合
-- パートナー
-- チームのジョブ
-
-**評価基準**:
-- 技術的実現可能性（30%）
-- コスト競争力（30%）
-- 市場ニーズとの適合（25%）
-- 差別化ポイント（15%）
-
----
-
-## 🏗️ システム構成
-
-### 技術スタック
-
-| レイヤー | 技術 |
-|---------|------|
-| **フロントエンド** | HTML5, CSS3, JavaScript (Vanilla) |
-| **バックエンド** | Vercel Serverless Functions |
-| **AI** | Anthropic Claude API (claude-sonnet-4) |
-| **ホスティング** | Vercel |
-| **バージョン管理** | Git + GitHub |
-
-### ファイル構造
+## プロジェクト構成
 ```
 card-game-platform/
-├── public/
-│   ├── index.html                  # トップページ
-│   ├── access-key.html             # 認証画面
-│   ├── game-selection.html         # ゲーム選択
-│   ├── card-selection.html         # カード選択
-│   ├── input.html                  # テキスト入力
-│   ├── output.html                 # 成果物表示
-│   ├── evaluation.html             # 評価結果表示
-│   ├── css/
-│   │   └── common.css              # 共通スタイル
+├── public/               # フロントエンド
+│   ├── access-key.html
+│   ├── game-selection.html
+│   ├── card-selection.html
+│   ├── input.html
+│   ├── output.html
+│   ├── evaluation.html
 │   ├── js/
-│   │   ├── core/
-│   │   │   ├── AuthManager.js      # 認証管理
-│   │   │   ├── GameManager.js      # ゲーム管理
-│   │   │   ├── InputManager.js     # 入力管理
-│   │   │   ├── OutputGenerator.js  # 成果物生成
-│   │   │   └── Evaluator.js        # 評価処理
-│   │   └── ui/
-│   │       └── AccessKeyUI.js      # 認証UI
-│   └── data/
-│       └── games/
-│           ├── games.json          # ゲーム一覧
-│           ├── city-dx.json        # 自治体DXゲーム定義
-│           └── robot-solution.json # ロボットゲーム定義
-├── api/
-│   ├── generate.js                 # AI成果物生成API
-│   ├── generate-mock.js            # モック成果物API
-│   ├── evaluate.js                 # AI評価API
-│   └── evaluate-mock.js            # モック評価API
-├── DEVELOPMENT_STATUS.md           # 開発進捗
-├── PROJECT_CONTEXT.md              # プロジェクト全体像
-├── QUICK_START_GUIDE.md            # クイックスタート
-└── README.md                       # このファイル
+│   │   ├── core/        # コアロジック
+│   │   └── ui/          # UI処理
+│   ├── css/
+│   └── data/games/      # ゲーム定義JSON
+├── api/                 # Serverless Functions
+│   ├── generate.js      # 本番API（成果物生成）
+│   ├── evaluate.js      # 本番API（評価）
+│   ├── generate-mock.js # モックAPI
+│   └── evaluate-mock.js # モックAPI
+├── tools/               # 開発ツール
+│   ├── validate-game.js
+│   ├── validate-all-games.js
+│   └── game-template.json
+└── docs/                # ドキュメント
 ```
 
----
-
-## 🚀 セットアップと起動
+## セットアップ
 
 ### 前提条件
-
-- Node.js 18以上
+- Node.js 18.x以上
 - Vercel CLI
-
-### 環境構築
-```bash
-# リポジトリクローン
-git clone https://github.com/kim04190659/card-game-platform.git
-cd card-game-platform
-
-# 依存関係のインストール
-npm install
-
-# Vercel CLIインストール（グローバル）
-npm install -g vercel
-```
+- Anthropic APIキー（本番API使用時のみ）
 
 ### ローカル開発
 ```bash
-# ローカル開発サーバー起動
+# リポジトリをクローン
+git clone https://github.com/kim04190659/card-game-platform.git
+cd card-game-platform
+
+# 依存パッケージをインストール
+npm install
+
+# 開発サーバー起動
 vercel dev
 
 # ブラウザで開く
-# http://localhost:3000/access-key.html
+open http://localhost:3000/access-key.html
 ```
 
-**アクセスキー**: `KIMURA2024`（開発用）
-
-### 画面遷移フロー
-```
-アクセスキー入力
-    ↓
-ゲーム選択（自治体DX or ロボット）
-    ↓
-カード選択（カテゴリごとに選択）
-    ↓
-テキスト入力（独自情報の追加）
-    ↓
-成果物生成（AI生成 - 現在はモック）
-    ↓
-評価実施（AI評価 - 現在はモック）
+### 環境変数（本番API使用時のみ）
+```bash
+# .env.local を作成
+ANTHROPIC_API_KEY=your_api_key_here
 ```
 
----
+## 使い方
 
-## 📋 開発ルール
+### アクセスキー
+デフォルトのアクセスキー:
+- `demo-key-2024`
+- `workshop-key-2024`
 
-### アジャイル開発方針
+### API切り替え
+- **デフォルト**: モックAPI（無料）
+- **本番API**: ゲーム選択画面右上のスイッチでON
+- **コスト**: 1ゲームあたり約$0.07
 
-- **1スプリント = 2時間程度**
-- 短いサイクルで開発→確認→改善を繰り返す
-- 各スプリットで動作する成果物を作る
+## 新ゲーム追加
 
-### Git運用ルール
-
-1. **1つの要求に対して、ファイルを1-2個ずつ変更**
-2. **変更後は必ずGitHubにPush & Commit**
-3. **確認してから次へ進む**
-
-### コミットメッセージ規約
-```
-[ADD] 新規ファイル・機能追加
-[UPDATE] 既存ファイルの修正・改善
-[FIX] バグ修正
-[DOCS] ドキュメント更新
-[INIT] プロジェクト初期化
+### 1. テンプレートをコピー
+```bash
+cp tools/game-template.json public/data/games/your-game.json
 ```
 
----
+### 2. JSONを編集
+詳細は `docs/NEW_GAME_CHECKLIST.md` を参照
 
-## ✅ 実装状況
+### 3. バリデーション
+```bash
+npm run validate public/data/games/your-game.json
+```
 
-### Phase 1: 基盤構築 ✅ 完了
-- 認証システム
-- ゲーム管理
-- カード選択ロジック
-- 入力管理
+### 4. GameManager.jsに登録
+```javascript
+const gameList = [
+  // ...
+  { id: 'your-game', name: 'あなたのゲーム名', file: 'your-game.json' }
+];
+```
 
-### Phase 2: UI実装 ✅ 完了
-- 全画面実装
-- セッション管理
-- 画面遷移
-- Vercelデプロイ
+### 5. モックAPI対応
+`api/generate-mock.js` と `api/evaluate-mock.js` に追加
 
-### Phase 3: AI連携 ✅ 完了
-- Serverless Functions
-- OutputGenerator（汎用プロンプトエンジン）
-- Evaluator（汎用評価エンジン）
-- モックAPI（クレジット節約）
+### 6. テスト
+```bash
+vercel dev
+npm run validate-all
+```
 
-### Phase 4: 複数ゲーム対応 ✅ 完了（2024-11-16）
-- games.json（ゲーム一覧管理）
-- 2つ目のゲーム追加（robot-solution）
-- ゲーム別モック切り替え
+## 開発ワークフロー
 
----
+### Phase完了状況
+- ✅ Phase 1: 基盤構築
+- ✅ Phase 2: UI実装
+- ✅ Phase 3: AI連携
+- ✅ Phase 4: 複数ゲーム対応
+- ✅ Phase 5: エラーハンドリング改善
+- ✅ Phase 6: 品質保証の仕組み構築
+- ✅ Phase 7: ITセキュリティゲーム追加
+- ✅ Phase 8: 本番API連携
 
-## 🔜 次のステップ
+### Git運用
+- `main`: 本番環境
+- `claude/*`: 開発ブランチ
 
-### オプション1: 新しいゲームの追加
-- [ ] 3つ目のゲーム設計（IT運用エクセレンス、営業支援など）
-- [ ] 新ゲーム用JSONファイル作成
-- [ ] games.jsonに登録
+## デプロイ
 
-### オプション2: 本番AI連携
-- [ ] Anthropic APIキー設定
-- [ ] 環境変数設定（Vercel）
-- [ ] generate.js / evaluate.jsの本番化
-- [ ] クレジット使用量モニタリング
+### Vercel自動デプロイ
+```bash
+git push origin main
+```
 
-### オプション3: UI/UX改善
-- [ ] レスポンシブデザイン強化
-- [ ] アニメーション追加
-- [ ] エラーハンドリング改善
+Vercelが自動的にビルド・デプロイします。
 
----
+### 本番URL
+https://card-game-platform-five.vercel.app
 
-## 📚 ドキュメント一覧
+## ドキュメント
+- [開発状況](docs/DEVELOPMENT_STATUS.md)
+- [変更履歴](CHANGELOG.md)
+- [新ゲーム作成チェックリスト](docs/NEW_GAME_CHECKLIST.md)
+- [API切り替えガイド](docs/API_SWITCHING.md)
+- [本番APIセットアップ](docs/PRODUCTION_API_SETUP.md)
 
-| ドキュメント | 説明 | 優先度 |
-|------------|------|--------|
-| **DEVELOPMENT_STATUS.md** | 開発進捗・技術的知見 | ⭐️⭐️⭐️ |
-| **PROJECT_CONTEXT.md** | プロジェクト全体像・背景 | ⭐️⭐️ |
-| **QUICK_START_GUIDE.md** | 開発再開手順 | ⭐️ |
-| カードゲーム基盤ソフトウェア_要求仕様書.md | 要求定義 | ⭐️⭐️ |
-| カードゲーム基盤ソフトウェア_システム仕様書.md | システム設計 | ⭐️⭐️ |
+## トラブルシューティング
 
----
+### よくある問題
+1. **バリデーションエラー**: `npm run validate-all` で確認
+2. **本番APIが動かない**: Vercel環境変数を確認
+3. **モックに戻らない**: ブラウザのLocalStorageをクリア
 
-## 🎓 教育・コンサルティングでの活用
+詳細は各ドキュメントを参照してください。
 
-このシステムは、以下の用途で活用されています：
+## ライセンス
+MIT License
 
-### 企業研修
-- 新入社員研修
-- リーダーシップ開発
-- DX人材育成
-- 問題解決力研修
+## 作成者
+木村好孝 × Claude
 
-### 大学教育
-- ビジネス系科目
-- アントレプレナーシップ
-- デザイン思考
-- プロジェクト型学習（PBL）
-
-### 自治体・地域
-- 自治体職員研修
-- 地域課題ワークショップ
-- 住民参加型まちづくり
+## バージョン
+v1.0.0（Phase 8完了）
 
 ---
 
-## 👤 作成者
-
-**木村好孝**
-
-- 35年のIT運用経験（NEC）
-- ITIL/SIAMの実践知見
-- 教育カードゲーム開発者
-
----
-
-## 📝 ライセンス
-
-本プロジェクトは教育・研究目的で公開されています。
-
----
-
-## 🔗 リンク
-
-- **本番環境**: https://card-game-platform-five.vercel.app
-- **GitHub**: https://github.com/kim04190659/card-game-platform
-
----
-
-**最終更新**: 2024-11-16
+最終更新: 2024-11-16
