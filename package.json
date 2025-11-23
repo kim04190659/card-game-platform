@@ -1,7 +1,7 @@
 {
   "name": "card-game-platform",
   "version": "1.0.0",
-  "description": "カードゲーム基盤ソフトウェア",
+  "description": "JSON設定で複数のカードゲームを提供できる汎用教育プラットフォーム。Claude APIによるAI成果物生成・評価機能搭載。",
   "main": "index.js",
   "directories": {
     "doc": "docs"
@@ -9,6 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo 'No build step'",
+    "dev": "vercel dev",
     "deploy": "vercel --prod",
     "validate": "node tools/validate-game.js",
     "validate-all": "node tools/validate-all-games.js"
@@ -18,9 +19,12 @@
     "url": "git+https://github.com/kim04190659/card-game-platform.git"
   },
   "keywords": [
-    "card-game",
     "education",
-    "AI"
+    "card-game",
+    "ai",
+    "claude",
+    "learning",
+    "gamification"
   ],
   "author": "木村好孝",
   "license": "MIT",
