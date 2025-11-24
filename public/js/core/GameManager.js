@@ -27,8 +27,7 @@ class GameManager {
         { id: 'it-operations-excellence', name: 'IT運用エクセレンスゲーム', file: 'it-operations-excellence.json' },
         { id: 'it-security-solution', name: 'ITセキュリティソリューション創出ゲーム', file: 'it-security-solution.json' },
         { id: 'convenience-store-dx', name: 'コンビニDX革新ゲーム', file: 'convenience-store-dx.json' },
-        // 将来追加予定
-        // { id: 'sales-support', name: '営業支援ソリューション', file: 'sales-support.json' }
+        { id: 'mobile-carrier-dx', name: '携帯キャリアDX革新ゲーム', file: 'mobile-carrier-dx.json' }
       ];
 
       // 各ゲームの設定ファイルを読み込む
