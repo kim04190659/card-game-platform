@@ -30,7 +30,8 @@ class AllGamesValidator {
       { id: 'city-dx', name: '自治体DX推進ゲーム', file: 'city-dx.json' },
       { id: 'robot-solution', name: 'ロボットソリューション創出ゲーム', file: 'robot-solution.json' },
       { id: 'it-operations-excellence', name: 'IT運用エクセレンスゲーム', file: 'it-operations-excellence.json' },
-      { id: 'it-security-solution', name: 'ITセキュリティソリューション創出ゲーム', file: 'it-security-solution.json' }
+      { id: 'it-security-solution', name: 'ITセキュリティソリューション創出ゲーム', file: 'it-security-solution.json' },
+      { id: 'convenience-store-dx', name: 'コンビニDX革新ゲーム', file: 'convenience-store-dx.json' }
     ];
   }
 

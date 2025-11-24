@@ -196,11 +196,13 @@
   <!-- コアクラス読み込み -->
   <script src="/js/core/AuthManager.js"></script>
   <script src="/js/core/GameManager.js"></script>
+  <script src="/js/core/CardShuffler.js"></script>
   
   <script>
     // グローバルインスタンス
     const authManager = new AuthManager();
     const gameManager = new GameManager();
+    const cardShuffler = new CardShuffler();
     
     // グローバル変数
     let gameData = null;
@@ -335,8 +337,19 @@
         cardsGrid.className = 'cards-grid';
         
         // GameManagerからこのカテゴリのカードを取得
-        const categoryCards = gameManager.getCards(category.categoryId);
-        
+        // シャッフル機能が有効な場合はCardShufflerを使用
+        let categoryCards;
+        if (gameData.useCardShuffle) {
+          categoryCards = cardShuffler.getShuffledCardsForCategory(
+            gameData.gameId,
+            gameData,
+            category.categoryId
+          );
+          console.log(`[Card Selection] Using shuffled cards for category: ${category.categoryId}`);
+        } else {
+          categoryCards = gameManager.getCards(category.categoryId);
+        }
+
         categoryCards.forEach(card => {
           const cardElement = document.createElement('div');
           cardElement.className = 'card-item';
