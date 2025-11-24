@@ -17,16 +17,18 @@
       
       <form id="accessKeyForm">
         <div class="form-group">
-          <input 
-            type="text" 
-            id="accessKey" 
+          <input
+            type="text"
+            id="accessKey"
             name="accessKey"
-            placeholder="XXXX-XXXX-XXXX-XXXX"
-            pattern="[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}"
+            placeholder="demo-key-2024"
             required
             autocomplete="off"
-            style="text-align: center; font-family: monospace; letter-spacing: 2px; text-transform: uppercase;"
+            style="text-align: center; font-family: monospace; letter-spacing: 1px;"
           >
+          <small style="display: block; margin-top: 8px; color: #666; text-align: center;">
+            例: demo-key-2024 または ABCD-1234-EFGH-5678
+          </small>
         </div>
         
         <div id="errorMessage" class="error-message" style="display: none;"></div>
@@ -65,22 +67,10 @@
         return;
       }
       
-      // 自動で大文字に変換 & ハイフン自動挿入
-      accessKeyInput.addEventListener('input', (e) => {
-        let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
-        
-        // 4文字ごとにハイフンを挿入
-        if (value.length > 4) {
-          value = value.match(/.{1,4}/g).join('-');
-        }
-        
-        e.target.value = value;
-      });
-      
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        const accessKey = accessKeyInput.value.trim().toUpperCase();
+
+        const accessKey = accessKeyInput.value.trim();
         
         // ローディング表示
         showLoading();
