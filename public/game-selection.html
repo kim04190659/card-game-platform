@@ -253,10 +253,17 @@
         const game = gameManager.selectGame(gameId);
         console.log('ゲームを選択しました:', game);
 
-        // 統計記録
-        const accessKey = authManager.getAccessKey();
-        const statsLogger = new StatsLogger();
-        statsLogger.logGameSelection(gameId, accessKey);
+        // 統計記録（非同期だが待たずに遷移）
+        try {
+          const accessKey = authManager.getAccessKey();
+          if (typeof StatsLogger !== 'undefined') {
+            const statsLogger = new StatsLogger();
+            statsLogger.logGameSelection(gameId, accessKey);
+          }
+        } catch (statsError) {
+          // 統計記録失敗はゲーム続行に影響しない
+          console.warn('統計記録に失敗しました:', statsError);
+        }
 
         // カード選択画面へ遷移
         window.location.href = `/card-selection.html?id=${gameId}`;
