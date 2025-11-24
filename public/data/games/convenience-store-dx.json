@@ -76,364 +76,416 @@
       "categoryId": "persona",
       "cardName": "セブン-イレブン（最大手）",
       "description": "国内店舗数No.1、プライベートブランド強化。資金力豊富、全国展開、データ活用",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 1
     },
     {
       "cardId": "persona-002",
       "categoryId": "persona",
       "cardName": "ファミリーマート（中堅バランス型）",
       "description": "UNY統合、総合力でバランス重視。幅広い商品、駅ナカ強い",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 2
     },
     {
       "cardId": "persona-003",
       "categoryId": "persona",
       "cardName": "ローソン（健康志向）",
       "description": "ナチュラルローソン、健康商品に力。ターゲット明確、差別化戦略",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 3
     },
     {
       "cardId": "persona-004",
       "categoryId": "persona",
       "cardName": "ミニストップ（イートイン型）",
       "description": "ソフトクリーム、イートイン充実。飲食強化、地方に強い",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 4
     },
     {
       "cardId": "persona-005",
       "categoryId": "persona",
       "cardName": "デイリーヤマザキ（独立系）",
       "description": "パン・乳製品に強み。独自路線、都市部中心",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 5
     },
     {
       "cardId": "persona-006",
       "categoryId": "persona",
       "cardName": "セイコーマート（地域密着）",
       "description": "北海道特化、地域密着型。独自商品、地元との連携",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 6
     },
     {
       "cardId": "persona-007",
       "categoryId": "persona",
       "cardName": "NewDays（駅ナカ特化）",
       "description": "JR東日本系列、駅構内展開。通勤客ターゲット、立地優位",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 7
     },
     {
       "cardId": "persona-008",
       "categoryId": "persona",
       "cardName": "病院内コンビニ",
       "description": "医療施設内の特殊コンビニ。健康商品、24時間ニーズ",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 8
     },
     {
       "cardId": "persona-009",
       "categoryId": "persona",
       "cardName": "大学構内コンビニ",
       "description": "キャンパス内の学生向けコンビニ。学生ニーズ、教材・文具",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 9
     },
     {
       "cardId": "persona-010",
       "categoryId": "persona",
       "cardName": "地方小規模チェーン",
       "description": "地域限定の小規模チェーン。地元密着、小回り",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 10
     },
     {
       "cardId": "persona-011",
       "categoryId": "persona",
       "cardName": "個人経営コンビニ（オーナー店）",
       "description": "フランチャイズの個人店。オーナー裁量、地域特性",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 11
     },
     {
       "cardId": "persona-012",
       "categoryId": "persona",
       "cardName": "24時間営業コンビニ",
       "description": "深夜需要に対応。人手不足が課題、防犯",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 12
     },
     {
       "cardId": "persona-013",
       "categoryId": "persona",
       "cardName": "時短営業コンビニ",
       "description": "働き方改革で営業時間短縮。オーナー負担軽減、効率重視",
-      "icon": "♠️"
+      "icon": "♠️",
+      "number": 13
     },
     {
       "cardId": "competitor-001",
       "categoryId": "competitor",
       "cardName": "Amazon Go（無人店舗）",
       "description": "レジなし店舗の先駆者。センサー技術、完全キャッシュレス",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 1
     },
     {
       "cardId": "competitor-002",
       "categoryId": "competitor",
       "cardName": "ウォルマート（米国大手小売）",
       "description": "世界最大の小売チェーン。物流効率、スケールメリット",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 2
     },
     {
       "cardId": "competitor-003",
       "categoryId": "competitor",
       "cardName": "ドン・キホーテ（激安の殿堂）",
       "description": "深夜営業、驚安価格。圧縮陳列、エンタメ性",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 3
     },
     {
       "cardId": "competitor-004",
       "categoryId": "competitor",
       "cardName": "イオン（総合スーパー）",
       "description": "食品スーパー最大手。プライベートブランド、ネットスーパー",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 4
     },
     {
       "cardId": "competitor-005",
       "categoryId": "competitor",
       "cardName": "スギ薬局（ドラッグストア）",
       "description": "調剤併設、食品強化。処方箋、日用品拡大",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 5
     },
     {
       "cardId": "competitor-006",
       "categoryId": "competitor",
       "cardName": "ツルハドラッグ",
       "description": "ドラッグストア大手。低価格、食品取り扱い",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 6
     },
     {
       "cardId": "competitor-007",
       "categoryId": "competitor",
       "cardName": "自動販売機業界",
       "description": "無人販売の元祖。省人化、キャッシュレス対応",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 7
     },
     {
       "cardId": "competitor-008",
       "categoryId": "competitor",
       "cardName": "Uber Eats（フードデリバリー）",
       "description": "配達プラットフォーム。オンデマンド、GPS活用",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 8
     },
     {
       "cardId": "competitor-009",
       "categoryId": "competitor",
       "cardName": "出前館（国内デリバリー）",
       "description": "日本発のフードデリバリー。加盟店多数、地域密着",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 9
     },
     {
       "cardId": "competitor-010",
       "categoryId": "competitor",
       "cardName": "メルカリ（フリマアプリ）",
       "description": "C2C取引プラットフォーム。個人間取引、スマホ完結",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 10
     },
     {
       "cardId": "competitor-011",
       "categoryId": "competitor",
       "cardName": "ネットスーパー（各社）",
       "description": "オンライン食品販売。宅配、在庫連動",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 11
     },
     {
       "cardId": "competitor-012",
       "categoryId": "competitor",
       "cardName": "ダークストア（配達専門店舗）",
       "description": "客が来ない配達専門店。効率重視、クイックコマース",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 12
     },
     {
       "cardId": "competitor-013",
       "categoryId": "competitor",
       "cardName": "無人販売ボックス",
       "description": "小型無人店舗。省スペース、省人化",
-      "icon": "♣️"
+      "icon": "♣️",
+      "number": 13
     },
     {
       "cardId": "partner-001",
       "categoryId": "partner",
       "cardName": "Google（AI・クラウド）",
       "description": "AI技術、Google Cloud。機械学習、ビッグデータ",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 1
     },
     {
       "cardId": "partner-002",
       "categoryId": "partner",
       "cardName": "Microsoft（Azure・AI）",
       "description": "Azure、AI Builder。クラウド基盤、業務システム",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 2
     },
     {
       "cardId": "partner-003",
       "categoryId": "partner",
       "cardName": "Amazon（AWS・物流）",
       "description": "AWS、物流ノウハウ。スケーラビリティ、配送網",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 3
     },
     {
       "cardId": "partner-004",
       "categoryId": "partner",
       "cardName": "NEC（顔認証・決済）",
       "description": "顔認証技術、POSシステム。セキュリティ、日本企業",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 4
     },
     {
       "cardId": "partner-005",
       "categoryId": "partner",
       "cardName": "富士通（POSシステム）",
       "description": "流通システム大手。国内実績、保守体制",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 5
     },
     {
       "cardId": "partner-006",
       "categoryId": "partner",
       "cardName": "NTTデータ（決済基盤）",
       "description": "決済プラットフォーム。金融システム、信頼性",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 6
     },
     {
       "cardId": "partner-007",
       "categoryId": "partner",
       "cardName": "LINE（決済・マーケティング）",
       "description": "LINE Pay、LINEミニアプリ。ユーザー基盤、若年層",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 7
     },
     {
       "cardId": "partner-008",
       "categoryId": "partner",
       "cardName": "PayPay（キャッシュレス）",
       "description": "QRコード決済最大手。普及率、キャンペーン",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 8
     },
     {
       "cardId": "partner-009",
       "categoryId": "partner",
       "cardName": "パナソニック（IoT機器）",
       "description": "業務用冷蔵庫、IoTセンサー。機器製造、省エネ技術",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 9
     },
     {
       "cardId": "partner-010",
       "categoryId": "partner",
       "cardName": "ヤマト運輸（物流）",
       "description": "宅配便最大手。全国配送網、時間指定",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 10
     },
     {
       "cardId": "partner-011",
       "categoryId": "partner",
       "cardName": "配達ロボット企業（Starship等）",
       "description": "自動配達ロボット。省人化、ラストワンマイル",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 11
     },
     {
       "cardId": "partner-012",
       "categoryId": "partner",
       "cardName": "食品メーカー（日清・明治等）",
       "description": "商品供給元。商品開発、共同企画",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 12
     },
     {
       "cardId": "partner-013",
       "categoryId": "partner",
       "cardName": "地元農家・生産者",
       "description": "地産地消パートナー。新鮮、地域連携",
-      "icon": "♥️"
+      "icon": "♥️",
+      "number": 13
     },
     {
       "cardId": "technology-001",
       "categoryId": "technology",
       "cardName": "AI需要予測（廃棄ロス削減）",
       "description": "過去データからAIが発注数を予測。廃棄30%削減、利益率向上",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 1
     },
     {
       "cardId": "technology-002",
       "categoryId": "technology",
       "cardName": "無人レジ（ウォークスルー型）",
       "description": "Amazon Go方式、レジ待ちゼロ。人件費削減、顧客体験向上",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 2
     },
     {
       "cardId": "technology-003",
       "categoryId": "technology",
       "cardName": "セルフレジ高度化",
       "description": "画像認識で商品自動認識。レジ時間半減、人手削減",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 3
     },
     {
       "cardId": "technology-004",
       "categoryId": "technology",
       "cardName": "顔認証決済",
       "description": "顔認証で決済完了。手ぶら決済、高齢者対応",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 4
     },
     {
       "cardId": "technology-005",
       "categoryId": "technology",
       "cardName": "スマホ決済統合",
       "description": "PayPay・LINE Pay等を統合。若年層取り込み、決済効率化",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 5
     },
     {
       "cardId": "technology-006",
       "categoryId": "technology",
       "cardName": "配達ロボット",
       "description": "店舗から自宅へ自動配達。配達人員不要、24時間対応",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 6
     },
     {
       "cardId": "technology-007",
       "categoryId": "technology",
       "cardName": "ドローン配送",
       "description": "空から高速配達。山間部対応、時間短縮",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 7
     },
     {
       "cardId": "technology-008",
       "categoryId": "technology",
       "cardName": "IoT在庫管理",
       "description": "棚のセンサーで在庫自動把握。品切れ防止、発注自動化",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 8
     },
     {
       "cardId": "technology-009",
       "categoryId": "technology",
       "cardName": "電子棚札",
       "description": "価格表示を電子化、一括変更可能。値付け作業削減、動的価格設定",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 9
     },
     {
       "cardId": "technology-010",
       "categoryId": "technology",
       "cardName": "デジタルサイネージ",
       "description": "店内広告をデジタル化。販促強化、情報更新容易",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 10
     },
     {
       "cardId": "technology-011",
       "categoryId": "technology",
       "cardName": "自動発注システム",
       "description": "売れ筋をAIが分析し自動発注。オーナー負担軽減、最適在庫",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 11
     },
     {
       "cardId": "technology-012",
       "categoryId": "technology",
       "cardName": "地産地消マッチングシステム",
       "description": "地元農家と直接取引。新鮮な商品、地域貢献",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 12
     },
     {
       "cardId": "technology-013",
       "categoryId": "technology",
       "cardName": "スマート冷蔵庫（温度管理IoT）",
       "description": "温度異常を自動検知・通知。食品ロス防止、品質管理",
-      "icon": "♦️"
+      "icon": "♦️",
+      "number": 13
     }
   ],
   "inputFields": [
