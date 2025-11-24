@@ -49,8 +49,13 @@ class AuthManager {
    * @returns {boolean} 形式が正しいか
    */
   isValidFormat(accessKey) {
-    const pattern = /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
-    return pattern.test(accessKey);
+    // 2つのフォーマットに対応:
+    // 1. 長い形式: XXXX-XXXX-XXXX-XXXX (例: TEST-1234-ABCD-5678)
+    // 2. 短い形式: xxxx-xxxx-xxxx (例: demo-key-2024)
+    const longPattern = /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
+    const shortPattern = /^[a-z0-9]+-[a-z0-9]+-[0-9]{4}$/;
+
+    return longPattern.test(accessKey) || shortPattern.test(accessKey);
   }
 
   /**
@@ -62,20 +67,26 @@ class AuthManager {
     // ⚠️ 現在はダミー実装、将来的にUpstash RedisまたはバックエンドAPIと連携
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        // テスト用キー
+        // テスト用キー（大文字・小文字を区別しない）
         const validKeys = [
           'TEST-1234-ABCD-5678',
-          'DEMO-9876-WXYZ-5432'
+          'DEMO-9876-WXYZ-5432',
+          'demo-key-2024',
+          'workshop-key-2024'
         ];
 
-        if (validKeys.includes(accessKey)) {
+        // 大文字・小文字を区別しない比較
+        const normalizedKey = accessKey.toLowerCase();
+        const normalizedValidKeys = validKeys.map(k => k.toLowerCase());
+
+        if (normalizedValidKeys.includes(normalizedKey)) {
           resolve({
             valid: true,
             accessKey: accessKey,
             expiresIn: this.defaultSessionDuration
           });
         } else {
-          reject(new Error(`無効なアクセスキーです（テスト用キー: ${validKeys.join(', ')}）`));
+          reject(new Error(`無効なアクセスキーです（有効なキー例: demo-key-2024, workshop-key-2024）`));
         }
       }, 1000); // 1秒待機してAPI呼び出しをシミュレート
     });
