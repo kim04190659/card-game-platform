@@ -361,7 +361,7 @@
           }
           
           cardElement.innerHTML = `
-            <div class="card-icon">${card.icon || '📄'}</div>
+            <div class="card-icon">${card.icon || '📄'} ${card.number || ''}</div>
             <div class="card-name">${card.cardName}</div>
             <div class="card-description">${card.description}</div>
           `;
