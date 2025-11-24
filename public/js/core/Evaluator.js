@@ -123,10 +123,6 @@ class Evaluator {
   async evaluate() {
     const prompt = this.buildEvaluationPrompt();
 
-    // 統計記録の準備
-    const statsLogger = new StatsLogger();
-    const accessKey = sessionStorage.getItem('accessKey') || 'unknown';
-
     try {
       // モード判定してAPIエンドポイントを選択
       const apiEndpoint = this.shouldUseMock() ? '/api/evaluate-mock' : '/api/evaluate';
@@ -173,7 +169,7 @@ class Evaluator {
       this.validateEvaluation(evaluation);
 
       // 成功時の統計記録
-      statsLogger.logEvaluation(this.game.gameId, accessKey, true, null);
+      this._logStats(true, null);
 
       return evaluation;
 
@@ -181,9 +177,24 @@ class Evaluator {
       console.error('評価エラー:', error);
 
       // 失敗時の統計記録
-      statsLogger.logEvaluation(this.game.gameId, accessKey, false, error);
+      this._logStats(false, error);
 
       throw error;
+    }
+  }
+
+  /**
+   * 統計記録（エラーが発生してもevaluateは継続）
+   */
+  _logStats(success, error) {
+    try {
+      if (typeof StatsLogger !== 'undefined') {
+        const statsLogger = new StatsLogger();
+        const accessKey = sessionStorage.getItem('accessKey') || 'unknown';
+        statsLogger.logEvaluation(this.game.gameId, accessKey, success, error);
+      }
+    } catch (statsError) {
+      console.warn('統計記録に失敗しました:', statsError);
     }
   }
   
