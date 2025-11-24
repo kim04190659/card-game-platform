@@ -91,36 +91,49 @@ function formatDate(date) {
  * 概要サマリーを取得
  */
 async function getSummary(today, oneWeekAgo, oneMonthAgo) {
-  // 今日の利用回数
-  const todayCount = (await kv.get(`stats:daily:${today}`)) || 0;
+  try {
+    // 今日の利用回数
+    const todayCount = (await kv.get(`stats:daily:${today}`)) || 0;
 
-  // 今週の利用回数（過去7日間の合計）
-  let weekCount = 0;
-  for (let i = 0; i < 7; i++) {
-    const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
-    const dateStr = formatDate(date);
-    const count = (await kv.get(`stats:daily:${dateStr}`)) || 0;
-    weekCount += parseInt(count);
+    // 今週の利用回数（過去7日間の合計）
+    let weekCount = 0;
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
+      const dateStr = formatDate(date);
+      const count = (await kv.get(`stats:daily:${dateStr}`)) || 0;
+      const numCount = Number(count) || 0;
+      weekCount += numCount;
+    }
+
+    // 今月の利用回数（過去30日間の合計）
+    let monthCount = 0;
+    for (let i = 0; i < 30; i++) {
+      const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
+      const dateStr = formatDate(date);
+      const count = (await kv.get(`stats:daily:${dateStr}`)) || 0;
+      const numCount = Number(count) || 0;
+      monthCount += numCount;
+    }
+
+    // 総利用回数（履歴リストの長さ）
+    const totalCount = (await kv.llen('stats:history')) || 0;
+
+    return {
+      total: Number(totalCount) || 0,
+      today: Number(todayCount) || 0,
+      week: weekCount,
+      month: monthCount
+    };
+  } catch (error) {
+    console.error('getSummary error:', error);
+    // エラーでも空のデータを返す
+    return {
+      total: 0,
+      today: 0,
+      week: 0,
+      month: 0
+    };
   }
-
-  // 今月の利用回数（過去30日間の合計）
-  let monthCount = 0;
-  for (let i = 0; i < 30; i++) {
-    const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
-    const dateStr = formatDate(date);
-    const count = (await kv.get(`stats:daily:${dateStr}`)) || 0;
-    monthCount += parseInt(count);
-  }
-
-  // 総利用回数（履歴リストの長さ）
-  const totalCount = await kv.llen('stats:history') || 0;
-
-  return {
-    total: totalCount,
-    today: parseInt(todayCount),
-    week: weekCount,
-    month: monthCount
-  };
 }
 
 /**
