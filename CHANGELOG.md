@@ -2,6 +2,42 @@
 
 ## [Unreleased]
 
+## [1.2.0] - 2024-11-24
+
+### Added - Phase 10.5
+- **ドキュメント・ガイド類の充実**
+  - **学生向けクイックスタートガイド** (docs/STUDENT_QUICK_GUIDE.md)
+    - 3分でわかる使い方
+    - FAQ・トラブルシューティング
+  - **ファシリテーターガイド** (docs/FACILITATOR_GUIDE.md)
+    - 90分授業モデル
+    - グループワークの進め方
+    - よくあるトラブルと対処法
+    - 授業バリエーション
+
+### Added - Phase 10
+- **携帯キャリアDX革新ゲーム追加** (mobile-carrier-dx)
+  - トランプベース設計（4スート × 13枚 = 52枚）
+  - 半導体・電子工学系の高専生向け
+  - 5G/6G技術、半導体チップ、国際競争をテーマ
+  - ♠️ ペルソナ: 13種の携帯キャリア
+  - ♥️ 競合: 13種の国内外キャリア・テック企業
+  - ♦️ パートナー: 13種の半導体メーカー・通信機器ベンダー
+  - ♣️ 技術: 13種の5G/6G技術・半導体ソリューション
+- mobile-carrier-dx.json: 52枚のカード定義（トランプアイコン付き）
+
+### Changed
+- README.md: ゲーム数を6つに更新、ガイドへのリンク追加
+- GameManager.js: mobile-carrier-dxをゲームリストに追加
+- game-selection.html: 6番目のゲーム欄を携帯キャリアDXに変更
+- api/generate-mock.js: 携帯キャリアDX用モック追加
+- api/evaluate-mock.js: 携帯キャリアDX用評価追加
+- docs/DEVELOPMENT_STATUS.md: Phase 10・10.5記録
+- docs/MESSAGE_TO_TEACHER.md: 携帯キャリアDX追加、ガイド案内
+
+### Fixed
+- なし
+
 ## [1.1.0] - 2024-11-24
 
 ### Added - Phase 9
