@@ -130,6 +130,7 @@
   <!-- コアクラス読み込み -->
   <script src="/js/core/AuthManager.js"></script>
   <script src="/js/core/GameManager.js"></script>
+  <script src="/js/core/StatsLogger.js"></script>
 
   <script>
     function toggleAPIMode(checkbox) {
@@ -251,10 +252,15 @@
         // GameManagerでゲームを選択
         const game = gameManager.selectGame(gameId);
         console.log('ゲームを選択しました:', game);
-        
+
+        // 統計記録
+        const accessKey = authManager.getAccessKey();
+        const statsLogger = new StatsLogger();
+        statsLogger.logGameSelection(gameId, accessKey);
+
         // カード選択画面へ遷移
         window.location.href = `/card-selection.html?id=${gameId}`;
-        
+
       } catch (error) {
         console.error('ゲーム選択エラー:', error);
         alert('ゲームの選択に失敗しました: ' + error.message);
