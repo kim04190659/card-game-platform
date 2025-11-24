@@ -151,6 +151,10 @@ class OutputGenerator {
   async generate() {
     const prompt = this.buildPrompt();
 
+    // 統計記録の準備
+    const statsLogger = new StatsLogger();
+    const accessKey = sessionStorage.getItem('accessKey') || 'unknown';
+
     try {
       // モード判定してAPIエンドポイントを選択
       const apiEndpoint = this.shouldUseMock() ? '/api/generate-mock' : '/api/generate';
@@ -172,10 +176,18 @@ class OutputGenerator {
       }
 
       const data = await response.json();
+
+      // 成功時の統計記録
+      statsLogger.logOutputGeneration(this.game.gameId, accessKey, true, null);
+
       return data.content;
 
     } catch (error) {
       console.error('成果物生成エラー:', error);
+
+      // 失敗時の統計記録
+      statsLogger.logOutputGeneration(this.game.gameId, accessKey, false, error);
+
       throw error;
     }
   }
