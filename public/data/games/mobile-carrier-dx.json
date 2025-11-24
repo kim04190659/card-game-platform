@@ -1,0 +1,584 @@
+{
+  "gameId": "mobile-carrier-dx",
+  "gameName": "携帯キャリアDX革新ゲーム",
+  "description": "携帯電話事業者を題材に、半導体技術でネットワーク・サービスを革新（トランプベース: 52枚）",
+  "version": "1.0.0",
+  "author": "木村好孝",
+  "useCardShuffle": true,
+  "role": "経験豊富な通信業界・半導体業界のコンサルタント",
+  "outputType": "携帯キャリアDX提案書",
+  "outputPromptTemplate": "あなたは{role}です。以下の経験を持っています：\n- 大規模通信インフラの構築・運用経験\n- 5G/6G技術の深い理解\n- 半導体設計・製造プロセスの知識\n- 国際標準（ITIL/SIAM）に基づく運用管理\n- キャリア事業の経営・戦略立案経験\n\n以下の情報に基づいて、{outputType}を作成してください。\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【ガイドライン】\n{guidelines}\n\n【要求事項】\n{requirements}\n\n【提案書の構成】\n{structure}\n\n特に「自分たちの独自技術・付加価値」がソリューションにどう活きるかを重視してください。",
+  "guidelines": [
+    "携帯キャリアの3大課題：「ネットワーク品質」「設備投資コスト」「競争激化」",
+    "5G/6Gの技術トレンド：超高速、超低遅延、多数同時接続",
+    "半導体技術の重要性：チップ性能がネットワーク性能を決める",
+    "国際競争：Qualcomm、Huawei、Ericsson等との競争",
+    "日本の強み：高品質、省電力、信頼性",
+    "投資対効果（ROI）を明示すること"
+  ],
+  "requirements": [
+    "技術的実現可能性を最優先",
+    "半導体技術の具体的な活用方法を明示",
+    "段階的な開発・導入計画",
+    "投資対効果（ROI）の明示",
+    "国際競争を意識した差別化",
+    "「自分たちの独自技術・付加価値」を提案に組み込むこと"
+  ],
+  "outputStructure": [
+    "エグゼクティブサマリー",
+    "背景・課題分析",
+    "競合・参考分析",
+    "提案ソリューション",
+    "パートナー構成",
+    "実施計画",
+    "投資対効果（ROI）",
+    "技術的優位性",
+    "リスクと対策",
+    "まとめ"
+  ],
+  "evaluationPromptTemplate": "あなたは公平な評価者です。通信業界と半導体技術に精通しています。\n以下の{outputType}を評価基準に基づいて評価してください。\n\n【{outputType}】\n{output}\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【評価基準】\n{criteria}\n\n【評価方法】\n1. 各評価基準について0-100点で採点\n2. 採点理由を簡潔に説明（100-200文字）\n3. 改善提案を3つ挙げる\n4. 以下のJSON形式で返答（JSON以外の文字は含めないこと）\n\n{\n  \"scores\": {\n    \"technical_feasibility\": 85,\n    \"carrier_understanding\": 90,\n    \"differentiation\": 88,\n    \"business_viability\": 87\n  },\n  \"reasons\": {\n    \"technical_feasibility\": \"技術的実現性の評価理由\",\n    \"carrier_understanding\": \"携帯キャリア課題の理解度の評価理由\",\n    \"differentiation\": \"差別化・独自性の評価理由\",\n    \"business_viability\": \"事業性・市場性の評価理由\"\n  },\n  \"improvements\": [\"改善案1\", \"改善案2\", \"改善案3\"],\n  \"overallScore\": 88,\n  \"feedback\": \"総評コメント\"\n}\n\n重要: scoresとreasonsのキーは必ず \"technical_feasibility\", \"carrier_understanding\", \"differentiation\", \"business_viability\" を使用してください。\n特に「自分たちの独自技術・付加価値」が提案にどう活かされているかを重視してください。",
+  "cardCategories": [
+    {
+      "categoryId": "persona",
+      "categoryName": "♠️ ペルソナ（携帯キャリア）",
+      "description": "どの携帯キャリアに提案するか",
+      "minSelect": 1,
+      "maxSelect": 1,
+      "displayOrder": 1
+    },
+    {
+      "categoryId": "competitor",
+      "categoryName": "♥️ 競合・参考企業",
+      "description": "この分野で何が起きているかを知る",
+      "minSelect": 1,
+      "maxSelect": 2,
+      "displayOrder": 2
+    },
+    {
+      "categoryId": "partner",
+      "categoryName": "♦️ パートナー企業",
+      "description": "誰と組むか",
+      "minSelect": 1,
+      "maxSelect": 3,
+      "displayOrder": 3
+    },
+    {
+      "categoryId": "technology",
+      "categoryName": "♣️ 技術・ソリューション",
+      "description": "何を作る？何を提供する？",
+      "minSelect": 1,
+      "maxSelect": 3,
+      "displayOrder": 4
+    }
+  ],
+  "cards": [
+    {
+      "cardId": "persona-001",
+      "categoryId": "persona",
+      "cardName": "NTTドコモ（最大手・技術志向）",
+      "description": "国内最大シェア、5G技術開発リーダー。研究開発投資大、法人向け強い、安定収益",
+      "icon": "♠️",
+      "number": 1
+    },
+    {
+      "cardId": "persona-002",
+      "categoryId": "persona",
+      "cardName": "au（KDDI）（総合通信）",
+      "description": "固定通信も含む総合通信事業者。光ファイバー、IoT、金融連携",
+      "icon": "♠️",
+      "number": 2
+    },
+    {
+      "cardId": "persona-003",
+      "categoryId": "persona",
+      "cardName": "ソフトバンク（革新的）",
+      "description": "積極的な新技術導入、海外展開。AI投資、PayPay連携、孫正義氏",
+      "icon": "♠️",
+      "number": 3
+    },
+    {
+      "cardId": "persona-004",
+      "categoryId": "persona",
+      "cardName": "楽天モバイル（新興・完全仮想化）",
+      "description": "第4の携帯キャリア、フルクラウド。低価格、仮想化ネットワーク、楽天経済圏",
+      "icon": "♠️",
+      "number": 4
+    },
+    {
+      "cardId": "persona-005",
+      "categoryId": "persona",
+      "cardName": "MVNO事業者（格安SIM）",
+      "description": "大手回線を借りる格安サービス。低価格、ニッチターゲット、薄利多売",
+      "icon": "♠️",
+      "number": 5
+    },
+    {
+      "cardId": "persona-006",
+      "categoryId": "persona",
+      "cardName": "5G専業キャリア（地域限定）",
+      "description": "特定地域・用途に特化した5Gサービス。ローカル5G、工場・病院向け",
+      "icon": "♠️",
+      "number": 6
+    },
+    {
+      "cardId": "persona-007",
+      "categoryId": "persona",
+      "cardName": "衛星通信キャリア（Starlink等）",
+      "description": "衛星経由のインターネット接続。地方・離島カバー、災害対応",
+      "icon": "♠️",
+      "number": 7
+    },
+    {
+      "cardId": "persona-008",
+      "categoryId": "persona",
+      "cardName": "IoT専用キャリア",
+      "description": "IoT機器向けの低速・低消費電力通信。LPWA、センサーネットワーク",
+      "icon": "♠️",
+      "number": 8
+    },
+    {
+      "cardId": "persona-009",
+      "categoryId": "persona",
+      "cardName": "法人向け専業キャリア",
+      "description": "企業向けに特化した通信サービス。セキュリティ、専用線、SLA保証",
+      "icon": "♠️",
+      "number": 9
+    },
+    {
+      "cardId": "persona-010",
+      "categoryId": "persona",
+      "cardName": "海外進出キャリア（東南アジア等）",
+      "description": "新興国市場に展開する日系キャリア。人口増加市場、インフラ整備",
+      "icon": "♠️",
+      "number": 10
+    },
+    {
+      "cardId": "persona-011",
+      "categoryId": "persona",
+      "cardName": "プライベート5Gキャリア",
+      "description": "企業専用の5Gネットワーク構築。工場、物流、医療向け",
+      "icon": "♠️",
+      "number": 11
+    },
+    {
+      "cardId": "persona-012",
+      "categoryId": "persona",
+      "cardName": "6G研究開発キャリア",
+      "description": "次世代6Gの研究開発中心。超高速、超低遅延、先行投資",
+      "icon": "♠️",
+      "number": 12
+    },
+    {
+      "cardId": "persona-013",
+      "categoryId": "persona",
+      "cardName": "通信インフラ保守専業",
+      "description": "基地局・ネットワーク保守に特化。24/365保守、災害対応、老朽化更新",
+      "icon": "♠️",
+      "number": 13
+    },
+    {
+      "cardId": "competitor-001",
+      "categoryId": "competitor",
+      "cardName": "AT&T（米国最大手）",
+      "description": "アメリカ最大の通信事業者。5G展開、メディア事業統合",
+      "icon": "♥️",
+      "number": 1
+    },
+    {
+      "cardId": "competitor-002",
+      "categoryId": "competitor",
+      "cardName": "Verizon（米国技術リーダー）",
+      "description": "5G技術で先行、企業向け強い。ネットワーク品質、B2B",
+      "icon": "♥️",
+      "number": 2
+    },
+    {
+      "cardId": "competitor-003",
+      "categoryId": "competitor",
+      "cardName": "T-Mobile（米国革新的）",
+      "description": "Sprint買収、低価格で攻勢。5G全米カバー、顧客第一",
+      "icon": "♥️",
+      "number": 3
+    },
+    {
+      "cardId": "competitor-004",
+      "categoryId": "competitor",
+      "cardName": "China Mobile（中国最大）",
+      "description": "世界最大の加入者数。5G基地局数世界一、政府支援",
+      "icon": "♥️",
+      "number": 4
+    },
+    {
+      "cardId": "competitor-005",
+      "categoryId": "competitor",
+      "cardName": "Vodafone（欧州大手）",
+      "description": "欧州・アフリカに展開。ローミング、国際展開",
+      "icon": "♥️",
+      "number": 5
+    },
+    {
+      "cardId": "competitor-006",
+      "categoryId": "competitor",
+      "cardName": "Deutsche Telekom（ドイツテレコム）",
+      "description": "ヨーロッパ最大級。技術革新、T-Mobile親会社",
+      "icon": "♥️",
+      "number": 6
+    },
+    {
+      "cardId": "competitor-007",
+      "categoryId": "competitor",
+      "cardName": "Starlink（SpaceX衛星通信）",
+      "description": "イーロン・マスクの衛星インターネット。低軌道衛星、全世界カバー",
+      "icon": "♥️",
+      "number": 7
+    },
+    {
+      "cardId": "competitor-008",
+      "categoryId": "competitor",
+      "cardName": "Google Fi（MVNO）",
+      "description": "Googleの携帯サービス。複数回線自動切替、データ重視",
+      "icon": "♥️",
+      "number": 8
+    },
+    {
+      "cardId": "competitor-009",
+      "categoryId": "competitor",
+      "cardName": "Apple（端末メーカー・サービス）",
+      "description": "iPhone、独自チップ、サービス統合。eSIM、Apple Watch通信",
+      "icon": "♥️",
+      "number": 9
+    },
+    {
+      "cardId": "competitor-010",
+      "categoryId": "competitor",
+      "cardName": "Qualcomm（半導体・通信技術）",
+      "description": "スマホ向けチップセット最大手。Snapdragon、5Gモデム",
+      "icon": "♥️",
+      "number": 10
+    },
+    {
+      "cardId": "competitor-011",
+      "categoryId": "competitor",
+      "cardName": "Huawei（通信機器・端末）",
+      "description": "中国の通信機器・スマホメーカー。5G基地局、独自OS",
+      "icon": "♥️",
+      "number": 11
+    },
+    {
+      "cardId": "competitor-012",
+      "categoryId": "competitor",
+      "cardName": "Ericsson（通信機器）",
+      "description": "スウェーデンの通信インフラ大手。5G基地局、ネットワーク構築",
+      "icon": "♥️",
+      "number": 12
+    },
+    {
+      "cardId": "competitor-013",
+      "categoryId": "competitor",
+      "cardName": "Nokia（通信機器）",
+      "description": "フィンランドの通信インフラ企業。5G、光ファイバー、固定通信",
+      "icon": "♥️",
+      "number": 13
+    },
+    {
+      "cardId": "partner-001",
+      "categoryId": "partner",
+      "cardName": "Qualcomm（半導体チップ）",
+      "description": "スマホ向けSoC、5Gモデム。Snapdragon、特許多数",
+      "icon": "♦️",
+      "number": 1
+    },
+    {
+      "cardId": "partner-002",
+      "categoryId": "partner",
+      "cardName": "MediaTek（半導体チップ）",
+      "description": "台湾の半導体メーカー、低価格。コスパ、新興国シェア",
+      "icon": "♦️",
+      "number": 2
+    },
+    {
+      "cardId": "partner-003",
+      "categoryId": "partner",
+      "cardName": "Intel（データセンター・基地局）",
+      "description": "サーバー向けCPU、ネットワーク機器。データセンター、エッジコンピューティング",
+      "icon": "♦️",
+      "number": 3
+    },
+    {
+      "cardId": "partner-004",
+      "categoryId": "partner",
+      "cardName": "NVIDIA（AI・GPU）",
+      "description": "AI処理、GPU最大手。エッジAI、画像認識、5G連携",
+      "icon": "♦️",
+      "number": 4
+    },
+    {
+      "cardId": "partner-005",
+      "categoryId": "partner",
+      "cardName": "Samsung（半導体・端末）",
+      "description": "韓国の総合電機、メモリ・スマホ。DRAM、SSD、Galaxy",
+      "icon": "♦️",
+      "number": 5
+    },
+    {
+      "cardId": "partner-006",
+      "categoryId": "partner",
+      "cardName": "TSMC（半導体製造）",
+      "description": "台湾の半導体ファウンドリ世界最大。最先端プロセス、高品質",
+      "icon": "♦️",
+      "number": 6
+    },
+    {
+      "cardId": "partner-007",
+      "categoryId": "partner",
+      "cardName": "富士通（通信機器・SI）",
+      "description": "日本の通信インフラ・システム統合。基地局、ネットワーク構築",
+      "icon": "♦️",
+      "number": 7
+    },
+    {
+      "cardId": "partner-008",
+      "categoryId": "partner",
+      "cardName": "NEC（通信機器・AI）",
+      "description": "海底ケーブル、5G基地局、顔認証。インフラ実績、AI技術",
+      "icon": "♦️",
+      "number": 8
+    },
+    {
+      "cardId": "partner-009",
+      "categoryId": "partner",
+      "cardName": "Cisco（ネットワーク機器）",
+      "description": "ルーター・スイッチ世界最大手。コアネットワーク、セキュリティ",
+      "icon": "♦️",
+      "number": 9
+    },
+    {
+      "cardId": "partner-010",
+      "categoryId": "partner",
+      "cardName": "Amazon（AWS・エッジ）",
+      "description": "クラウド最大手、エッジコンピューティング。スケーラビリティ、IoT連携",
+      "icon": "♦️",
+      "number": 10
+    },
+    {
+      "cardId": "partner-011",
+      "categoryId": "partner",
+      "cardName": "Microsoft（Azure・AI）",
+      "description": "クラウド2位、AI技術。エンタープライズ、AI Builder",
+      "icon": "♦️",
+      "number": 11
+    },
+    {
+      "cardId": "partner-012",
+      "categoryId": "partner",
+      "cardName": "Google（クラウド・AI）",
+      "description": "検索、AI、Google Cloud。機械学習、データ分析",
+      "icon": "♦️",
+      "number": 12
+    },
+    {
+      "cardId": "partner-013",
+      "categoryId": "partner",
+      "cardName": "地方自治体（ローカル5G）",
+      "description": "地域限定5Gの共同事業者。補助金、地域ニーズ把握",
+      "icon": "♦️",
+      "number": 13
+    },
+    {
+      "cardId": "technology-001",
+      "categoryId": "technology",
+      "cardName": "5G基地局高密度化（ミリ波）",
+      "description": "超高速通信のため基地局を密に配置。ギガビット通信、都市部カバー",
+      "icon": "♣️",
+      "number": 1
+    },
+    {
+      "cardId": "technology-002",
+      "categoryId": "technology",
+      "cardName": "エッジAIチップ（端末側処理）",
+      "description": "スマホ・基地局でAI処理を実行。低遅延、プライバシー保護",
+      "icon": "♣️",
+      "number": 2
+    },
+    {
+      "cardId": "technology-003",
+      "categoryId": "technology",
+      "cardName": "省電力5Gチップ",
+      "description": "バッテリー消費を抑える半導体設計。スマホ電池持ち向上、基地局省エネ",
+      "icon": "♣️",
+      "number": 3
+    },
+    {
+      "cardId": "technology-004",
+      "categoryId": "technology",
+      "cardName": "ネットワークスライシング",
+      "description": "1つの物理ネットワークを仮想的に分割。用途別最適化（IoT、自動運転、映像）",
+      "icon": "♣️",
+      "number": 4
+    },
+    {
+      "cardId": "technology-005",
+      "categoryId": "technology",
+      "cardName": "O-RAN（オープン基地局）",
+      "description": "標準化されたオープンな基地局アーキテクチャ。マルチベンダー、コスト削減",
+      "icon": "♣️",
+      "number": 5
+    },
+    {
+      "cardId": "technology-006",
+      "categoryId": "technology",
+      "cardName": "ビームフォーミング技術",
+      "description": "電波を特定方向に集中させる。通信品質向上、干渉低減",
+      "icon": "♣️",
+      "number": 6
+    },
+    {
+      "cardId": "technology-007",
+      "categoryId": "technology",
+      "cardName": "eSIM・リモートSIM",
+      "description": "物理SIMカード不要、遠隔で開通。利便性、IoT機器への組み込み",
+      "icon": "♣️",
+      "number": 7
+    },
+    {
+      "cardId": "technology-008",
+      "categoryId": "technology",
+      "cardName": "衛星通信連携（Non-Terrestrial Network）",
+      "description": "地上5Gと衛星通信の統合。山間部・海上カバー、災害対応",
+      "icon": "♣️",
+      "number": 8
+    },
+    {
+      "cardId": "technology-009",
+      "categoryId": "technology",
+      "cardName": "AI需要予測（ネットワーク最適化）",
+      "description": "トラフィックをAI予測し帯域調整。混雑回避、品質維持、省エネ",
+      "icon": "♣️",
+      "number": 9
+    },
+    {
+      "cardId": "technology-010",
+      "categoryId": "technology",
+      "cardName": "量子暗号通信",
+      "description": "量子技術で絶対に盗聴されない通信。超高セキュリティ、政府・金融向け",
+      "icon": "♣️",
+      "number": 10
+    },
+    {
+      "cardId": "technology-011",
+      "categoryId": "technology",
+      "cardName": "MEC（Multi-access Edge Computing）",
+      "description": "基地局近くでデータ処理。超低遅延、自動運転・VR対応",
+      "icon": "♣️",
+      "number": 11
+    },
+    {
+      "cardId": "technology-012",
+      "categoryId": "technology",
+      "cardName": "ローカル5G構築支援",
+      "description": "企業・自治体専用の5Gネットワーク。工場DX、スマート農業、医療",
+      "icon": "♣️",
+      "number": 12
+    },
+    {
+      "cardId": "technology-013",
+      "categoryId": "technology",
+      "cardName": "6G研究開発（テラヘルツ波）",
+      "description": "次世代通信規格の先行研究。100Gbps超、ホログラム通信",
+      "icon": "♣️",
+      "number": 13
+    }
+  ],
+  "inputFields": [
+    {
+      "fieldId": "solution_name",
+      "fieldName": "ソリューション名",
+      "fieldType": "text",
+      "description": "提案するソリューションの名称",
+      "placeholder": "例: 次世代5Gネットワーク高度化プロジェクト",
+      "required": true,
+      "validation": {
+        "maxLength": 100
+      },
+      "displayOrder": 1
+    },
+    {
+      "fieldId": "team_strength",
+      "fieldName": "チームの強み・専門技術",
+      "fieldType": "textarea",
+      "description": "チームが持っている技術や経験",
+      "placeholder": "例: 半導体設計経験、RFアナログ回路、低消費電力設計",
+      "required": true,
+      "validation": {
+        "minLength": 50,
+        "maxLength": 500
+      },
+      "displayOrder": 2
+    },
+    {
+      "fieldId": "unique_technology",
+      "fieldName": "自分たちの独自技術・付加価値",
+      "fieldType": "textarea",
+      "description": "あなた独自の技術や工夫（トランプゲームの自分で考える部分）",
+      "placeholder": "例: 独自開発の省電力5Gモデムチップ、従来比30%省エネ",
+      "required": true,
+      "validation": {
+        "minLength": 50,
+        "maxLength": 500
+      },
+      "displayOrder": 3
+    },
+    {
+      "fieldId": "budget",
+      "fieldName": "開発予算（億円）",
+      "fieldType": "number",
+      "description": "開発に必要な予算規模",
+      "placeholder": "例: 50",
+      "required": true,
+      "validation": {
+        "min": 10,
+        "max": 500
+      },
+      "displayOrder": 4
+    },
+    {
+      "fieldId": "duration",
+      "fieldName": "開発期間（年）",
+      "fieldType": "number",
+      "description": "開発完了までの期間",
+      "placeholder": "例: 3",
+      "required": true,
+      "validation": {
+        "min": 1,
+        "max": 10
+      },
+      "displayOrder": 5
+    }
+  ],
+  "evaluationCriteria": [
+    {
+      "criteriaId": "technical_feasibility",
+      "criteriaName": "技術的実現性",
+      "description": "提案技術が実現可能か、半導体・通信技術の理解度",
+      "weight": 0.3
+    },
+    {
+      "criteriaId": "carrier_understanding",
+      "criteriaName": "携帯キャリア課題の理解",
+      "description": "ネットワーク品質、コスト、競争環境の理解、キャリア特性を踏まえているか",
+      "weight": 0.25
+    },
+    {
+      "criteriaId": "differentiation",
+      "criteriaName": "差別化・独自性",
+      "description": "「自分たちの独自技術」が効いているか、競合との違いが明確か",
+      "weight": 0.25
+    },
+    {
+      "criteriaId": "business_viability",
+      "criteriaName": "事業性・市場性",
+      "description": "ビジネスとして成立するか、キャリア・顧客にメリットがあるか",
+      "weight": 0.2
+    }
+  ]
+}
