@@ -26,6 +26,33 @@
       "version": "1.0.0",
       "author": "木村好孝",
       "tags": ["IT運用", "ITIL", "SIAM", "運用標準化"]
+    },
+    {
+      "id": "it-security-solution",
+      "name": "ITセキュリティソリューションゲーム",
+      "description": "企業のセキュリティ課題を解決するソリューション提案",
+      "file": "it-security-solution.json",
+      "version": "1.0.0",
+      "author": "木村好孝",
+      "tags": ["セキュリティ", "サイバー攻撃", "ゼロトラスト"]
+    },
+    {
+      "id": "convenience-store-dx",
+      "name": "コンビニDX革新ゲーム",
+      "description": "身近なコンビニを題材に、DX技術でビジネス革新を提案",
+      "file": "convenience-store-dx.json",
+      "version": "1.0.0",
+      "author": "木村好孝",
+      "tags": ["コンビニ", "DX", "小売", "IoT"]
+    },
+    {
+      "id": "mobile-carrier-dx",
+      "name": "携帯キャリアDX革新ゲーム",
+      "description": "携帯電話事業者を題材に、半導体技術でネットワーク・サービスを革新",
+      "file": "mobile-carrier-dx.json",
+      "version": "1.0.0",
+      "author": "木村好孝",
+      "tags": ["携帯キャリア", "5G", "半導体", "通信"]
     }
   ]
 }
