@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理画面 - カードゲーム基盤システム</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- ログイン画面 -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <h1>🔐 管理画面ログイン</h1>
+      <p class="subtitle">パスワードを入力してください</p>
+      <form id="loginForm" onsubmit="login(event)">
+        <input
+          type="password"
+          id="password"
+          placeholder="パスワード"
+          required
+          autocomplete="off"
+          class="password-input"
+        />
+        <button type="submit" class="btn btn-primary">ログイン</button>
+      </form>
+      <p id="loginError" class="error-message"></p>
+    </div>
+  </div>
+
+  <!-- ダッシュボード画面 -->
+  <div id="dashboardScreen" class="dashboard-screen" style="display: none;">
+    <!-- ヘッダー -->
+    <header class="dashboard-header">
+      <div class="header-content">
+        <h1>📊 利用統計ダッシュボード</h1>
+        <div class="header-actions">
+          <button onclick="refreshData()" class="btn btn-secondary">🔄 更新</button>
+          <button onclick="logout()" class="btn btn-danger">ログアウト</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="dashboard-main">
+      <!-- ローディング -->
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>データを読み込み中...</p>
+      </div>
+
+      <!-- エラー表示 -->
+      <div id="error" class="error-card" style="display: none;">
+        <h3>⚠️ エラーが発生しました</h3>
+        <p id="errorMessage"></p>
+      </div>
+
+      <!-- ダッシュボード内容 -->
+      <div id="dashboardContent" style="display: none;">
+        <!-- 1. 概要サマリー -->
+        <section class="stats-section">
+          <h2>📈 概要サマリー</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-label">総利用回数</div>
+              <div class="stat-value" id="totalCount">-</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">今日</div>
+              <div class="stat-value" id="todayCount">-</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">今週（7日間）</div>
+              <div class="stat-value" id="weekCount">-</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">今月（30日間）</div>
+              <div class="stat-value" id="monthCount">-</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. ゲーム別統計 -->
+        <section class="stats-section">
+          <h2>🎮 ゲーム別統計（過去30日間）</h2>
+          <div class="chart-container">
+            <canvas id="gameStatsChart"></canvas>
+          </div>
+          <div class="top-games">
+            <h3>人気トップ3</h3>
+            <ol id="topGamesList"></ol>
+          </div>
+        </section>
+
+        <!-- 3. 時系列推移 -->
+        <section class="stats-section">
+          <h2>📅 時系列推移（過去30日間）</h2>
+          <div class="chart-container">
+            <canvas id="timeSeriesChart"></canvas>
+          </div>
+        </section>
+
+        <!-- 4. アクセスキー別統計 -->
+        <section class="stats-section">
+          <h2>🔑 アクセスキー別統計</h2>
+          <div class="table-container">
+            <table id="accessKeyTable">
+              <thead>
+                <tr>
+                  <th>アクセスキー</th>
+                  <th>利用回数</th>
+                  <th>最終利用日時</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 5. エラーログ -->
+        <section class="stats-section">
+          <h2>⚠️ エラーログ（最新10件）</h2>
+          <div class="table-container">
+            <table id="errorLogTable">
+              <thead>
+                <tr>
+                  <th>日時</th>
+                  <th>発生箇所</th>
+                  <th>ゲームID</th>
+                  <th>エラー内容</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 6. 詳細データ -->
+        <section class="stats-section">
+          <h2>📋 詳細データ（最新50件）</h2>
+          <div class="table-container">
+            <table id="historyTable">
+              <thead>
+                <tr>
+                  <th>日時</th>
+                  <th>イベント</th>
+                  <th>ゲーム</th>
+                  <th>アクセスキー</th>
+                  <th>成否</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="dashboard-footer">
+      <p>&copy; 2024 カードゲーム基盤システム - 木村好孝</p>
+      <p id="lastUpdated"></p>
+    </footer>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="/js/ui/admin-dashboard.js"></script>
+</body>
+</html>
