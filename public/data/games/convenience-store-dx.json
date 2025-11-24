@@ -1,0 +1,544 @@
+{
+  "gameId": "convenience-store-dx",
+  "gameName": "コンビニDX革新ゲーム",
+  "description": "身近なコンビニを題材に、DX技術でビジネス革新を提案する（トランプベース: 52枚）",
+  "version": "1.0.0",
+  "author": "木村好孝",
+  "useCardShuffle": true,
+
+  "role": "経験豊富なコンビニDXコンサルタント",
+  "outputType": "コンビニDX提案書",
+
+  "outputPromptTemplate": "あなたは{role}です。以下の経験を持っています：\n- 大規模小売業のシステム構築経験\n- IoT・AI技術の実装経験\n- 国際標準（ITIL/SIAM）に基づく運用管理\n- 製造業、小売業など多様な業界への対応経験\n\n以下の情報に基づいて、{outputType}を作成してください。\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【ガイドライン】\n{guidelines}\n\n【要求事項】\n{requirements}\n\n【提案書の構成】\n{structure}\n\n特に「自分の付加価値」がソリューションにどう活きるかを重視してください。",
+
+  "guidelines": [
+    "コンビニは「人手不足」「24時間営業」「廃棄ロス」が3大課題",
+    "オーナーの負担軽減が最優先",
+    "消費者の利便性向上も重要",
+    "技術だけでなく「人間味」も必要（地域密着）",
+    "Make or Buyの判断（自社開発 vs パートナー活用）",
+    "投資回収期間を明示すること"
+  ],
+
+  "requirements": [
+    "実現可能性を最優先",
+    "オーナー目線（投資回収期間を明示）",
+    "段階的な実施計画",
+    "競合との差別化を明確に",
+    "「自分の付加価値」を提案に組み込むこと"
+  ],
+
+  "outputStructure": [
+    "エグゼクティブサマリー",
+    "背景・課題分析",
+    "競合分析",
+    "提案ソリューション",
+    "技術構成",
+    "実施計画",
+    "投資対効果",
+    "リスクと対策",
+    "独自性と差別化",
+    "まとめ"
+  ],
+
+  "evaluationPromptTemplate": "あなたは公平な評価者です。コンビニ業界とDX技術に精通しています。\n以下の{outputType}を評価基準に基づいて評価してください。\n\n【{outputType}】\n{output}\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【評価基準】\n{criteria}\n\n【評価方法】\n各評価基準について0-100点で採点し、理由と改善提案を含めてJSON形式で返答してください。\n特に「自分の付加価値」が提案にどう活かされているかを重視してください。",
+
+  "cardCategories": [
+    {
+      "categoryId": "persona",
+      "categoryName": "♠️ ペルソナ（コンビニチェーン）",
+      "description": "どのコンビニチェーンに提案するか",
+      "minSelect": 1,
+      "maxSelect": 1,
+      "displayOrder": 1
+    },
+    {
+      "categoryId": "competitor",
+      "categoryName": "♥️ 競合・参考企業",
+      "description": "この分野で何が起きているかを知る",
+      "minSelect": 1,
+      "maxSelect": 2,
+      "displayOrder": 2
+    },
+    {
+      "categoryId": "partner",
+      "categoryName": "♦️ パートナー企業",
+      "description": "誰と組むか",
+      "minSelect": 1,
+      "maxSelect": 3,
+      "displayOrder": 3
+    },
+    {
+      "categoryId": "technology",
+      "categoryName": "♣️ 技術・ソリューション",
+      "description": "何を作る？何を提供する？",
+      "minSelect": 1,
+      "maxSelect": 3,
+      "displayOrder": 4
+    }
+  ],
+
+  "cards": [
+    {
+      "cardId": "persona-001",
+      "categoryId": "persona",
+      "cardName": "セブン-イレブン（最大手）",
+      "description": "国内店舗数No.1、プライベートブランド強化。資金力豊富、全国展開、データ活用",
+      "icon": "🏪"
+    },
+    {
+      "cardId": "persona-002",
+      "categoryId": "persona",
+      "cardName": "ファミリーマート（中堅バランス型）",
+      "description": "UNY統合、総合力でバランス重視。幅広い商品、駅ナカ強い",
+      "icon": "🏪"
+    },
+    {
+      "cardId": "persona-003",
+      "categoryId": "persona",
+      "cardName": "ローソン（健康志向）",
+      "description": "ナチュラルローソン、健康商品に力。ターゲット明確、差別化戦略",
+      "icon": "🏪"
+    },
+    {
+      "cardId": "persona-004",
+      "categoryId": "persona",
+      "cardName": "ミニストップ（イートイン型）",
+      "description": "ソフトクリーム、イートイン充実。飲食強化、地方に強い",
+      "icon": "🏪"
+    },
+    {
+      "cardId": "persona-005",
+      "categoryId": "persona",
+      "cardName": "デイリーヤマザキ（独立系）",
+      "description": "パン・乳製品に強み。独自路線、都市部中心",
+      "icon": "🏪"
+    },
+    {
+      "cardId": "persona-006",
+      "categoryId": "persona",
+      "cardName": "セイコーマート（地域密着）",
+      "description": "北海道特化、地域密着型。独自商品、地元との連携",
+      "icon": "🏪"
+    },
+    {
+      "cardId": "persona-007",
+      "categoryId": "persona",
+      "cardName": "NewDays（駅ナカ特化）",
+      "description": "JR東日本系列、駅構内展開。通勤客ターゲット、立地優位",
+      "icon": "🏪"
+    },
+    {
+      "cardId": "persona-008",
+      "categoryId": "persona",
+      "cardName": "病院内コンビニ",
+      "description": "医療施設内の特殊コンビニ。健康商品、24時間ニーズ",
+      "icon": "🏥"
+    },
+    {
+      "cardId": "persona-009",
+      "categoryId": "persona",
+      "cardName": "大学構内コンビニ",
+      "description": "キャンパス内の学生向けコンビニ。学生ニーズ、教材・文具",
+      "icon": "🎓"
+    },
+    {
+      "cardId": "persona-010",
+      "categoryId": "persona",
+      "cardName": "地方小規模チェーン",
+      "description": "地域限定の小規模チェーン。地元密着、小回り",
+      "icon": "🏘️"
+    },
+    {
+      "cardId": "persona-011",
+      "categoryId": "persona",
+      "cardName": "個人経営コンビニ（オーナー店）",
+      "description": "フランチャイズの個人店。オーナー裁量、地域特性",
+      "icon": "👨‍💼"
+    },
+    {
+      "cardId": "persona-012",
+      "categoryId": "persona",
+      "cardName": "24時間営業コンビニ",
+      "description": "深夜需要に対応。人手不足が課題、防犯",
+      "icon": "🌙"
+    },
+    {
+      "cardId": "persona-013",
+      "categoryId": "persona",
+      "cardName": "時短営業コンビニ",
+      "description": "働き方改革で営業時間短縮。オーナー負担軽減、効率重視",
+      "icon": "⏰"
+    },
+
+    {
+      "cardId": "competitor-001",
+      "categoryId": "competitor",
+      "cardName": "Amazon Go（無人店舗）",
+      "description": "レジなし店舗の先駆者。センサー技術、完全キャッシュレス",
+      "icon": "🤖"
+    },
+    {
+      "cardId": "competitor-002",
+      "categoryId": "competitor",
+      "cardName": "ウォルマート（米国大手小売）",
+      "description": "世界最大の小売チェーン。物流効率、スケールメリット",
+      "icon": "🛒"
+    },
+    {
+      "cardId": "competitor-003",
+      "categoryId": "competitor",
+      "cardName": "ドン・キホーテ（激安の殿堂）",
+      "description": "深夜営業、驚安価格。圧縮陳列、エンタメ性",
+      "icon": "🎪"
+    },
+    {
+      "cardId": "competitor-004",
+      "categoryId": "competitor",
+      "cardName": "イオン（総合スーパー）",
+      "description": "食品スーパー最大手。プライベートブランド、ネットスーパー",
+      "icon": "🏬"
+    },
+    {
+      "cardId": "competitor-005",
+      "categoryId": "competitor",
+      "cardName": "スギ薬局（ドラッグストア）",
+      "description": "調剤併設、食品強化。処方箋、日用品拡大",
+      "icon": "💊"
+    },
+    {
+      "cardId": "competitor-006",
+      "categoryId": "competitor",
+      "cardName": "ツルハドラッグ",
+      "description": "ドラッグストア大手。低価格、食品取り扱い",
+      "icon": "💊"
+    },
+    {
+      "cardId": "competitor-007",
+      "categoryId": "competitor",
+      "cardName": "自動販売機業界",
+      "description": "無人販売の元祖。省人化、キャッシュレス対応",
+      "icon": "🥤"
+    },
+    {
+      "cardId": "competitor-008",
+      "categoryId": "competitor",
+      "cardName": "Uber Eats（フードデリバリー）",
+      "description": "配達プラットフォーム。オンデマンド、GPS活用",
+      "icon": "🛵"
+    },
+    {
+      "cardId": "competitor-009",
+      "categoryId": "competitor",
+      "cardName": "出前館（国内デリバリー）",
+      "description": "日本発のフードデリバリー。加盟店多数、地域密着",
+      "icon": "🚴"
+    },
+    {
+      "cardId": "competitor-010",
+      "categoryId": "competitor",
+      "cardName": "メルカリ（フリマアプリ）",
+      "description": "C2C取引プラットフォーム。個人間取引、スマホ完結",
+      "icon": "📱"
+    },
+    {
+      "cardId": "competitor-011",
+      "categoryId": "competitor",
+      "cardName": "ネットスーパー（各社）",
+      "description": "オンライン食品販売。宅配、在庫連動",
+      "icon": "🖥️"
+    },
+    {
+      "cardId": "competitor-012",
+      "categoryId": "competitor",
+      "cardName": "ダークストア（配達専門店舗）",
+      "description": "客が来ない配達専門店。効率重視、クイックコマース",
+      "icon": "📦"
+    },
+    {
+      "cardId": "competitor-013",
+      "categoryId": "competitor",
+      "cardName": "無人販売ボックス",
+      "description": "小型無人店舗。省スペース、省人化",
+      "icon": "📮"
+    },
+
+    {
+      "cardId": "partner-001",
+      "categoryId": "partner",
+      "cardName": "Google（AI・クラウド）",
+      "description": "AI技術、Google Cloud。機械学習、ビッグデータ",
+      "icon": "🔍"
+    },
+    {
+      "cardId": "partner-002",
+      "categoryId": "partner",
+      "cardName": "Microsoft（Azure・AI）",
+      "description": "Azure、AI Builder。クラウド基盤、業務システム",
+      "icon": "💻"
+    },
+    {
+      "cardId": "partner-003",
+      "categoryId": "partner",
+      "cardName": "Amazon（AWS・物流）",
+      "description": "AWS、物流ノウハウ。スケーラビリティ、配送網",
+      "icon": "📦"
+    },
+    {
+      "cardId": "partner-004",
+      "categoryId": "partner",
+      "cardName": "NEC（顔認証・決済）",
+      "description": "顔認証技術、POSシステム。セキュリティ、日本企業",
+      "icon": "🔐"
+    },
+    {
+      "cardId": "partner-005",
+      "categoryId": "partner",
+      "cardName": "富士通（POSシステム）",
+      "description": "流通システム大手。国内実績、保守体制",
+      "icon": "💳"
+    },
+    {
+      "cardId": "partner-006",
+      "categoryId": "partner",
+      "cardName": "NTTデータ（決済基盤）",
+      "description": "決済プラットフォーム。金融システム、信頼性",
+      "icon": "💰"
+    },
+    {
+      "cardId": "partner-007",
+      "categoryId": "partner",
+      "cardName": "LINE（決済・マーケティング）",
+      "description": "LINE Pay、LINEミニアプリ。ユーザー基盤、若年層",
+      "icon": "💚"
+    },
+    {
+      "cardId": "partner-008",
+      "categoryId": "partner",
+      "cardName": "PayPay（キャッシュレス）",
+      "description": "QRコード決済最大手。普及率、キャンペーン",
+      "icon": "💸"
+    },
+    {
+      "cardId": "partner-009",
+      "categoryId": "partner",
+      "cardName": "パナソニック（IoT機器）",
+      "description": "業務用冷蔵庫、IoTセンサー。機器製造、省エネ技術",
+      "icon": "❄️"
+    },
+    {
+      "cardId": "partner-010",
+      "categoryId": "partner",
+      "cardName": "ヤマト運輸（物流）",
+      "description": "宅配便最大手。全国配送網、時間指定",
+      "icon": "🚚"
+    },
+    {
+      "cardId": "partner-011",
+      "categoryId": "partner",
+      "cardName": "配達ロボット企業（Starship等）",
+      "description": "自動配達ロボット。省人化、ラストワンマイル",
+      "icon": "🤖"
+    },
+    {
+      "cardId": "partner-012",
+      "categoryId": "partner",
+      "cardName": "食品メーカー（日清・明治等）",
+      "description": "商品供給元。商品開発、共同企画",
+      "icon": "🍜"
+    },
+    {
+      "cardId": "partner-013",
+      "categoryId": "partner",
+      "cardName": "地元農家・生産者",
+      "description": "地産地消パートナー。新鮮、地域連携",
+      "icon": "🌾"
+    },
+
+    {
+      "cardId": "technology-001",
+      "categoryId": "technology",
+      "cardName": "AI需要予測（廃棄ロス削減）",
+      "description": "過去データからAIが発注数を予測。廃棄30%削減、利益率向上",
+      "icon": "🤖"
+    },
+    {
+      "cardId": "technology-002",
+      "categoryId": "technology",
+      "cardName": "無人レジ（ウォークスルー型）",
+      "description": "Amazon Go方式、レジ待ちゼロ。人件費削減、顧客体験向上",
+      "icon": "🚶"
+    },
+    {
+      "cardId": "technology-003",
+      "categoryId": "technology",
+      "cardName": "セルフレジ高度化",
+      "description": "画像認識で商品自動認識。レジ時間半減、人手削減",
+      "icon": "📷"
+    },
+    {
+      "cardId": "technology-004",
+      "categoryId": "technology",
+      "cardName": "顔認証決済",
+      "description": "顔認証で決済完了。手ぶら決済、高齢者対応",
+      "icon": "😊"
+    },
+    {
+      "cardId": "technology-005",
+      "categoryId": "technology",
+      "cardName": "スマホ決済統合",
+      "description": "PayPay・LINE Pay等を統合。若年層取り込み、決済効率化",
+      "icon": "📱"
+    },
+    {
+      "cardId": "technology-006",
+      "categoryId": "technology",
+      "cardName": "配達ロボット",
+      "description": "店舗から自宅へ自動配達。配達人員不要、24時間対応",
+      "icon": "🤖"
+    },
+    {
+      "cardId": "technology-007",
+      "categoryId": "technology",
+      "cardName": "ドローン配送",
+      "description": "空から高速配達。山間部対応、時間短縮",
+      "icon": "🚁"
+    },
+    {
+      "cardId": "technology-008",
+      "categoryId": "technology",
+      "cardName": "IoT在庫管理",
+      "description": "棚のセンサーで在庫自動把握。品切れ防止、発注自動化",
+      "icon": "📊"
+    },
+    {
+      "cardId": "technology-009",
+      "categoryId": "technology",
+      "cardName": "電子棚札",
+      "description": "価格表示を電子化、一括変更可能。値付け作業削減、動的価格設定",
+      "icon": "🏷️"
+    },
+    {
+      "cardId": "technology-010",
+      "categoryId": "technology",
+      "cardName": "デジタルサイネージ",
+      "description": "店内広告をデジタル化。販促強化、情報更新容易",
+      "icon": "📺"
+    },
+    {
+      "cardId": "technology-011",
+      "categoryId": "technology",
+      "cardName": "自動発注システム",
+      "description": "売れ筋をAIが分析し自動発注。オーナー負担軽減、最適在庫",
+      "icon": "📈"
+    },
+    {
+      "cardId": "technology-012",
+      "categoryId": "technology",
+      "cardName": "地産地消マッチングシステム",
+      "description": "地元農家と直接取引。新鮮な商品、地域貢献",
+      "icon": "🥬"
+    },
+    {
+      "cardId": "technology-013",
+      "categoryId": "technology",
+      "cardName": "スマート冷蔵庫（温度管理IoT）",
+      "description": "温度異常を自動検知・通知。食品ロス防止、品質管理",
+      "icon": "❄️"
+    }
+  ],
+
+  "inputFields": [
+    {
+      "fieldId": "solution_name",
+      "fieldName": "ソリューション名",
+      "fieldType": "text",
+      "description": "提案するソリューションの名称",
+      "placeholder": "例: 次世代スマートコンビニ構想",
+      "required": true,
+      "validation": {
+        "maxLength": 100
+      },
+      "displayOrder": 1
+    },
+    {
+      "fieldId": "team_strength",
+      "fieldName": "チームの強み・技術",
+      "fieldType": "textarea",
+      "description": "チームが持っている技術や経験",
+      "placeholder": "例: IoTセンサー開発経験、モバイルアプリ開発3年",
+      "required": true,
+      "validation": {
+        "minLength": 50,
+        "maxLength": 500
+      },
+      "displayOrder": 2
+    },
+    {
+      "fieldId": "added_value",
+      "fieldName": "自分の付加価値",
+      "fieldType": "textarea",
+      "description": "あなた独自のアイデアや工夫（トランプゲームの自分で考える部分）",
+      "placeholder": "例: 地域高齢者向けの見守りサービス連携、配達時の声掛け",
+      "required": true,
+      "validation": {
+        "minLength": 50,
+        "maxLength": 500
+      },
+      "displayOrder": 3
+    },
+    {
+      "fieldId": "budget",
+      "fieldName": "提案予算（万円）",
+      "fieldType": "number",
+      "description": "提案する予算規模",
+      "placeholder": "例: 5000",
+      "required": true,
+      "validation": {
+        "min": 500,
+        "max": 50000
+      },
+      "displayOrder": 4
+    },
+    {
+      "fieldId": "duration",
+      "fieldName": "導入期間（ヶ月）",
+      "fieldType": "number",
+      "description": "導入完了までの期間",
+      "placeholder": "例: 12",
+      "required": true,
+      "validation": {
+        "min": 3,
+        "max": 36
+      },
+      "displayOrder": 5
+    }
+  ],
+
+  "evaluationCriteria": [
+    {
+      "criteriaId": "feasibility",
+      "criteriaName": "実現可能性",
+      "description": "提案技術が実現可能か、予算・期間が現実的か",
+      "weight": 0.30
+    },
+    {
+      "criteriaId": "understanding",
+      "criteriaName": "コンビニ課題の理解",
+      "description": "コンビニの課題を的確に捉えているか、店舗特性を理解しているか",
+      "weight": 0.25
+    },
+    {
+      "criteriaId": "differentiation",
+      "criteriaName": "差別化・創造性",
+      "description": "競合との違いが明確か、「自分の付加価値」が効いているか",
+      "weight": 0.25
+    },
+    {
+      "criteriaId": "customer_value",
+      "criteriaName": "顧客価値",
+      "description": "消費者にとってのメリットがあるか、オーナー・従業員の負担は軽減されるか",
+      "weight": 0.20
+    }
+  ]
+}
