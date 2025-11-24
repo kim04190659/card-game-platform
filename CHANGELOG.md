@@ -2,6 +2,26 @@
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-11-24
+
+### Added - Phase 9
+- **コンビニDX革新ゲーム追加**: 高専生向けの身近な題材
+  - トランプベース（4スート × 13枚 = 52枚）
+  - セミランダム選択機能（CardShuffler.js）
+  - カテゴリごとにカードをシャッフル表示
+  - 「自分の付加価値」入力で創造性を刺激
+- CardShuffler.js: Fisher-Yates アルゴリズムによるシャッフル機能
+- convenience-store-dx.json: 52枚のカード定義
+
+### Changed
+- CardSelector.js: シャッフル機能統合（useCardShuffle対応）
+- game-selection.html: CardShuffler.js読み込み追加
+- api/generate-mock.js: コンビニDX用モック追加
+- api/evaluate-mock.js: コンビニDX用評価追加
+
+### Fixed
+- convenience-store-dx.json: 評価基準IDを明示的に指定してスコア表示を修正
+
 ## [1.0.0] - 2024-11-16
 
 ### Added（Phase 8）
