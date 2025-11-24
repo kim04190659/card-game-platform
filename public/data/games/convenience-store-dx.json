@@ -41,7 +41,7 @@
     "まとめ"
   ],
 
-  "evaluationPromptTemplate": "あなたは公平な評価者です。コンビニ業界とDX技術に精通しています。\n以下の{outputType}を評価基準に基づいて評価してください。\n\n【{outputType}】\n{output}\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【評価基準】\n{criteria}\n\n【評価方法】\n各評価基準について0-100点で採点し、理由と改善提案を含めてJSON形式で返答してください。\n特に「自分の付加価値」が提案にどう活かされているかを重視してください。",
+  "evaluationPromptTemplate": "あなたは公平な評価者です。コンビニ業界とDX技術に精通しています。\n以下の{outputType}を評価基準に基づいて評価してください。\n\n【{outputType}】\n{output}\n\n【選択されたカード】\n{cardInfo}\n\n【ユーザー入力情報】\n{userInputs}\n\n【評価基準】\n{criteria}\n\n【評価方法】\n1. 各評価基準について0-100点で採点\n2. 採点理由を簡潔に説明（100-200文字）\n3. 改善提案を3つ挙げる\n4. 以下のJSON形式で返答（JSON以外の文字は含めないこと）\n\n{\n  \"scores\": { \"criteriaId1\": 85, \"criteriaId2\": 90, ... },\n  \"reasons\": { \"criteriaId1\": \"理由\", \"criteriaId2\": \"理由\", ... },\n  \"improvements\": [\"改善案1\", \"改善案2\", \"改善案3\"],\n  \"overallScore\": 88,\n  \"feedback\": \"総評コメント\"\n}\n\n特に「自分の付加価値」が提案にどう活かされているかを重視してください。",
 
   "cardCategories": [
     {
