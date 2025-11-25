@@ -169,7 +169,7 @@ class Evaluator {
       this.validateEvaluation(evaluation);
 
       // 成功時の統計記録
-      this._logStats(true, null);
+      await this._logStats(true, null);
 
       return evaluation;
 
@@ -177,7 +177,7 @@ class Evaluator {
       console.error('評価エラー:', error);
 
       // 失敗時の統計記録
-      this._logStats(false, error);
+      await this._logStats(false, error);
 
       throw error;
     }
@@ -186,12 +186,13 @@ class Evaluator {
   /**
    * 統計記録（エラーが発生してもevaluateは継続）
    */
-  _logStats(success, error) {
+  async _logStats(success, error) {
     try {
       if (typeof StatsLogger !== 'undefined') {
         const statsLogger = new StatsLogger();
         const accessKey = sessionStorage.getItem('accessKey') || 'unknown';
-        statsLogger.logEvaluation(this.game.gameId, accessKey, success, error);
+        await statsLogger.logEvaluation(this.game.gameId, accessKey, success, error);
+        console.log('統計記録完了 (evaluation)');
       }
     } catch (statsError) {
       console.warn('統計記録に失敗しました:', statsError);

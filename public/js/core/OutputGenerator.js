@@ -174,7 +174,7 @@ class OutputGenerator {
       const data = await response.json();
 
       // 成功時の統計記録
-      this._logStats(true, null);
+      await this._logStats(true, null);
 
       return data.content;
 
@@ -182,7 +182,7 @@ class OutputGenerator {
       console.error('成果物生成エラー:', error);
 
       // 失敗時の統計記録
-      this._logStats(false, error);
+      await this._logStats(false, error);
 
       throw error;
     }
@@ -191,12 +191,13 @@ class OutputGenerator {
   /**
    * 統計記録（エラーが発生してもgenerateは継続）
    */
-  _logStats(success, error) {
+  async _logStats(success, error) {
     try {
       if (typeof StatsLogger !== 'undefined') {
         const statsLogger = new StatsLogger();
         const accessKey = sessionStorage.getItem('accessKey') || 'unknown';
-        statsLogger.logOutputGeneration(this.game.gameId, accessKey, success, error);
+        await statsLogger.logOutputGeneration(this.game.gameId, accessKey, success, error);
+        console.log('統計記録完了 (output generation)');
       }
     } catch (statsError) {
       console.warn('統計記録に失敗しました:', statsError);
