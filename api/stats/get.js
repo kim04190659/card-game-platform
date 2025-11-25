@@ -92,31 +92,26 @@ function formatDate(date) {
  */
 async function getSummary(today, oneWeekAgo, oneMonthAgo) {
   try {
-    // 今日の利用回数
-    const todayCount = (await kv.get(`stats:daily:${today}`)) || 0;
+    // 並列クエリ実行で高速化
+    const [todayCount, totalCount, ...dailyCounts] = await Promise.all([
+      kv.get(`stats:daily:${today}`),
+      kv.llen('stats:history'),
+      // 過去30日分を並列取得
+      ...Array.from({ length: 30 }, (_, i) => {
+        const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
+        const dateStr = formatDate(date);
+        return kv.get(`stats:daily:${dateStr}`);
+      })
+    ]);
 
-    // 今週の利用回数（過去7日間の合計）
-    let weekCount = 0;
-    for (let i = 0; i < 7; i++) {
-      const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
-      const dateStr = formatDate(date);
-      const count = (await kv.get(`stats:daily:${dateStr}`)) || 0;
-      const numCount = Number(count) || 0;
-      weekCount += numCount;
-    }
+    // 週（過去7日）と月（過去30日）の合計を計算
+    const weekCount = dailyCounts.slice(0, 7).reduce((sum, count) => {
+      return sum + (Number(count) || 0);
+    }, 0);
 
-    // 今月の利用回数（過去30日間の合計）
-    let monthCount = 0;
-    for (let i = 0; i < 30; i++) {
-      const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
-      const dateStr = formatDate(date);
-      const count = (await kv.get(`stats:daily:${dateStr}`)) || 0;
-      const numCount = Number(count) || 0;
-      monthCount += numCount;
-    }
-
-    // 総利用回数（履歴リストの長さ）
-    const totalCount = (await kv.llen('stats:history')) || 0;
+    const monthCount = dailyCounts.reduce((sum, count) => {
+      return sum + (Number(count) || 0);
+    }, 0);
 
     return {
       total: Number(totalCount) || 0,
@@ -159,25 +154,29 @@ async function getGameStats(today, oneMonthAgo) {
       'mobile-carrier-dx': '携帯キャリアDX'
     };
 
-    const stats = [];
-
-    for (const gameId of gameIds) {
-      let count = 0;
-      // 過去30日間の合計
-      for (let i = 0; i < 30; i++) {
+    // 全ゲーム×30日分のクエリを並列実行
+    const allQueries = gameIds.flatMap(gameId =>
+      Array.from({ length: 30 }, (_, i) => {
         const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
         const dateStr = formatDate(date);
-        const dayCount = (await kv.get(`stats:game:${gameId}:${dateStr}`)) || 0;
-        const numCount = Number(dayCount) || 0;
-        count += numCount;
-      }
+        return { gameId, promise: kv.get(`stats:game:${gameId}:${dateStr}`) };
+      })
+    );
 
-      stats.push({
+    const results = await Promise.all(allQueries.map(q => q.promise));
+
+    // ゲームごとに集計
+    const stats = gameIds.map((gameId, gameIndex) => {
+      const startIndex = gameIndex * 30;
+      const counts = results.slice(startIndex, startIndex + 30);
+      const count = counts.reduce((sum, c) => sum + (Number(c) || 0), 0);
+
+      return {
         gameId,
         gameName: gameNames[gameId],
         count
-      });
-    }
+      };
+    });
 
     // カウントの降順でソート
     stats.sort((a, b) => b.count - a.count);
@@ -195,19 +194,22 @@ async function getGameStats(today, oneMonthAgo) {
  */
 async function getTimeSeries(startDate, endDate) {
   try {
-    const series = [];
-
-    for (let i = 29; i >= 0; i--) {
-      const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
+    // 30日分のクエリを並列実行
+    const dateQueries = Array.from({ length: 30 }, (_, i) => {
+      const date = new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000);
       const dateStr = formatDate(date);
-      const count = (await kv.get(`stats:daily:${dateStr}`)) || 0;
-      const numCount = Number(count) || 0;
+      return {
+        dateStr,
+        promise: kv.get(`stats:daily:${dateStr}`)
+      };
+    });
 
-      series.push({
-        date: dateStr,
-        count: numCount
-      });
-    }
+    const results = await Promise.all(dateQueries.map(q => q.promise));
+
+    const series = dateQueries.map((q, index) => ({
+      date: q.dateStr,
+      count: Number(results[index]) || 0
+    }));
 
     return series;
   } catch (error) {
@@ -229,18 +231,20 @@ async function getTimeSeries(startDate, endDate) {
 async function getAccessKeyStats() {
   try {
     const accessKeys = ['demo****', 'work****']; // 既知のアクセスキー（マスク済み）
-    const stats = [];
 
-    for (const key of accessKeys) {
-      const count = (await kv.get(`stats:accessKey:${key}:count`)) || 0;
-      const lastUsed = await kv.get(`stats:accessKey:${key}:lastUsed`);
+    // 全アクセスキーのクエリを並列実行
+    const results = await Promise.all(
+      accessKeys.flatMap(key => [
+        kv.get(`stats:accessKey:${key}:count`),
+        kv.get(`stats:accessKey:${key}:lastUsed`)
+      ])
+    );
 
-      stats.push({
-        accessKey: key,
-        count: Number(count) || 0,
-        lastUsed: lastUsed ? Number(lastUsed) : null
-      });
-    }
+    const stats = accessKeys.map((key, index) => ({
+      accessKey: key,
+      count: Number(results[index * 2]) || 0,
+      lastUsed: results[index * 2 + 1] ? Number(results[index * 2 + 1]) : null
+    }));
 
     // カウントの降順でソート
     stats.sort((a, b) => b.count - a.count);
@@ -258,13 +262,18 @@ async function getAccessKeyStats() {
  */
 async function getErrorLogs(limit) {
   try {
-    const logs = [];
-
-    // 過去7日間のエラーログを取得
-    for (let i = 0; i < 7; i++) {
+    // 過去7日間のエラーログを並列取得
+    const logQueries = Array.from({ length: 7 }, (_, i) => {
       const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
       const dateStr = formatDate(date);
-      const dayLogs = await kv.lrange(`stats:errors:${dateStr}`, 0, -1) || [];
+      return kv.lrange(`stats:errors:${dateStr}`, 0, -1);
+    });
+
+    const allDayLogs = await Promise.all(logQueries);
+
+    const logs = [];
+    for (const dayLogs of allDayLogs) {
+      if (!dayLogs) continue;
 
       for (const log of dayLogs) {
         try {
