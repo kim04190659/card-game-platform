@@ -190,7 +190,7 @@ class Evaluator {
     try {
       if (typeof StatsLogger !== 'undefined') {
         const statsLogger = new StatsLogger();
-        const accessKey = sessionStorage.getItem('accessKey') || 'unknown';
+        const accessKey = sessionStorage.getItem('card_game_access_key') || 'unknown';
         await statsLogger.logEvaluation(this.game.gameId, accessKey, success, error);
         console.log('統計記録完了 (evaluation)');
       }

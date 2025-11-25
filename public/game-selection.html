@@ -255,7 +255,7 @@
 
         // 統計記録（完了を待つ）
         try {
-          const accessKey = authManager.getAccessKey();
+          const accessKey = authManager.getSession();
           if (typeof StatsLogger !== 'undefined') {
             const statsLogger = new StatsLogger();
             await statsLogger.logGameSelection(gameId, accessKey);
