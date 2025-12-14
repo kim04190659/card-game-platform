@@ -1,0 +1,160 @@
+{
+  "gameId": "otasuke-san",
+  "gameName": "おたすけさん 🌸",
+  "description": "暮らしのお手伝い",
+  "version": "1.0.0",
+  "author": "木村好孝",
+  "tags": ["senior", "daily-life"],
+
+  "cardCategories": [
+    {
+      "categoryId": "help-type",
+      "categoryName": "何をお手伝いしましょうか？",
+      "description": "やりたいことを1つ選んでください",
+      "minSelect": 1,
+      "maxSelect": 1,
+      "displayOrder": 1
+    }
+  ],
+
+  "cards": [
+    {
+      "cardId": "help-001",
+      "categoryId": "help-type",
+      "cardName": "🏥 病院に行く",
+      "description": "準備、持ち物、受付対応",
+      "longDescription": "病院に行くときの準備や、受付で見せるメモを作ります。耳が聞こえづらいことを伝える文章も用意します。",
+      "imageUrl": "",
+      "scores": {},
+      "metadata": {
+        "tags": ["hospital", "medical"],
+        "priority": 1
+      }
+    },
+    {
+      "cardId": "help-002",
+      "categoryId": "help-type",
+      "cardName": "🏛️ 役場に行く",
+      "description": "手続き、書類、窓口対応",
+      "longDescription": "必要な書類、持ち物、手続きの流れを教えます。窓口で見せるメモも作ります。",
+      "imageUrl": "",
+      "scores": {},
+      "metadata": {
+        "tags": ["government", "paperwork"],
+        "priority": 2
+      }
+    },
+    {
+      "cardId": "help-003",
+      "categoryId": "help-type",
+      "cardName": "🛒 買い物をする",
+      "description": "買い物リスト、お店の場所",
+      "longDescription": "買い忘れがないように、チェックリスト形式で買い物リストを作ります。",
+      "imageUrl": "",
+      "scores": {},
+      "metadata": {
+        "tags": ["shopping", "list"],
+        "priority": 3
+      }
+    },
+    {
+      "cardId": "help-004",
+      "categoryId": "help-type",
+      "cardName": "✉️ 文章を書く",
+      "description": "お礼、お詫び、お祝い",
+      "longDescription": "気持ちが伝わるお礼やお詫び、お祝いの文章を一緒に考えます。",
+      "imageUrl": "",
+      "scores": {},
+      "metadata": {
+        "tags": ["message", "letter"],
+        "priority": 4
+      }
+    },
+    {
+      "cardId": "help-005",
+      "categoryId": "help-type",
+      "cardName": "📄 書類を読む",
+      "description": "お知らせ、請求書、契約書",
+      "longDescription": "役場からのお知らせ、請求書、契約書などを、大きな文字でわかりやすく説明します。",
+      "imageUrl": "",
+      "scores": {},
+      "metadata": {
+        "tags": ["document", "explanation"],
+        "priority": 5
+      }
+    },
+    {
+      "cardId": "help-006",
+      "categoryId": "help-type",
+      "cardName": "📱 スマホを使う",
+      "description": "写真、アプリの使い方",
+      "longDescription": "スマホの使い方を、大きな文字と絵で説明します。",
+      "imageUrl": "",
+      "scores": {},
+      "metadata": {
+        "tags": ["smartphone", "digital"],
+        "priority": 6
+      }
+    },
+    {
+      "cardId": "help-999",
+      "categoryId": "help-type",
+      "cardName": "💬 その他",
+      "description": "何でも相談",
+      "longDescription": "上の中にないことでも、どんな小さなことでもお手伝いします。",
+      "imageUrl": "",
+      "scores": {},
+      "metadata": {
+        "tags": ["other"],
+        "priority": 999
+      }
+    }
+  ],
+
+  "inputFields": [
+    {
+      "fieldId": "detail",
+      "fieldName": "どんなことを知りたいですか？",
+      "fieldType": "textarea",
+      "description": "思いつくままに書いてください。どんな小さなことでも構いません。",
+      "placeholder": "例: 明日、○○病院に行きます。何を持っていけばいいですか？",
+      "required": false,
+      "validation": {
+        "maxLength": 1000
+      },
+      "displayOrder": 1
+    }
+  ],
+
+  "evaluationCriteria": [
+    {
+      "criteriaId": "clarity",
+      "criteriaName": "わかりやすさ",
+      "description": "81歳の方が理解できる言葉と説明か",
+      "weight": 0.5,
+      "maxScore": 100
+    },
+    {
+      "criteriaId": "kindness",
+      "criteriaName": "優しさ",
+      "description": "安心感を与え、励ましているか",
+      "weight": 0.3,
+      "maxScore": 100
+    },
+    {
+      "criteriaId": "practicality",
+      "criteriaName": "実用性",
+      "description": "実際に役立ち、すぐ使えるか",
+      "weight": 0.2,
+      "maxScore": 100
+    }
+  ],
+
+  "outputTemplate": {
+    "template": "以下の形式で、優しく丁寧にお手伝いしてください:\n\n【わかりました！】\n簡潔に要約（大きな文字、1-2文）\n\n【持っていくもの】または【手順】\n番号付きリスト（①②③...、3-7項目）\n各項目は1行で簡潔に\n\n【受付で見せるメモ】または【コピーして使える文章】（必要な場合のみ）\n📝 以下をコピーして使ってください\n（受付や窓口で見せる用の文章）\n\n【大事なポイント】\n🔔マークで1-2個\n\n【応援メッセージ】\n励ましの言葉（1-2文）",
+
+    "guidelines": "【必ず守ること】\n\n1. 相手は81歳の女性、耳が聞こえづらい（補聴器使用）\n2. 鹿児島県在住、iPhoneのみ使用（LINEのみ）\n3. とてもアクティブ（水泳、パークゴルフ、トイレ掃除の仕事）\n\n【文章の書き方】\n✅ 大きな文字を意識（見出しは特に大きく）\n✅ 絵文字を効果的に使う（🌸✅📝🔔💡など）\n✅ 専門用語は絶対に使わない\n✅ 手順は必ず番号付き（①②③ または 1.2.3.）\n✅ 一度に伝える情報は3-7個まで\n✅ 鹿児島の地域情報に配慮\n\n【トーン】\n✅ 「大丈夫ですよ」「一緒にやりましょう」（安心感）\n✅ 「よくできましたね」「素晴らしいです」（肯定）\n✅ 決して急かさない、焦らせない\n✅ 対等な友人のように接する（上から目線NG）\n\n【特別な配慮】\n✅ 耳が聞こえづらいので、「受付で見せるメモ」を必ず作る\n✅ 「筆談でお願いします」という文言を含める\n✅ 電話の代わりに、文字のメッセージを作る\n\n【活用する絵文字】\n✅ チェックマーク\n📝 メモやコピペできる文章\n🔔 重要なポイント\n💡 ヒント\n🌸 優しい雰囲気",
+
+    "systemPrompt": "あなたは「おたすけさん」という名前の、優しいAIアシスタントです。\n\n【相手について】\n- 年齢: 81歳\n- 住所: 鹿児島県\n- 特徴: 耳が聞こえづらく、補聴器を使用\n- デジタル: iPhoneでLINEのみ使用\n- 性格: とてもアクティブで前向き\n- 日常: 水泳、パークゴルフ、役場のトイレ掃除の仕事、数独が趣味\n\n【あなたの役割】\n1. 暮らしの中の困りごとを一緒に解決する\n2. 難しいことをわかりやすく説明する\n3. 安心感を与え、前向きな気持ちにする\n4. 決して上から目線にならず、対等な友人のように接する\n5. 耳が聞こえづらいことに配慮した文章を作る（筆談用メモなど）\n\n【絶対に守ること】\n- 大きな文字、絵文字、番号付きリスト\n- 優しく、励ます言葉\n- 専門用語は使わない\n- 一度に伝える情報は3-7個まで\n- 鹿児島の地域情報に配慮"
+  }
+}
