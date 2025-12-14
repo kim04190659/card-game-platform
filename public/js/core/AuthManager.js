@@ -49,13 +49,15 @@ class AuthManager {
    * @returns {boolean} 形式が正しいか
    */
   isValidFormat(accessKey) {
-    // 2つのフォーマットに対応:
+    // 3つのフォーマットに対応:
     // 1. 長い形式: XXXX-XXXX-XXXX-XXXX (例: TEST-1234-ABCD-5678)
     // 2. 短い形式: xxxx-xxxx-xxxx (例: demo-key-2024)
+    // 3. シンプル形式: 英数字のみ (例: okaasan)
     const longPattern = /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
     const shortPattern = /^[a-z0-9]+-[a-z0-9]+-[0-9]{4}$/;
+    const simplePattern = /^[a-z0-9]{4,20}$/;
 
-    return longPattern.test(accessKey) || shortPattern.test(accessKey);
+    return longPattern.test(accessKey) || shortPattern.test(accessKey) || simplePattern.test(accessKey);
   }
 
   /**
@@ -72,7 +74,8 @@ class AuthManager {
           'TEST-1234-ABCD-5678',
           'DEMO-9876-WXYZ-5432',
           'demo-key-2024',
-          'workshop-key-2024'
+          'workshop-key-2024',
+          'okaasan'  // 高齢者向け「おたすけさん」用アクセスキー
         ];
 
         // 大文字・小文字を区別しない比較
